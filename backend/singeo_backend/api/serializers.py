@@ -27,9 +27,6 @@ class NewSerializer(serializers.ModelSerializer):
         allow_null=True,
 
     )
-    image_url = serializers.SerializerMethodField(
-        'get_image_url'
-    )
 
     class Meta:
         model = New
@@ -39,13 +36,7 @@ class NewSerializer(serializers.ModelSerializer):
             'pub_date',
             'text',
             'image',
-            'image_url'
         )
-
-    def get_image_url(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -56,10 +47,6 @@ class ProductSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
-    preview_url = serializers.SerializerMethodField(
-        'get_preview_url'
-    )
-
     class Meta:
         model = Product
         fields = (
@@ -67,14 +54,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'name',
             'short_description',
             'description',
-            'preview',
-            'preview_url'
+            'preview'
         )
-
-    def get_preview_url(self, obj):
-        if obj.preview:
-            return obj.preview.url
-        return None
 
 
 class AboutSerializer(serializers.ModelSerializer):

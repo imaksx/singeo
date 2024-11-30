@@ -8,7 +8,7 @@ class New(models.Model):
     pub_date = models.DateTimeField('Дата выхода новости', auto_now_add=True)
     text = models.TextField()
     image = models.ImageField(
-        upload_to='content/news_images/',
+        upload_to='media/news_images/',
         null=True,
         default=None
     )
@@ -22,9 +22,9 @@ class Product(models.Model):
 
     name = models.CharField(max_length=256)
     short_description = models.TextField(max_length=256)
-    description = models.TextField
+    description = models.TextField()
     preview = models.ImageField(
-        upload_to='content/products_images',
+        upload_to='media/products_images',
         null=True,
         default=None
     )
