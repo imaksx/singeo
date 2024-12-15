@@ -1,9 +1,10 @@
 import base64
 
+from datetime import datetime
 from django.core.files.base import ContentFile
 from rest_framework import serializers
 
-from content.models import New, Product, About
+from content.models import New, Product, About, Project, ProjectProduct, ProjectRegion, Region, Map, MapRegion
 
 
 class Base64ImageField(serializers.ImageField):
@@ -27,6 +28,16 @@ class NewSerializer(serializers.ModelSerializer):
         allow_null=True,
 
     )
+
+    def validate_pub_date(self, value):
+        """Приведение поля pub_date к виду день.месяц.год."""
+
+        try:
+            return datetime.strptime(value, '%d.%m.%Y').date()
+        except ValueError:
+            raise serializers.ValidationError(
+                "Дата должна быть в формате день.месяц.год."
+            )
 
     class Meta:
         model = New
@@ -66,22 +77,46 @@ class AboutSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
-    logo_url = serializers.SerializerMethodField(
-        'get_logo_url'
-    )
-
     class Meta:
         model = About
         fields = (
             'id',
             'phone',
-            'adress',
+            'address',
             'description',
             'logo',
-            'logo_url'
         )
 
-    def get_logo_url(self, obj):
-        if obj.preview:
-            return obj.logo.url
-        return None
+
+class ProjectSerializer(serializers.ModelSerializer):
+    """Сериализатор модели проекта."""
+
+    image = Base64ImageField(
+        required=False,
+        allow_null=True,
+    )
+
+    class Meta:
+        model = Project
+        fields = (
+            'id',
+            'name',
+            'description',
+            'region',
+            'image',
+            'location',
+            'related_products',
+        )
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    """Модель региона."""
+
+    class Meta:
+        model = Region
+        fields = (
+            'id',
+            'name',
+            'is_active',
+            'coords',
+        )
