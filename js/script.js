@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let animateElemPoint = clientHeight - animateElemHight / animateDelay;
         if (animateElemHight > clientHeight) animateElemPoint = clientHeight - clientHeight / animateDelay;
-        console.log(scrollY + clientHeight);
-        console.log(animateElemHight);
 
         if (scrollY > animateElemPosY - animateElemPoint) animateElem.classList.add("visible");
       }
