@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./css/style.css">
 
   <script src="https://kit.fontawesome.com/f597576ac7.js" crossorigin="anonymous"></script>
-  <title>Document</title>
+  <title>Singeo</title>
 </head>
 
 <body>
@@ -15,9 +15,16 @@
   <a href="" id="top"></a>
 
   <header class="header">
+
     <div class="container">
       <div class="header__wrapper">
         <div class="header__main-menu">
+          <div class="header__logo">
+            <a href="./index.html" class="header__logo_link">
+              <img src="./src/img/logo.png" alt="" class="header__logo__img">
+            </a>
+          </div>
+
           <div class="header__contacts">
             <div class="header__contacts__phone">
               <img src="./src/icon/phone.svg" alt="" class="header__contacts__phone__icon">
@@ -31,48 +38,36 @@
                 sintezgeo@mail.ru
               </a>
             </div>
-            <div class="header__contacts__address">
-              <img src="./src/icon/location.svg" alt="" class="header__contacts__address__icon">
-              <a href="https://yandex.ru/maps/-/CHAye4PR" target="_blank" class="header__contacts__phone__text">
-                улица Петровская, 25А
-              </a>
-            </div>
           </div>
-          <nav class="header__navbar navbar">
-            <ul class="header__navbar__list">
-              <a href="#" class="header__navbar__list__link">
-                <li class="header__navbar__list__item">
-                  о нас
-                </li>
-              </a>
-              <a href="#" class="header__navbar__list__link">
-                <li class="header__navbar__list__item">
-                  продукция
-                </li>
-              </a>
-              <a href="#" class="header__navbar__list__link">
-                <li class="header__navbar__list__item">
-                  новости
-                </li>
-              </a>
-              <a href="#" class="header__navbar__list__link">
-                <li class="header__navbar__list__item">
-                  проекты
-                </li>
-              </a>
-              <a href="#" class="header__navbar__list__link">
-                <li class="header__navbar__list__item">
-                  контакты
-                </li>
-              </a>
-            </ul>
-          </nav>
         </div>
-        <div class="header__logo">
-          <a href="/" class="header__logo_link">
-            <img src="./src/img/logo.png" alt="" class="header__logo__img">
-          </a>
-        </div>
+
+        <nav class="header__navbar navbar">
+          <ul class="header__navbar__list">
+            <a href="./index.html" class="header__navbar__list__link">
+              <li class="header__navbar__list__item">
+                о компании
+              </li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="./products.html" class="header__navbar__list__link">
+              <li class="header__navbar__list__item">
+                продукция
+              </li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="#" class="header__navbar__list__link">
+              <li class="header__navbar__list__item">
+                проекты
+              </li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="./allnews.html" class="header__navbar__list__link">
+              <li class="header__navbar__list__item">
+                новости
+              </li>
+            </a>
+          </ul>
+        </nav>
       </div>
     </div>
 
@@ -85,8 +80,8 @@
     </a>
 
     <section class="banner">
-      <div class="banner__wrapper">
-        <div class="container">
+      <div class="container">
+        <div class="banner__wrapper">
           <div class="banner__title">
             Dorem ipsum dolor sit amet, consectetur adipiscing elit.
           </div>
@@ -179,7 +174,7 @@
             </div>
           </div>
 
-          <div class="sertificates__button button">
+          <div class=" button__accent__light button sertificates__button">
             <i class="fas fa-solid fa-download"></i>
             <span class="sertificates__button__text">
               Скачать всё
@@ -219,7 +214,7 @@
                     libero
                     et
                     velit interdum, ac aliquet odio mattis.</div>
-                  <a href="/" class="button card__button">
+                  <a href="/" class="button button__accent card__button">
                     <span>
                       Смотреть
                     </span>
@@ -247,7 +242,7 @@
                     libero
                     et
                     velit interdum, ac aliquet odio mattis.</div>
-                  <a href="/" class="button card__button">
+                  <a href="/" class="button button__accent card__button">
                     <span>
                       Смотреть
                     </span>
@@ -268,7 +263,7 @@
 
       <div class="container">
         <h2 class="section__title products__title">
-          <a href="#" class="section__title__link about-us__title__link">
+          <a href="./products.html" class="section__title__link about-us__title__link">
             <!-- <span class="section__title__counter">02</span> -->
             Продукция
             <!-- <img src="./src/icon/arrow_right.svg" alt="" class="section__title__arrow"> -->
@@ -296,17 +291,12 @@
           <ul class="footer__navbar__list">
             <a href="#" class="footer__navbar__list__link">
               <li class="footer__navbar__list__item">
-                о нас
+                о компании
               </li>
             </a>
-            <a href="#" class="footer__navbar__list__link">
+            <a href="./products.html" class="footer__navbar__list__link">
               <li class="footer__navbar__list__item">
                 продукция
-              </li>
-            </a>
-            <a href="#" class="footer__navbar__list__link">
-              <li class="footer__navbar__list__item">
-                новости
               </li>
             </a>
             <a href="#" class="footer__navbar__list__link">
@@ -314,9 +304,9 @@
                 проекты
               </li>
             </a>
-            <a href="#" class="footer__navbar__list__link">
+            <a href="./allnews.html" class="footer__navbar__list__link">
               <li class="footer__navbar__list__item">
-                контакты
+                новости
               </li>
             </a>
           </ul>
