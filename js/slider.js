@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="card__content">
           <div class="card__title">${title}</div>
           <div class="card__desc">${desc}</div>
-          <a href="/" class="button button__accent">
+          <a href="./product.html" class="button button__accent card__button">
             <span>
               Смотреть
             </span>
