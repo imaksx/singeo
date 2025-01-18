@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ product.name }} - Singeo{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+    <div class="container">
+        <h1>{{ product.name }}</h1>
+        <img src="{{ product.preview.url }}" alt="{{ product.name }}">
+        <p>{{ product.description }}</p>
+        <a href="{% url 'products' %}" class="button">Назад к продуктам</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- main/templates/main/footer.html -->
+{% load static %}
+<footer class="footer">
+    <div class="container">
+        <div class="footer__wrapper">
+            <nav class="footer__navbar navbar">
+                <ul class="footer__navbar__list">
+                    <li><a href="{% url 'about' %}" class="footer__navbar__list__link">О компании</a></li>
+                    <li><a href="{% url 'products' %}" class="footer__navbar__list__link">Продукция</a></li>
+                    <li><a href="#" class="footer__navbar__list__link">Проекты</a></li>
+                    <li><a href="{% url 'news' %}" class="footer__navbar__list__link">Новости</a></li>
+                </ul>
+            </nav>
+            <div class="footer__contacts">
+                <div class="footer__contacts__phone">
+                    <img src="{% static 'main/src/icon/phone.svg' %}" alt="Телефон" class="footer__contacts__phone__icon">
+                    <a href="tel:+7-999-999-99-99" class="footer__contacts__phone__text">+7-999-999-99-99</a>
+                </div>
+                <div class="footer__contacts__mail">
+                    <img src="{% static 'main/src/icon/email.svg' %}" alt="Email" class="footer__contacts__mail__icon">
+                    <a href="mailto:sintezgeo@mail.ru" class="footer__contacts__phone__text">sintezgeo@mail.ru</a>
+                </div>
+                <div class="footer__contacts__address">
+                    <img src="{% static 'main/src/icon/location.svg' %}" alt="Адрес" class="footer__contacts__address__icon">
+                    <a href="https://yandex.ru/maps/-/CHAye4PR" target="_blank" class="footer__contacts__phone__text">
+                        улица Петровская, 25А
+                    </a>
+                </div>
+            </div>
+            <div class="footer__logo">
+                <a href="/" class="header__logo_link">
+                    <img src="{% static 'main/src/img/logo_footer.png' %}" alt="Логотип" class="header__logo__img">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
