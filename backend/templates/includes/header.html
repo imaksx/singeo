@@ -1,0 +1,35 @@
+<!-- main/templates/main/header.html -->
+{% load static %}
+<header class="header">
+    <div class="container">
+        <div class="header__wrapper">
+            <div class="header__main-menu">
+                <div class="header__logo">
+                    <a href="{% url 'index' %}" class="header__logo_link">
+                        <img src="{% static 'main/src/img/logo.png' %}" alt="Логотип" class="header__logo__img">
+                    </a>
+                </div>
+
+                <div class="header__contacts">
+                    <div class="header__contacts__phone">
+                        <img src="{% static 'main/src/icon/phone.svg' %}" alt="Телефон" class="header__contacts__phone__icon">
+                        <a href="tel:+7-999-999-99-99" class="header__contacts__phone__text">+7-999-999-99-99</a>
+                    </div>
+                    <div class="header__contacts__mail">
+                        <img src="{% static 'main/src/icon/email.svg' %}" alt="Email" class="header__contacts__mail__icon">
+                        <a href="mailto:sintezgeo@mail.ru" class="header__contacts__phone__text">sintezgeo@mail.ru</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="header__navbar navbar">
+                <ul class="header__navbar__list">
+                    <li><a href="{% url 'about' %}" class="header__navbar__list__link">О компании</a></li>
+                    <li><a href="{% url 'products' %}" class="header__navbar__list__link">Продукция</a></li>
+                    <li><a href="#" class="header__navbar__list__link">Проекты</a></li>
+                    <li><a href="{% url 'news' %}" class="header__navbar__list__link">Новости</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,17 @@
+{% load static %}
+
+<section class="projects">
+    <div class="container">
+        <h2 class="section__title projects__title">
+            <a href="#" class="section__title__link projects__title__link">Проекты</a>
+        </h2>
+    </div>
+    <div class="projects__wrapper">
+        <div class="projects__map">
+            <img src="{% static 'main/src/img/map.svg' %}" alt="Карта проектов" class="projects__map__inner">
+            {% for project in projects %}
+            <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}">
+                <button class="project__map__item__button">
+                    <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
+                </button>
+            {% endfor %}

@@ -1,0 +1,54 @@
+<!-- main/templates/products.html -->
+{% extends 'main/base.html' %}
+
+{% block title %}Продукция - Singeo{% endblock %}
+
+{% block content %}
+<section class="products">
+    <div class="container no-overflow">
+        <h2 class="section__title products__title">
+            <a href="#" class="section__title__link">Продукция</a>
+        </h2>
+
+        <div class="products__grid">
+            <div class="products__row">
+                {% for product in products %}
+                    <div class="card card_shadow">
+                        <div class="card__prev">
+                            <img src="{{ product.preview.url }}" alt="card__prev-img">
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">{{ product.name }}</div>
+                            <div class="card__desc">{{ product.short_description }}</div>
+                            <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
+                                <span>Смотреть</span>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% comment %} попытка всё сделать через вьюсеты {% endcomment %}
+{% comment %} <!-- main/templates/products.html -->
+{% extends 'base.html' %}
+
+{% block title %}Продукция - Singeo{% endblock %}
+
+{% block content %}
+<section class="products">
+    <div class="container no-overflow">
+        <h2 class="section__title products__title">
+            <a href="#" class="section__title__link">Продукция</a>
+        </h2>
+
+        <div class="products__grid" id="products-grid">
+            <!-- Продукты будут загружены сюда с помощью JavaScript -->
+        </div>
+    </div>
+</section>
+{% endblock %} {% endcomment %}
