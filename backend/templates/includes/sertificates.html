@@ -6,10 +6,12 @@
         <div class="sertificates__wrapper">
             <div class="sertificates__inner scroll_animate">
                 <div class="sertificate__inner_left__animation">
-                    {% for sertificate in sertificates %}
+                    {% for sertificate in about.certificates.all %}
                     <div class="sertificates__item">
                         <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                     </div>
+                    {% empty %}
+                    <p>Нет сертификатов для отображения.</p>
                     {% endfor %}
                 </div>
             </div>

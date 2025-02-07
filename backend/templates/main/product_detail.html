@@ -1,14 +1,64 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
 {% block title %}{{ product.name }} - Singeo{% endblock %}
 
 {% block content %}
-<section class="product-detail">
-    <div class="container">
-        <h1>{{ product.name }}</h1>
-        <img src="{{ product.preview.url }}" alt="{{ product.name }}">
-        <p>{{ product.description }}</p>
-        <a href="{% url 'products' %}" class="button">Назад к продуктам</a>
-    </div>
+<section>
+    <div class="identificator" data-page="product_detail"></div>
+        <div class="container no-overflow">
+            <section class="product">
+                <h2 class="section__title project__title">{{ product.name }}</h2>
+
+                <div class="product__wrapper">
+                    <div class="product__preview">
+                        <img src="{{ product.preview.url }}" alt="{{ product.name }}" class="project__preview_img"> <!-- Изображение продукта -->
+                    </div>
+                    <div class="product__desc">
+                        <p class="project__desc__paragraph">{{ product.description }}</p>
+
+                        <div class="product__props">
+                            <div class="product__props__title">Основные технические характеристики
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="product__props__dropdown">
+                                <ul class="product__props__list">
+                                    <!-- Здесь можно добавить динамические характеристики продукта -->
+                                    {% for prop in product.properties %}
+                                        <li class="product__props__list__item">{{ prop }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project">
+                <h2 class="section__title project__title">Действующий проект</h2>
+                <div class="project__wrapper">
+                    <div class="project__preview">
+                        <img src="{% static 'main/src/img/project.png' %}" alt="Проект" class="project__preview_img"> <!-- Изображение проекта -->
+                    </div>
+                    <div class="project__content">
+                        <h3 class="project__content__title">Название проекта</h3>
+                        <div class="project__desc">
+                            <p class="project__desc__paragraph">
+                                Horem ipsum dolor sit amet, consectetur adipiscing elit. <!-- Здесь можно добавить описание проекта -->
+                            </p>
+                            <p class="project__desc__paragraph">
+                                Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus.
+                            </p>
+                            <p class="project__desc__paragraph">
+                                Maecenas eget condimentum velit, sit amet feugiat lectus.
+                            </p>
+                        </div>
+                        <div class="project__location">
+                            <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
+                            <span class="project__location__text">мурманск</span> <!-- Местоположение проекта -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 </section>
 {% endblock %}

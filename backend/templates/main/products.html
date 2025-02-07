@@ -1,7 +1,18 @@
-<!-- main/templates/products.html -->
 {% extends 'main/base.html' %}
 
+{% load static %}  <!-- Подключаем статические файлы -->
+
 {% block title %}Продукция - Singeo{% endblock %}
+
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'main/css/products.css' %}">
+{% endblock %}
+
+
+{% block extra_scripts %}
+    <script src="{% static 'main/js/products.js' %}" defer></script>
+{% endblock %}
 
 {% block content %}
 <section class="products">
@@ -10,45 +21,39 @@
             <a href="#" class="section__title__link">Продукция</a>
         </h2>
 
+        {% comment %} <div class="product__filters filters">
+            <div class="product__filters__area filters__area">
+                <div class="product__filters__placeholder filters__placeholder">Вид оборудования</div>
+                <div class="product__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="product__filters__dropdown filters__dropdown">
+                    {% for tag in tags %}
+                    <div class="product__filters__item filters__item">
+                        <input type="checkbox" class="product__filter__item__checkbox filter__item__checkbox" id="filter-{{ tag.id }}" name="tags" value="{{ tag.slug }}">
+                        <label class="product__filters__item__text filters__item__text" for="filter-{{ tag.id }}">{{ tag.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div> {% endcomment %}
+
         <div class="products__grid">
             <div class="products__row">
                 {% for product in products %}
-                    <div class="card card_shadow">
-                        <div class="card__prev">
-                            <img src="{{ product.preview.url }}" alt="card__prev-img">
-                        </div>
-                        <div class="card__content">
-                            <div class="card__title">{{ product.name }}</div>
-                            <div class="card__desc">{{ product.short_description }}</div>
-                            <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
-                                <span>Смотреть</span>
-                            </a>
-                        </div>
+                <div class="card card_shadow">
+                    <div class="card__prev">
+                        <img src="{{ product.preview.url }}" alt="card__prev-img">
                     </div>
+                    <div class="card__content">
+                        <div class="card__title">{{ product.name }}</div>
+                        <div class="card__desc">{{ product.short_description }}</div>
+                        <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
+                            <span>Смотреть</span>
+                        </a>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </div>
 </section>
 {% endblock %}
-
-
-{% comment %} попытка всё сделать через вьюсеты {% endcomment %}
-{% comment %} <!-- main/templates/products.html -->
-{% extends 'base.html' %}
-
-{% block title %}Продукция - Singeo{% endblock %}
-
-{% block content %}
-<section class="products">
-    <div class="container no-overflow">
-        <h2 class="section__title products__title">
-            <a href="#" class="section__title__link">Продукция</a>
-        </h2>
-
-        <div class="products__grid" id="products-grid">
-            <!-- Продукты будут загружены сюда с помощью JavaScript -->
-        </div>
-    </div>
-</section>
-{% endblock %} {% endcomment %}

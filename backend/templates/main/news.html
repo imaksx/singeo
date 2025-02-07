@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+
+{% load static %}  <!-- Подключаем статические файлы -->
+
+{% block title %}Новости - Singeo{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'main/css/news.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'main/js/news.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<a href="#top" class="button-up">
+    <img src="{% static 'main/src/icon/arrow_up.svg' %}" alt="Наверх" class="button-up__img">
+</a>
+
+<section class="banner">
+    <div class="container">
+        <div class="banner__wrapper">
+            <div class="banner__title">
+                Новости
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news">
+    <div class="container no-overflow">
+        <h2 class="section__title news__title">
+            <a href="#" class="section__title__link">
+                Новости
+            </a>
+        </h2>
+        <h4 class="section__subtitle news__subtitle">Borem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          vulputate libero et velit interdum, ac aliquet odio mattis.</h4>
+
+        <div class="news__grid">
+
+            {% for article in news %}
+            <div class="news__row">
+                <div class="card card_shadow">
+                    <div class="card__prev">
+                        {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="card__prev-img">
+                        {% endif %}
+                    </div>
+                    <div class="card__content ">
+                        <div class="card__timestamp">{{ article.pub_date }}</div>
+                        <div class="card__title card__title_news">{{ article.name }}</div>
+                        <div class="card__desc">{{ article.text|truncatewords:30 }}</div>
+                        <a href="{% url 'news_detail' article.id %}" class="button button__accent__light card__button">
+                            <span>
+                                Читать дальше
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="news__button__wrapper">
+            <button class="button button__accent news__button__more">
+                <span>
+                    Показать больше
+                </span>
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
