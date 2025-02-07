@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% load static %}  <!-- Подключаем статические файлы -->
+
+{% block title %}Проекты - Singeo{% endblock %}
+
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'main/css/products.css' %}">
+{% endblock %}
+
+
+{% block extra_scripts %}
+    <script src="{% static 'main/js/products.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<section class="projects">
+    <div class="container no-overflow">
+      <h2 class="section__title projects__title">
+        <a href="#" class="section__title__link">Проекты</a>
+      </h2>
+
+      <div class="projects__grid">
+        <div class="projects__row">
+          {% for project in projects %}
+          <div class="card card_shadow">
+            <div class="card__prev">
+              {% if project.image %}
+              <img src="{{ project.image.url }}" alt="card__prev-img">
+              {% endif %}
+            </div>
+            <div class="card__content">
+              <div class="card__title">{{ project.name }}</div>
+              <div class="card__desc">{{ project.description }}</div>
+              <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
+                <span>Смотреть</span>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

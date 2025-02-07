@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ article.name }} - Singeo{% endblock %}
+
+{% block content %}
+<a href="#top" class="button-up">
+    <img src="{% static 'main/src/icon/arrow_up.svg' %}" alt="Наверх" class="button-up__img">
+</a>
+
+<section class="banner">
+    <div class="container">
+        <div class="banner__wrapper">
+            <div class="banner__title">
+                {{ article.name }}
+            </div>
+            <div class="banner__timestamp">{{ article.pub_date }}</div>
+        </div>
+    </div>
+</section>
+
+<section class="news-content">
+    <div class="container">
+        <div class="news-content__wrapper">
+            <div class="news-content__text">
+                {% if article.video %}
+                <video controls class="news-content__article-video">
+                    <source src="{{ article.video.url }}" type="video/mp4">  <!-- Убедитесь, что формат видео поддерживается -->
+                    Ваш браузер не поддерживает видео.
+                </video>
+                {% elif article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.name }}" class="news-content__article-image">
+                {% endif %}
+                <p class="news-content__paragraph">{{ article.text }}</p>
+            </div>
+            <div class="news-content__buttons">
+                {% comment %} <button class="button button__accent__light">
+                    <span>
+                        <i class="fa-solid fa-copy"></i>
+                        Копировать ссылку
+                    </span>
+                </button> {% endcomment %}
+                <button class="button button__accent">
+                    <span>
+                        <i class="fa-solid fa-share-nodes"></i>
+                        Поделиться
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

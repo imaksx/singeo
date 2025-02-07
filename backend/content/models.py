@@ -22,9 +22,36 @@ class New(models.Model):
         verbose_name='Фотография новости'
     )
 
+    video = models.FileField(  # Поле для видео
+        upload_to='news_videos/',
+        null=True,
+        blank=True,  # Позволяет оставлять поле пустым
+        verbose_name='Видео новости'
+    )
+
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+    def __str__(self):
+        return self.name
+
+
+class TagForProduct(models.Model):
+    """Модель объектов для товара."""
+
+    name = models.CharField(
+        max_length=32,
+        verbose_name='Название объекта применения'
+    )
+
+    slug = models.SlugField(
+        verbose_name='product_slug'
+    )
+
+    class Meta:
+        verbose_name = 'Тег для товара'
+        verbose_name_plural = 'Теги для товара'
 
     def __str__(self):
         return self.name
@@ -51,29 +78,19 @@ class Product(models.Model):
         verbose_name='Фотография продукта'
     )
 
+    tags = models.ManyToManyField(
+        TagForProduct,
+        related_name='products',
+        blank=True,
+        verbose_name='Теги для продукта'
+    )
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
         return self.name
-
-
-class TagForProduct(models.Model):
-    """Модель объектов для товара."""
-
-    name = models.CharField(
-        max_length=32,
-        verbose_name='Название объекта применения'
-    )
-
-    slug = models.SlugField(
-        verbose_name='product_slug'
-    )
-
-    class Meta:
-        verbose_name = 'Тег для товара'
-        verbose_name_plural = 'Теги для товара'
 
 
 class TagProduct(models.Model):
@@ -102,6 +119,23 @@ class TagProduct(models.Model):
         return f'{self.product_tag} {self.product}'
 
 
+class Certificate(models.Model):
+    """Модель для сертификатов."""
+    image = models.ImageField(
+        upload_to='certificates/',  # Папка для хранения изображений сертификатов
+        verbose_name='Изображение сертификата'
+    )
+    about = models.ForeignKey(
+        'About',
+        related_name='certificates',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = 'Сертификат'
+        verbose_name_plural = 'Сертификаты'
+
+
 class About(models.Model):
     """Модель для контактной информации."""
 
@@ -115,18 +149,20 @@ class About(models.Model):
         default=None,
         verbose_name='Адрес предприятия'
     )
-    description = models.TextField(
-        verbose_name="Описание 'О нас'"
+
+    slogan = models.TextField(
+        verbose_name="Слоган"
     )
-    logo = models.ImageField(
-        default=0,
-        null=False,
-        blank=False,
-        verbose_name='Изображение логотипа'
+
+    description_1 = models.TextField(
+        verbose_name="Описание 'О нас' для первого блока"
+    )
+
+    description_2 = models.TextField(
+        verbose_name="Описание 'О нас' для второго блока"
     )
 
     class Meta:
-        verbose_name = 'О нас'
         verbose_name = 'О нас'
 
 
@@ -184,7 +220,8 @@ class Project(models.Model):
     related_products = models.ManyToManyField(
         Product,
         through='ProjectProduct',
-        verbose_name='Продукты, используемые в проекте'
+        verbose_name='Продукты, используемые в проекте',
+        blank=False
     )
 
     class Meta:

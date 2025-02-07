@@ -7,22 +7,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-    <script src="https://kit.fontawesome.com/f597576ac7.js" crossorigin="anonymous"></script>
+   <script src="https://kit.fontawesome.com/f597576ac7.js" crossorigin="anonymous"></script>
     <title>{% block title %}Singeo{% endblock %}</title>
 </head>
 
-<body>
+<body data-page="index2">
     <a href="" id="top"></a>
 
-    {% include 'includes/header.html' %}  <!-- Включаем заголовок из папки includes -->
+    {% include 'includes/header.html' %}
 
     <main class="main">
         {% block content %}{% endblock %}
     </main>
 
-    {% include 'includes/footer.html' %}  <!-- Включаем подвал из папки includes -->
+    {% include 'includes/footer.html' %}
 
     <script src="{% static 'main/js/script.js' %}"></script>
+    <script src="{% static 'main/js/slider.js' %}"></script>
 </body>
 
 </html>
