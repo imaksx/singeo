@@ -38,29 +38,29 @@
           vulputate libero et velit interdum, ac aliquet odio mattis.</h4>
 
         <div class="news__grid">
-
-            {% for article in news %}
             <div class="news__row">
-                <div class="card card_shadow">
-                    <div class="card__prev">
-                        {% if article.image %}
-                        <img src="{{ article.image.url }}" alt="card__prev-img">
-                        {% endif %}
-                    </div>
-                    <div class="card__content ">
-                        <div class="card__timestamp">{{ article.pub_date }}</div>
-                        <div class="card__title card__title_news">{{ article.name }}</div>
-                        <div class="card__desc">{{ article.text|truncatewords:30 }}</div>
-                        <a href="{% url 'news_detail' article.id %}" class="button button__accent__light card__button">
-                            <span>
-                                Читать дальше
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+                {% for article in news %}
 
+                    <div class="card card_shadow">
+                        <div class="card__prev">
+                            {% if article.image %}
+                            <img src="{{ article.image.url }}" alt="card__prev-img">
+                            {% endif %}
+                        </div>
+                        <div class="card__content ">
+                            <div class="card__timestamp">{{ article.pub_date }}</div>
+                            <div class="card__title card__title_news">{{ article.name }}</div>
+                            <div class="card__desc">{{ article.text|truncatewords:30 }}</div>
+                            <a href="{% url 'news_detail' article.id %}" class="button button__accent__light card__button">
+                                <span>
+                                    Читать дальше
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
         </div>
 
         <div class="news__button__wrapper">

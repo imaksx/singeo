@@ -10,8 +10,12 @@
         <div class="projects__map">
             <img src="{% static 'main/src/img/map.svg' %}" alt="Карта проектов" class="projects__map__inner">
             {% for project in projects %}
-            <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}">
+            {% comment %} <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}"> {% endcomment %}
                 <button class="project__map__item__button">
                     <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
                 </button>
             {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

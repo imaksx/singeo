@@ -22,9 +22,9 @@
                             </div>
                             <div class="product__props__dropdown">
                                 <ul class="product__props__list">
-                                    <!-- Здесь можно добавить динамические характеристики продукта -->
-                                    {% for prop in product.properties %}
-                                        <li class="product__props__list__item">{{ prop }}</li>
+                                    {% comment %} <li class="product__props__list__item">{{ product.technical_description }}</li> <!-- Display technical description --> {% endcomment %}
+                                    {% for tech_desc in product.technical_descriptions.all %}
+                                        <li class="product__props__list__item">{{ tech_desc.description }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
