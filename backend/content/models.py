@@ -57,6 +57,16 @@ class TagForProduct(models.Model):
         return self.name
 
 
+class TechnicalDescription(models.Model):
+    """Модель для основных характеристик продукта."""
+    product = models.ForeignKey(
+        'Product', related_name='technical_descriptions', on_delete=models.CASCADE)
+    description = models.TextField(verbose_name='Основная характеристика')
+
+    def __str__(self):
+        return self.description
+
+
 class Product(models.Model):
     """Модель товара."""
 
@@ -77,7 +87,6 @@ class Product(models.Model):
         default=None,
         verbose_name='Фотография продукта'
     )
-
     tags = models.ManyToManyField(
         TagForProduct,
         related_name='products',
