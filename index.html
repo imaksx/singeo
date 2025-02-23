@@ -43,7 +43,7 @@
 
         <nav class="header__navbar navbar">
           <ul class="header__navbar__list">
-            <a href="./index.html" class="header__navbar__list__link">
+            <a href="./about.html" class="header__navbar__list__link">
               <li class="header__navbar__list__item">
                 о компании
               </li>
@@ -74,6 +74,7 @@
   </header>
 
   <main class="main">
+    <div class="identificator" data-page="index"></div>
 
     <a href="#top" class="button-up">
       <img src="./src/icon/arrow_up.svg" alt="" class="button-up__img">
@@ -90,22 +91,22 @@
     </section>
 
 
-    <section class="about-us scroll_animate">
+    <section class="company scroll_animate">
       <div class="container">
-        <div class="about-us__row">
-          <div class="about-us__column about-us__column__left">
-            <img src="./src/img/about-us-1.png" class="about-us__column__img">
+        <div class="company__row">
+          <div class="company__column company__column__left">
+            <img src="./src/img/about-us-1.png" class="company__column__img">
           </div>
-          <div class="about-us__column about-us__column__right">
-            <div class="about-us__column__wrapper">
-              <h2 class="section__title about-us__title">
-                <a href="#" class="section__title__link about-us__title__link">
+          <div class="company__column company__column__right">
+            <div class="company__column__wrapper">
+              <h2 class="section__title company__title">
+                <a href="#" class="section__title__link company__title__link">
                   <!-- <span class="section__title__counter">01</span> -->
                   О компании
                   <!-- <img src="./src/icon/arrow_right.svg" alt="" class="section__title__arrow"> -->
                 </a>
               </h2>
-              <p class="about-us__column__content">
+              <p class="company__column__content">
                 Yorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis
                 tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus
                 elit
@@ -119,11 +120,11 @@
             </div>
           </div>
         </div>
-        <div class="about-us__row">
-          <div class="about-us__column about-us__column__left">
-            <div class="about-us__column__wrapper">
-              <div class="about-us__column__text">
-                <p class="about-us__column__content">
+        <div class="company__row">
+          <div class="company__column company__column__left">
+            <div class="company__column__wrapper">
+              <div class="company__column__text">
+                <p class="company__column__content">
                   Yorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a,
                   mattis
                   tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus
@@ -138,8 +139,8 @@
               </div>
             </div>
           </div>
-          <div class="about-us__column about-us__column__right">
-            <img src="./src/img/about-us-2.png" class="about-us__column__img">
+          <div class="company__column company__column__right">
+            <img src="./src/img/about-us-2.png" class="company__column__img">
           </div>
         </div>
       </div>
@@ -201,55 +202,164 @@
             <button class="project__map__item__button">
               <img src="./src/icon/map_location.svg" alt="" class="projects__map__location">
             </button>
-            <div class="project__map__item__inner">
+
+            <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
               <div class="project__map__item__button__close card__exit">
               </div>
-              <div class="project__map__card card">
-                <div class="card__prev">
-                  <img src="./src/img/project-1.png" alt="card__prev-img">
+              <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
                 </div>
-                <div class="card__content">
-                  <div class="card__title">Название предприятия</div>
-                  <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                    libero
-                    et
-                    velit interdum, ac aliquet odio mattis.</div>
-                  <a href="/" class="button button__accent card__button">
-                    <span>
-                      Смотреть
-                    </span>
-                  </a>
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
                 </div>
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
 
               </div>
+
             </div>
+
           </div>
 
           <div class="project__map__item p2" data-left="60%" data-top="50%">
             <button class="project__map__item__button">
               <img src="./src/icon/map_location.svg" alt="" class="projects__map__location">
             </button>
-            <div class="project__map__item__inner">
+
+            <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
               <div class="project__map__item__button__close card__exit">
               </div>
-              <div class="project__map__card card">
-                <div class="card__prev">
-                  <img src="./src/img/project-1.png" alt="card__prev-img">
+              <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
                 </div>
-                <div class="card__content">
-                  <div class="card__title">Название предприятия</div>
-                  <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                    libero
-                    et
-                    velit interdum, ac aliquet odio mattis.</div>
-                  <a href="/" class="button button__accent card__button">
-                    <span>
-                      Смотреть
-                    </span>
-                  </a>
+
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div class="project__map__card carousel-item card">
+                  <div class="card__preview">
+                    <img src="./src/img/projects.png" alt="card__prev-img">
+                  </div>
+                  <div class="card__content">
+                    <div class="card__title">Название предприятия</div>
+                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Nunc vulputate
+                      libero
+                      et
+                      velit interdum, ac aliquet odio mattis.</div>
+                    <a href="/" class="button button__accent card__button">
+                      <span>
+                        Смотреть
+                      </span>
+                    </a>
+                  </div>
                 </div>
 
               </div>
+              <div
+                class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
+
+              </div>
+
             </div>
           </div>
 
@@ -263,20 +373,157 @@
 
       <div class="container">
         <h2 class="section__title products__title">
-          <a href="./products.html" class="section__title__link about-us__title__link">
+          <a href="./products.html" class="section__title__link ">
             <!-- <span class="section__title__counter">02</span> -->
             Продукция
             <!-- <img src="./src/icon/arrow_right.svg" alt="" class="section__title__arrow"> -->
           </a>
         </h2>
 
-        <div class="products__carousel">
+        <div class="products__carousel carousel">
           <div class="products__carousel__cards carousel__cards">
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 0</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/news-1.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 1</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 2</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 3</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 4</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 5</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 6</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 7</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="carousel-item card">
+              <div class="card__preview">
+                <img src="./src/img/product.png" alt="card__prev-img">
+              </div>
+              <div class="card__content">
+                <div class="card__title">Датчик нагрузки анкерный 8</div>
+                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                  liberoetvelit interdum, ac aliquet odio mattis.</div>
+                <a href="./product.html" class="button button__accent card__button">
+                  <span>
+                    Смотреть
+                  </span>
+                </a>
+              </div>
+            </div>
 
           </div>
-          <div class="products__carousel__pagination">
-            <div class="products__carousel__pagination-prev"><i class="fa-solid fa-arrow-left-long"></i></div>
-            <div class="products__carousel__pagination-next"><i class="fa-solid fa-arrow-right-long"></i></div>
+          <div class="products__carousel__pagination carousel__pagination carousel__pagination_arrow">
+            <div class="products__carousel__pagination-prev carousel__pagination-prev"><i
+                class="fa-solid fa-arrow-left-long"></i></div>
+            <div class="products__carousel__pagination-next carousel__pagination-next"><i
+                class="fa-solid fa-arrow-right-long"></i></div>
           </div>
         </div>
       </div>
@@ -341,6 +588,7 @@
       </div>
     </div>
   </footer>
+
 
   <script src="./js/script.js"></script>
   <script src="./js/slider.js"></script>

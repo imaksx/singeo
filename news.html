@@ -11,7 +11,11 @@
 </head>
 
 <body>
-  <a href="" id="top"></a>
+  <div class="identificator" data-page="news"></div>
+
+  <a href="#top" class="button-up">
+    <img src="./src/icon/arrow_up.svg" alt="" class="button-up__img">
+  </a>
 
   <header class="header">
 
@@ -42,7 +46,7 @@
 
         <nav class="header__navbar navbar">
           <ul class="header__navbar__list">
-            <a href="./index.html" class="header__navbar__list__link">
+            <a href="./about.html" class="header__navbar__list__link">
               <li class="header__navbar__list__item">
                 о компании
               </li>
@@ -72,17 +76,82 @@
 
   </header>
 
+
   <main class="main">
 
-    <section class="banner">
-      <div class="container">
-        <div class="banner__wrapper">
-          <div class="banner__timestamp">25/10/2024</div>
-          <div class="banner__title">
-            Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <section class="banner news__banner">
+      <div class="news__carousel carousel">
+        <div class="news__carousel__cards carousel__cards">
+          <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+              <div class="news__banner__background">
+                <img src="./src/img/banner.png" alt="" class="news__banner__background__img">
+              </div>
+              <div class="container">
+                <div class="banner__wrapper">
+                  <div class="banner__timestamp">25/10/2024</div>
+                  <div class="banner__title">
+                    Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+              <div class="news__banner__background">
+                <img src="./src/img/banner.png" alt="" class="news__banner__background__img">
+              </div>
+              <div class="container">
+                <div class="banner__wrapper">
+                  <div class="banner__timestamp">25/10/2024</div>
+                  <div class="banner__title">
+                    Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+              <div class="news__banner__background">
+                <img src="./src/img/banner.png" alt="" class="news__banner__background__img">
+              </div>
+              <div class="container">
+                <div class="banner__wrapper">
+                  <div class="banner__timestamp">25/10/2024</div>
+                  <div class="banner__title">
+                    Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+              <div class="news__banner__background">
+                <img src="./src/img/banner.png" alt="" class="news__banner__background__img">
+              </div>
+              <div class="container">
+                <div class="banner__wrapper">
+                  <div class="banner__timestamp">25/10/2024</div>
+                  <div class="banner__title">
+                    Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="news__carousel__pagination carousel__pagination carousel__pagination_point">
+
         </div>
       </div>
+
     </section>
 
     <section class="news-content">
@@ -222,6 +291,8 @@
       </div>
     </div>
   </footer>
+
+  <script src="./js/slider.js"></script>
 
 
 </body>
