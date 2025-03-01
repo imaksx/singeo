@@ -3,63 +3,59 @@
 {% block title %}{{ article.name }} - Singeo{% endblock %}
 
 {% block content %}
-<section class="project">
-    <h2 class="section__title project__title">
-        {{ project.name }}
-    </h2>
-    <div class="project__wrapper">
-        <div class="project__preview">
-            {% if project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project__preview_img">
-            {% endif %}
-        </div>
-        <div class="project__content">
-            <h3 class="project__content__title">
-                {{ project.name }}
-            </h3>
-            <div class="project__desc">
-                <p class="project__desc__paragraph">{{ project.description }}</p>
+<div class="container no-overflow">
+    <section class="project">
+        <h2 class="section__title project__title">{{ project.name }}</h2>
+        <div class="project__wrapper">
+            <div class="project__preview">
+                <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project__preview_img">
             </div>
-            <div class="project__location">
-                <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
-                <span class="project__location__text">{{ project.location }}</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="products">
-    <div class="container">
-        <h2 class="section__title products__title">
-            <a href="./products.html" class="section__title__link about-us__title__link">
-                В проекте было использовано
-            </a>
-        </h2>
-
-        <div class="products__carousel">
-            <div class="products__carousel__cards carousel__cards">
-                {% for product in project.products.all %}
-                <div class="card card_shadow">
-                    <div class="card__prev">
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__prev-img">
-                        {% endif %}
-                    </div>
-                    <div class="card__content">
-                        <div class="card__title">{{ product.name }}</div>
-                        <div class="card__desc">{{ product.description }}</div>
-                        <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
-                            <span>Смотреть</span>
-                        </a>
-                    </div>
+            <div class="project__content">
+                <h3 class="project__content__title">{{ project.name }}</h3>
+                <div class="project__desc">
+                    <p class="project__desc__paragraph">{{ project.description }}</p>
                 </div>
-                {% endfor %}
-            </div>
-            <div class="products__carousel__pagination">
-                <div class="products__carousel__pagination-prev"><i class="fa-solid fa-arrow-left-long"></i></div>
-                <div class="products__carousel__pagination-next"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="project__location">
+                    <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <span class="project__location__text">{{ project.location }}</span>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <h2 class="section__title products__title">
+                <a href="./products.html" class="section__title__link about-us__title__link">
+                    В проекте было использовано
+                </a>
+            </h2>
+
+            <div class="products__carousel">
+                <div class="products__carousel__cards carousel__cards">
+                    {% for product in project.products.all %}
+                    <div class="card card_shadow">
+                        <div class="card__prev">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__prev-img">
+                            {% endif %}
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title">{{ product.name }}</div>
+                            <div class="card__desc">{{ product.description }}</div>
+                            <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
+                                <span>Смотреть</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="products__carousel__pagination">
+                    <div class="products__carousel__pagination-prev"><i class="fa-solid fa-arrow-left-long"></i></div>
+                    <div class="products__carousel__pagination-next"><i class="fa-solid fa-arrow-right-long"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

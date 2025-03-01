@@ -5,15 +5,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from api.views import (
-    # AboutViewSet,
-    # NewViewSet,
-    # ProductViewSet,
-    # ProejctViewSet,
     index_view,
     about_view,
     products_view,
     product_detail_view,
-    projects_view,
+    # projects_view,
+    project_list,
     project_detail_view,
     news_view,
     new_detail_view,
@@ -35,10 +32,10 @@ urlpatterns = [
     # URL для страницы с продуктами
     path('about/', about_view, name='about'),
     path('', index_view, name='index'),
-    path('products/', projects_view, name='projects'),
+    path('projects/', project_list, name='projects'),
     path('projects/<int:id>/', project_detail_view, name='project_detail'),
     path('product/<int:id>/', product_detail_view, name='product_detail'),
-    path('projects/', products_view, name='products'),
+    path('products/', products_view, name='products'),
     path('news/', news_view, name='news'),
     path('news/<int:id>/', new_detail_view, name='news_detail'),
     path('admin/', admin.site.urls),

@@ -10,7 +10,47 @@
         <div class="projects__map">
             <img src="{% static 'main/src/img/map.svg' %}" alt="Карта проектов" class="projects__map__inner">
             {% for project in projects %}
-            {% comment %} <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}"> {% endcomment %}
+            <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}">
+                <button class="project__map__item__button">
+                    <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
+                </button>
+                <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
+                    <div class="project__map__item__button__close card__exit"></div>
+                    <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                        <div class="project__map__card carousel-item card">
+                            <div class="card__preview">
+                                <img src="{{ project.image.url }}" alt="card__prev-img">
+                            </div>
+                            <div class="card__content">
+                                <div class="card__title">{{ project.name }}</div>
+                                <div class="card__desc project__map__card__desc">{{ project.description }}</div>
+                                <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
+                                    <span>Смотреть</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% comment %} {% load static %}
+
+<section class="projects">
+    <div class="container">
+        <h2 class="section__title projects__title">
+            <a href="#" class="section__title__link projects__title__link">Проекты</a>
+        </h2>
+    </div>
+    <div class="projects__wrapper">
+        <div class="projects__map">
+            <img src="{% static 'main/src/img/map.svg' %}" alt="Карта проектов" class="projects__map__inner">
+            {% for project in projects %}
+            <div class="project__map__item" data-left="{{ project.coords_left }}" data-top="{{ project.coords_top }}">
                 <button class="project__map__item__button">
                     <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
                 </button>
@@ -18,4 +58,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> {% endcomment %}
