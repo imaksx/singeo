@@ -30,6 +30,23 @@ class New(models.Model):
         return self.name
 
 
+class TagForProduct(models.Model):
+    """Модель объектов для товара."""
+
+    name = models.CharField(
+        max_length=32,
+        verbose_name='Название объекта применения'
+    )
+
+    slug = models.SlugField(
+        verbose_name='product_slug'
+    )
+
+    class Meta:
+        verbose_name = 'Тег для товара'
+        verbose_name_plural = 'Теги для товара'
+
+
 class Product(models.Model):
     """Модель товара."""
 
@@ -51,55 +68,18 @@ class Product(models.Model):
         verbose_name='Фотография продукта'
     )
 
+    product_tags = models.ManyToManyField(
+        TagForProduct,
+        through='TagProduct',
+        verbose_name='Теги товара'
+    )
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
         return self.name
-
-
-class TagForProduct(models.Model):
-    """Модель объектов для товара."""
-
-    name = models.CharField(
-        max_length=32,
-        verbose_name='Название объекта применения'
-    )
-
-    slug = models.SlugField(
-        verbose_name='product_slug'
-    )
-
-    class Meta:
-        verbose_name = 'Тег для товара'
-        verbose_name_plural = 'Теги для товара'
-
-
-class TagProduct(models.Model):
-    """Промежуточная модель для товара и тега."""
-
-    product_tag = models.ForeignKey(
-        TagForProduct,
-        on_delete=models.CASCADE
-    )
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['product_tag', 'product'],
-                                    name='unique_tagproduct')
-        ]
-        verbose_name = 'Тег товара'
-        verbose_name_plural = 'Теги товара'
-
-    def __str__(self):
-        """Метод строкового представления модели."""
-
-        return f'{self.product_tag} {self.product}'
 
 
 class About(models.Model):
@@ -141,7 +121,7 @@ class Region(models.Model):
         default=False,
         verbose_name='Отображается на карте'
     )
-    # нужен валидатор
+
     coords = models.CharField(
         max_length=256,
         verbose_name='Координаты регионального центра.'
@@ -153,6 +133,23 @@ class Region(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TagForProject(models.Model):
+    """Модель объектов для товара."""
+
+    name = models.CharField(
+        max_length=32,
+        verbose_name='Название отрасли'
+    )
+
+    slug = models.SlugField(
+        verbose_name='project_slug'
+    )
+
+    class Meta:
+        verbose_name = 'Тег для проекта'
+        verbose_name_plural = 'Теги для проекта'
 
 
 class Project(models.Model):
@@ -187,55 +184,18 @@ class Project(models.Model):
         verbose_name='Продукты, используемые в проекте'
     )
 
+    project_tags = models.ManyToManyField(
+        TagForProject,
+        through='TagProject',
+        verbose_name='Теги проекта'
+    )
+
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
 
     def __str__(self):
         return self.name
-
-
-class TagForProject(models.Model):
-    """Модель объектов для товара."""
-
-    name = models.CharField(
-        max_length=32,
-        verbose_name='Название отрасли'
-    )
-
-    slug = models.SlugField(
-        verbose_name='project_slug'
-    )
-
-    class Meta:
-        verbose_name = 'Тег для проекта'
-        verbose_name_plural = 'Теги для проекта'
-
-
-class TagProduct(models.Model):
-    """Промежуточная модель для проекта и тега."""
-
-    project_tag = models.ForeignKey(
-        TagForProduct,
-        on_delete=models.CASCADE
-    )
-    project = models.ForeignKey(
-        Project,
-        on_delete=models.CASCADE
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['project_tag', 'project'],
-                                    name='unique_tagproject')
-        ]
-        verbose_name = 'Тег товара'
-        verbose_name_plural = 'Теги товара'
-
-    def __str__(self):
-        """Метод строкового представления модели."""
-
-        return f'{self.project_tag} {self.project}'
 
 
 class Map(models.Model):
@@ -306,3 +266,63 @@ class MapRegion(models.Model):
     class Meta:
         verbose_name = 'Регион на карте'
         verbose_name = 'Регионы на карте'
+
+
+class TagProduct(models.Model):
+    """
+    Промежуточная модель.
+    Реализует отношение многие-ко-многим между
+    товарами и тегами.
+    """
+
+    product_tag = models.ForeignKey(
+        TagForProduct,
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['product_tag', 'product'],
+                                    name='unique_tagproduct')
+        ]
+        verbose_name = 'Тег товара'
+        verbose_name_plural = 'Теги товара'
+
+    def __str__(self):
+        """Метод строкового представления модели."""
+
+        return f'{self.product_tag} {self.product}'
+
+
+class TagProject(models.Model):
+    """
+    Промежуточная модель.
+    Реализует отношение многие-ко-многим между
+    проектами и тегами.
+    """
+
+    project_tag = models.ForeignKey(
+        TagForProject,
+        on_delete=models.CASCADE
+    )
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['project_tag', 'project'],
+                                    name='unique_tagproject')
+        ]
+        verbose_name = 'Тег товара'
+        verbose_name_plural = 'Теги товара'
+
+    def __str__(self):
+        """Метод строкового представления модели."""
+
+        return f'{self.project_tag} {self.project}'

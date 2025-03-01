@@ -25,6 +25,7 @@ class AboutViewSet(viewsets.ModelViewSet):
 class ProejctViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    http_method_names = ['get']
 
 
 # адреса с get-запросами, которые должны работать:

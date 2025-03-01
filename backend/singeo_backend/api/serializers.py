@@ -65,7 +65,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'name',
             'short_description',
             'description',
-            'preview'
+            'preview',
+            'product_tags'
         )
 
 
@@ -106,6 +107,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             'image',
             'location',
             'related_products',
+            'project_tags',
         )
 
 
