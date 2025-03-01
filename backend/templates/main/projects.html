@@ -4,43 +4,89 @@
 
 {% block title %}Проекты - Singeo{% endblock %}
 
-
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'main/css/products.css' %}">
 {% endblock %}
-
 
 {% block extra_scripts %}
     <script src="{% static 'main/js/products.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
+<div class="identificator" data-page="projects"></div>  
 <section class="projects">
     <div class="container no-overflow">
-      <h2 class="section__title projects__title">
-        <a href="#" class="section__title__link">Проекты</a>
-      </h2>
+        <h2 class="section__title projects__title">
+            <a href="#" class="section__title__link">Проекты</a>
+        </h2>
 
-      <div class="projects__grid">
-        <div class="projects__row">
-          {% for project in projects %}
-          <div class="card card_shadow">
-            <div class="card__prev">
-              {% if project.image %}
-              <img src="{{ project.image.url }}" alt="card__prev-img">
-              {% endif %}
-            </div>
-            <div class="card__content">
-              <div class="card__title">{{ project.name }}</div>
-              <div class="card__desc">{{ project.description }}</div>
-              <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
-                <span>Смотреть</span>
-              </a>
+        <div class="product__filters filters">
+
+          <div class="product__filters__area filters__area">
+            <div class="product__filters__placeholder filters__placeholder">Вид оборудования</div>
+            <div class="product__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="product__filters__dropdown filters__dropdown">
+                {% for product in sensor_types %}
+                <div class="product__filters__item filters__item">
+                    <input type="checkbox" class="product__filter__item__checkbox filter__item__checkbox" 
+                            id="filter-{{ product.id }}">
+                    <label for="filter-{{ product.id }}" class="product__filters__item__text filters__item__text">{{ product.name }}</label>
+                </div>
+                {% endfor %}
             </div>
           </div>
-          {% endfor %}
+
+
+          <div class="product__filters__area filters__area">
+            <div class="product__filters__placeholder filters__placeholder">Тип проекта</div>
+            <div class="product__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="product__filters__dropdown filters__dropdown">
+                {% for product in sensor_types %}
+                <div class="product__filters__item filters__item">
+                    <input type="checkbox" class="product__filter__item__checkbox filter__item__checkbox" 
+                            id="filter-{{ product.id }}">
+                    <label for="filter-{{ product.id }}" class="product__filters__item__text filters__item__text">{{ product.name }}</label>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
+          <div class="product__filters__area filters__area">
+            <div class="product__filters__placeholder filters__placeholder">Вид оборудования</div>
+            <div class="product__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="product__filters__dropdown filters__dropdown">
+                {% for product in sensor_types %}
+                <div class="product__filters__item filters__item">
+                    <input type="checkbox" class="product__filter__item__checkbox filter__item__checkbox" 
+                            id="filter-{{ product.id }}">
+                    <label for="filter-{{ product.id }}" class="product__filters__item__text filters__item__text">{{ product.name }}</label>
+                </div>
+                {% endfor %}
+            </div>
+          </div>                  
         </div>
-      </div>
+        
+        
+
+        <div class="projects__grid">
+            <div class="projects__row">
+                {% for project in projects %}
+                <div class="card card_shadow">
+                    <div class="card__prev">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="card__prev-img">
+                        {% endif %}
+                    </div>
+                    <div class="card__content">
+                        <div class="card__title">{{ project.name }}</div>
+                        <div class="card__desc">{{ project.description }}</div>
+                        <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
+                            <span>Смотреть</span>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </section>
+</section>
 {% endblock %}

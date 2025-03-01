@@ -23,18 +23,34 @@ def index_view(request):
     })
 
 
+def project_list(request):
+    # НУЖДАЕТСЯ В ОТЛАДКЕ
+    projects = Project.objects.all()
+
+    # Получаем все уникальные продукты, используемые в проектах
+    products_used_in_projects = Product.objects.filter(
+        projectproduct__project__in=projects).distinct()
+
+    context = {
+        'projects': projects,
+        # Передаем продукты в качестве фильтров
+        'sensor_types': products_used_in_projects,
+    }
+    return render(request, 'main/projects.html', context)
+
+
 def products_view(request):
-    products = Product.objects.all()  # Получаем все продукты из базы данных
+    products = Product.objects.all()
     return render(request, 'main/products.html', {'products': products})
 
 
 def product_detail_view(request, id):
-    product = get_object_or_404(Product, id=id)  # Получаем продукт по ID
+    product = get_object_or_404(Product, id=id)
     return render(request, 'main/product_detail.html', {'product': product})
 
 
 def projects_view(request):
-    projects = Project.objects.all()  # Получаем все проектыв из базы данных
+    projects = Project.objects.all()
     return render(request, 'main/projects.html', {'projects': projects})
 
 
@@ -44,8 +60,7 @@ def project_detail_view(request, id):
 
 
 def news_view(request):
-    # Получаем все новости и сортируем по дате публикации (pub_date) от самой ранней к самой поздней
-    # Используем 'pub_date' для сортировки
+    # НЕ РАБОТАЕТ СОРТИРОВКА
     news = New.objects.all().order_by('-pub_date')
 
     return render(request, 'main/news.html', {'news': news})
@@ -57,37 +72,13 @@ def new_detail_view(request, id):
     return render(request, 'main/news_detail.html', {'article': article})
 
 
-# class NewViewSet(viewsets.ModelViewSet):
-#     queryset = New.objects.all()
-#     serializer_class = NewSerializer
-#     http_method_names = ['get']
-
-
-# class ProductViewSet(viewsets.ModelViewSet):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     http_method_names = ['get']
-
-
-# class AboutViewSet(viewsets.ModelViewSet):
-#     queryset = About.objects.all()
-#     serializer_class = AboutSerializer
-#     http_method_names = ['get']
-
-
-# class ProejctViewSet(viewsets.ModelViewSet):
-#     queryset = Project.objects.all()
-#     serializer_class = ProjectSerializer
-
-
 # адреса с get-запросами, которые должны работать:
-# 1. singeo/news/ - страница со всеми новостями
-# 2. singep/news/{news_id}/ - страница с отдельной новостью
+# 1. singeo/ - главная страница
+# 2. singeo/about/ - страница с разделом 'о нас'
 # 3. singeo/products/ -  страница со всеми продуктами
 # 4. singeo/products/{product_id}/ - страница с отдельным товаром
-# 5. singeo/about/ - страница с разделом 'о нас'
-# 6. singeo/ - главная страница
-# 7. singeo/project/ - страница с продуктами
-# 8. singeo/projects/{project_id} - страница с отдельным продуктом
-
+# 5. singeo/project/ - страница с продуктами
+# 6. singeo/projects/{project_id} - страница с отдельным проектом
+# 7. singeo/news/ - страница со всеми новостями
+# 8. singep/news/{news_id}/ - страница с отдельной новостью
 # остальные методы доступны только админу
