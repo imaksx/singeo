@@ -1,8 +1,64 @@
 from rest_framework import viewsets
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
+import os
+import zipfile
+from django.http import HttpResponse
+from django.conf import settings
 
-from content.models import New, Product, About, Project
+from content.models import New, Product, About, Project, AboutCompany, Colleague, Certificate
 # from .serializers import NewSerializer, ProductSerializer, AboutSerializer, ProjectSerializer
+
+
+def download_certificates(request):
+    # Предполагается, что у вас есть связь между AboutCompany и Certificate
+    certificates = Certificate.objects.all()
+
+    # Создаем временный ZIP-файл
+    zip_filename = 'certificates.zip'
+    zip_filepath = os.path.join(settings.MEDIA_ROOT, zip_filename)
+
+    with zipfile.ZipFile(zip_filepath, 'w') as zip_file:
+        for certificate in certificates:
+            if certificate.image:  # Проверяем, что у сертификата есть изображение
+                zip_file.write(certificate.image.path,
+                               os.path.basename(certificate.image.path))
+
+    # Отправляем ZIP-файл пользователю
+    with open(zip_filepath, 'rb') as zip_file:
+        response = HttpResponse(
+            zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename={zip_filename}'
+
+    # Удаляем временный файл после отправки
+    os.remove(zip_filepath)
+
+    return response
+
+
+def about_company_view(request):
+    about_company = AboutCompany.objects.first()
+
+    established_year = 2019
+    current_year = timezone.now().year
+    years_in_market = current_year - established_year
+    certificates = Certificate.objects.all()
+    project_count = Project.objects.count()
+    logo_images = about_company.logo_images.all()
+    company_pdfs = about_company.pdfs.all()
+    colleagues = Colleague.objects.all()
+
+    context = {
+        'about_company': about_company,
+        'colleagues': colleagues,
+        'years_in_market': years_in_market,
+        'project_count': project_count,
+        'certificates': certificates,
+        'logo_images': logo_images,
+        'company_pdfs': company_pdfs
+    }
+
+    return render(request, 'main/about_company.html', context)
 
 
 def about_view(request):

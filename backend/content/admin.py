@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import New, Product, About, Project, ProjectProduct, ProjectRegion, Region, Map, MapRegion, Certificate, TechnicalDescription
-
+from .models import New, Product, About, Project, ProjectProduct, ProjectRegion, Region, Map, MapRegion, Certificate, TechnicalDescription, AboutCompany, Colleague, LogoImage, CompanyPDF
 
 class CertificateInline(admin.TabularInline):
     model = Certificate
@@ -27,3 +26,7 @@ admin.site.register(ProjectRegion)
 admin.site.register(Map)
 admin.site.register(MapRegion)
 admin.site.register(TechnicalDescription)
+admin.site.register(AboutCompany)
+admin.site.register(Colleague)
+admin.site.register(LogoImage)
+admin.site.register(CompanyPDF)
