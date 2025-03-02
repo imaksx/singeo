@@ -3,25 +3,12 @@ from django.db import models
 
 class New(models.Model):
     """Модель новости."""
-
-    name = models.CharField(
-        max_length=256,
-        verbose_name='Заголовок новости')
+    name = models.CharField(max_length=256, verbose_name='Заголовок новости')
     pub_date = models.DateField(
-        verbose_name='Дата выхода новости',
-        auto_now_add=True)
-    text = models.TextField(
-        verbose_name='Текст новости')
-    image = models.ImageField(
-        upload_to='news_images/',
-        null=True,
-        default=None,
-        verbose_name='Фотография новости')
-    video = models.FileField(
-        upload_to='news_videos/',
-        null=True,
-        blank=True,
-        verbose_name='Видео новости')
+        verbose_name='Дата выхода новости', auto_now_add=True)
+    text = models.TextField(verbose_name='Текст новости')
+    video = models.FileField(upload_to='news_videos/',
+                             null=True, blank=True, verbose_name='Видео новости')
 
     class Meta:
         verbose_name = 'Новость'
@@ -29,6 +16,18 @@ class New(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class NewsImage(models.Model):
+    """Модель для изображений новостей."""
+    news = models.ForeignKey(New, related_name='images',
+                             on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='news_images/',
+                              verbose_name='Фотография новости')
+
+    class Meta:
+        verbose_name = 'Изображение новости'
+        verbose_name_plural = 'Изображения новостей'
 
 
 class TechnicalDescription(models.Model):
@@ -74,7 +73,7 @@ class Certificate(models.Model):
         upload_to='certificates/',
         verbose_name='Изображение сертификата')
     about = models.ForeignKey(
-        'About',
+        'AboutIndex',
         related_name='certificates',
         on_delete=models.CASCADE)
 
@@ -83,8 +82,8 @@ class Certificate(models.Model):
         verbose_name_plural = 'Сертификаты'
 
 
-class About(models.Model):
-    """Модель для контактной информации."""
+class AboutIndex(models.Model):
+    """Модель для главной страницы, подвала и хедера."""
 
     phone = models.TextField(
         verbose_name='Номер телефона')
@@ -101,7 +100,8 @@ class About(models.Model):
         verbose_name="Описание 'О компании' для второго блока главной страницы")
 
     class Meta:
-        verbose_name = 'О нас'
+        verbose_name = 'Модель для главной страницы'
+        verbose_name_plural = 'Модели для главной страницы'
 
 
 class AboutCompany(models.Model):
@@ -141,6 +141,7 @@ class CompanyPDF(models.Model):
 
     def __str__(self):
         return f"PDF Файл: {self.file.name}"
+
 
 class LogoImage(models.Model):
     """Модель для логотипов компании"""

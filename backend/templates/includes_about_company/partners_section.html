@@ -1,0 +1,14 @@
+
+<section class="partners">
+    <div class="container">
+        <div class="partners__inner">
+            {% for logo_image in logo_images %}
+            <div class="partners__item">
+                <img src="{{ logo_image.image.url }}" alt="Логотип" class="partners__item__img">
+            </div>
+            {% empty %}
+            <p>Нет логотипов для отображения.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

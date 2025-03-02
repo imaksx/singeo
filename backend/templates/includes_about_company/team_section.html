@@ -1,0 +1,30 @@
+<section class="team">
+    <div class="container">
+        <h2 class="section__title team__title">Команда</h2>
+        <div class="team__inner">
+            <div class="team__preview">
+                <img src="{{ about_company.colleagues_main_image.url }}" alt="" class="team__preview__img">
+            </div>
+            <div class="team__content">
+                <p class="team__content__paragraph">
+                    {{ about_company.colleagues_description }}
+                </p>
+            </div>
+            <div class="team__carousel carousel">
+                <div class="team__carousel__cards carousel__cards">
+                    {% for colleague in colleagues %}
+                        <div class="carousel-item card team__card">
+                            <div class="card__preview">
+                                <img src="{{ colleague.image.url }}" alt="{{ colleague.name }}" class="card__prev-img">
+                            </div>
+                            <div class="card__content">
+                                <div class="card__title">{{ colleague.name }}</div>
+                                <div class="card__desc">{{ colleague.position }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

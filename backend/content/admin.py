@@ -1,13 +1,26 @@
 from django.contrib import admin
+from .models import (New, Product,
+                     AboutIndex,
+                     Project,
+                     ProjectProduct,
+                     ProjectRegion,
+                     Region,
+                     Map,
+                     MapRegion,
+                     Certificate,
+                     TechnicalDescription,
+                     AboutCompany, Colleague,
+                     LogoImage,
+                     CompanyPDF, NewsImage
+                     )
 
-from .models import New, Product, About, Project, ProjectProduct, ProjectRegion, Region, Map, MapRegion, Certificate, TechnicalDescription, AboutCompany, Colleague, LogoImage, CompanyPDF
 
 class CertificateInline(admin.TabularInline):
     model = Certificate
     extra = 1  # Количество пустых форм для добавления новых сертификатов
 
 
-@admin.register(About)
+@admin.register(AboutIndex)
 class AboutAdmin(admin.ModelAdmin):
     inlines = [CertificateInline]
 
@@ -17,7 +30,26 @@ class CertificateAdmin(admin.ModelAdmin):
     list_display = ['image']
 
 
-admin.site.register(New)
+class NewsImageInline(admin.TabularInline):
+    model = NewsImage
+    extra = 1  # Количество пустых форм для добавления новых изображений
+
+
+@admin.register(New)
+class NewAdmin(admin.ModelAdmin):
+    list_display = ('name', 'pub_date')
+    inlines = [NewsImageInline]  # Добавляем встроенные модели
+
+
+@admin.register(NewsImage)
+class NewsImageAdmin(admin.ModelAdmin):
+    list_display = ('news', 'image')
+
+
+# Удалите следующую строку, чтобы избежать ошибки
+# admin.site.register(NewsImage)  # Эта строка вызывает ошибку
+
+# Регистрация остальных моделей
 admin.site.register(Product)
 admin.site.register(Project)
 admin.site.register(Region)

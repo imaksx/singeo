@@ -1,0 +1,34 @@
+<section class="products">
+    <div class="container">
+        <h2 class="section__title products__title">
+            <a href="{% url 'products' %}" class="section__title__link about-us__title__link">Продукция</a>
+        </h2>
+
+        <div class="products__carousel">
+            <div class="products__carousel__cards carousel__cards">
+                {% for product in products %}
+                <div class="carousel-item card" id="card-{{ forloop.counter }}">
+                    <div class="card__preview">
+                        <img src="{{ product.preview.url }}" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                        <div class="card__title">{{ product.name }}</div>
+                        <div class="card__desc">{{ product.short_description }}</div>
+                        <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
+                            <span>Смотреть</span>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="products__carousel__pagination carousel__pagination carousel__pagination_arrow">
+                <div class="products__carousel__pagination-prev carousel__pagination-prev">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                </div>
+                <div class="products__carousel__pagination-next carousel__pagination-next">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

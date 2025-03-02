@@ -6,10 +6,8 @@ from django.conf.urls.static import static
 
 from api.views import (
     index_view,
-    about_view,
     products_view,
     product_detail_view,
-    # projects_view,
     project_list,
     project_detail_view,
     news_view,
@@ -20,18 +18,7 @@ from api.views import (
 
 router = SimpleRouter()
 
-# router.register('news', NewViewSet, basename='news')
-# router.register('products', ProductViewSet, basename='products')
-# router.register('about', AboutViewSet, basename='about')
-# router.register('projects', ProejctViewSet, basename='projects')
-
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('', include(router.urls))
-# ]
 urlpatterns = [
-    # URL для страницы с продуктами
     path('about/', about_company_view, name='about'),
     path('', index_view, name='index'),
     path('projects/', project_list, name='projects'),
@@ -41,10 +28,11 @@ urlpatterns = [
     path('news/', news_view, name='news'),
     path('news/<int:id>/', new_detail_view, name='news_detail'),
     path('admin/', admin.site.urls),
-    path('download-certificates/', download_certificates, name='download_certificates')
+    path('download-certificates/', download_certificates,
+         name='download_certificates')
 
 ]
 
-if settings.DEBUG:  # Убедитесь, что это в режиме разработки
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

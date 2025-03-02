@@ -40,11 +40,12 @@
         <div class="news__grid">
             <div class="news__row">
                 {% for article in news %}
-
                     <div class="card card_shadow">
                         <div class="card__prev">
-                            {% if article.image %}
-                            <img src="{{ article.image.url }}" alt="card__prev-img">
+                            {% if article.images.count > 0 %}
+                                <img src="{{ article.images.first.image.url }}" alt="card__prev-img" class="news-image">
+                            {% else %}
+                                <p>Нет изображений</p>
                             {% endif %}
                         </div>
                         <div class="card__content ">
@@ -58,7 +59,6 @@
                             </a>
                         </div>
                     </div>
-
                 {% endfor %}
             </div>
         </div>
