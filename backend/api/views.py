@@ -6,31 +6,34 @@ import zipfile
 from django.http import HttpResponse
 from django.conf import settings
 
-from content.models import New, Product, About, Project, AboutCompany, Colleague, Certificate
-# from .serializers import NewSerializer, ProductSerializer, AboutSerializer, ProjectSerializer
+from content.models import (
+    New,
+    Product,
+    Project,
+    AboutCompany,
+    Colleague,
+    Certificate
+)
 
 
 def download_certificates(request):
-    # Предполагается, что у вас есть связь между AboutCompany и Certificate
-    certificates = Certificate.objects.all()
+    """Функция для скачивания архива с сертификатами."""
 
-    # Создаем временный ZIP-файл
+    certificates = Certificate.objects.all()
     zip_filename = 'certificates.zip'
     zip_filepath = os.path.join(settings.MEDIA_ROOT, zip_filename)
 
     with zipfile.ZipFile(zip_filepath, 'w') as zip_file:
         for certificate in certificates:
-            if certificate.image:  # Проверяем, что у сертификата есть изображение
+            if certificate.image:
                 zip_file.write(certificate.image.path,
                                os.path.basename(certificate.image.path))
 
-    # Отправляем ZIP-файл пользователю
     with open(zip_filepath, 'rb') as zip_file:
         response = HttpResponse(
             zip_file.read(), content_type='application/zip')
         response['Content-Disposition'] = f'attachment; filename={zip_filename}'
 
-    # Удаляем временный файл после отправки
     os.remove(zip_filepath)
 
     return response
@@ -55,27 +58,19 @@ def about_company_view(request):
         'project_count': project_count,
         'certificates': certificates,
         'logo_images': logo_images,
-        'company_pdfs': company_pdfs
+        'company_pdfs': company_pdfs,
     }
 
     return render(request, 'main/about_company.html', context)
 
 
-def about_view(request):
-    about = About.objects.first()  # Получаем первую запись о компании
-    return render(request, 'about.html', {'about': about})
-
-
 def index_view(request):
-    products = Product.objects.all()  # Получаем все продукты
-    projects = Project.objects.all()  # Получаем все проекты
-    # Получаем информацию о компании (предполагается, что она одна)
-    about = About.objects.first()
+    products = Product.objects.all()
+    projects = Project.objects.all()
 
     return render(request, 'main/index.html', {
         'products': products,
         'projects': projects,
-        'about': about,  # Передаем экземпляр About в контекст
     })
 
 
@@ -116,25 +111,11 @@ def project_detail_view(request, id):
 
 
 def news_view(request):
-    # НЕ РАБОТАЕТ СОРТИРОВКА
     news = New.objects.all().order_by('-pub_date')
-
     return render(request, 'main/news.html', {'news': news})
 
 
 def new_detail_view(request, id):
     article = get_object_or_404(New, id=id)  # Получаем новость по ID
-    # Передаем article в контекст
-    return render(request, 'main/news_detail.html', {'article': article})
-
-
-# адреса с get-запросами, которые должны работать:
-# 1. singeo/ - главная страница
-# 2. singeo/about/ - страница с разделом 'о нас'
-# 3. singeo/products/ -  страница со всеми продуктами
-# 4. singeo/products/{product_id}/ - страница с отдельным товаром
-# 5. singeo/project/ - страница с продуктами
-# 6. singeo/projects/{project_id} - страница с отдельным проектом
-# 7. singeo/news/ - страница со всеми новостями
-# 8. singep/news/{news_id}/ - страница с отдельной новостью
-# остальные методы доступны только админу
+    images = article.images.all()  # Получаем все изображения для этой новости
+    return render(request, 'main/news_detail.html', {'article': article, 'images': images})

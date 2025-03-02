@@ -1,65 +1,6 @@
-<!-- main/templates/main/header.html -->
 {% load static %}
 <header class="header">
 
-    <div class="container">
-      <div class="header__wrapper">
-        <div class="header__main-menu">
-            <div class="header__logo">
-                <a href="{% url 'index' %}" class="header__logo_link">
-                    <img src="{% static 'main/src/img/logo.png' %}" alt="Логотип" class="header__logo__img">
-                </a>
-            </div>
-
-            <div class="header__contacts">
-                <div class="header__contacts__phone">
-                    <img src="{% static 'main/src/icon/phone.svg' %}" alt="Телефон" class="header__contacts__phone__icon">
-                    <a href="tel:+7-999-999-99-99" class="header__contacts__phone__text">+7-999-999-99-99</a>
-                </div>
-                <div class="header__contacts__mail">
-                    <img src="{% static 'main/src/icon/email.svg' %}" alt="Email" class="header__contacts__mail__icon">
-                    <a href="mailto:sintezgeo@mail.ru" class="header__contacts__phone__text">sintezgeo@mail.ru</a>
-                </div>
-            </div>
-        </div>
-
-        <nav class="header__navbar navbar">
-          <ul class="header__navbar__list">
-            <a href="{% url 'about' %}" class="header__navbar__list__link">
-              <li class="header__navbar__list__item">
-                о компании
-              </li>
-            </a>
-            <li class="header__navbar__list__divider"></li>
-            <a href="{% url 'products' %}" class="header__navbar__list__link">
-              <li class="header__navbar__list__item">
-                продукция
-              </li>
-            </a>
-            <li class="header__navbar__list__divider"></li>
-            <a href="{% url 'projects' %}" class="header__navbar__list__link">
-              <li class="header__navbar__list__item">
-                проекты
-              </li>
-            </a>
-            <li class="header__navbar__list__divider"></li>
-            <a href="{% url 'news' %}" class="header__navbar__list__link">
-              <li class="header__navbar__list__item">
-                новости
-              </li>
-            </a>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-  </header>
-
-
-
-
-  
-{% comment %} <header class="header">
     <div class="container">
         <div class="header__wrapper">
             <div class="header__main-menu">
@@ -72,23 +13,35 @@
                 <div class="header__contacts">
                     <div class="header__contacts__phone">
                         <img src="{% static 'main/src/icon/phone.svg' %}" alt="Телефон" class="header__contacts__phone__icon">
-                        <a href="tel:+7-999-999-99-99" class="header__contacts__phone__text">+7-999-999-99-99</a>
+                        <a href="tel:{{ about_index.phone }}" class="header__contacts__phone__text">{{ about_index.phone }}</a>
                     </div>
                     <div class="header__contacts__mail">
                         <img src="{% static 'main/src/icon/email.svg' %}" alt="Email" class="header__contacts__mail__icon">
-                        <a href="mailto:sintezgeo@mail.ru" class="header__contacts__phone__text">sintezgeo@mail.ru</a>
+                        <a href="mailto:{{ about_index.email }}" class="header__contacts__mail__text">{{ about_index.email }}</a>
                     </div>
                 </div>
             </div>
 
             <nav class="header__navbar navbar">
                 <ul class="header__navbar__list">
-                    <li><a href="{% url 'about' %}" class="header__navbar__list__link">О компании</a></li>
-                    <li><a href="{% url 'products' %}" class="header__navbar__list__link">Продукция</a></li>
-                    <li><a href="{% url 'projects' %}" class="header__navbar__list__link">Проекты</a></li>
-                    <li><a href="{% url 'news' %}" class="header__navbar__list__link">Новости</a></li>
+                    <a href="{% url 'about' %}" class="header__navbar__list__link">
+                        <li class="header__navbar__list__item">о компании</li>
+                    </a>
+                    <li class="header__navbar__list__divider"></li>
+                    <a href="{% url 'products' %}" class="header__navbar__list__link">
+                        <li class="header__navbar__list__item">продукция</li>
+                    </a>
+                    <li class="header__navbar__list__divider"></li>
+                    <a href="{% url 'projects' %}" class="header__navbar__list__link">
+                        <li class="header__navbar__list__item">проекты</li>
+                    </a>
+                    <li class="header__navbar__list__divider"></li>
+                    <a href="{% url 'news' %}" class="header__navbar__list__link">
+                        <li class="header__navbar__list__item">новости</li>
+                    </a>
                 </ul>
             </nav>
         </div>
     </div>
-</header> {% endcomment %}
+
+</header>

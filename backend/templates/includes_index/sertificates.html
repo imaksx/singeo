@@ -1,0 +1,46 @@
+<section class="sertificates">
+    <div class="container">
+        <h2 class="section__title sertificates__title">
+            <a href="#" class="section__title__link sertificates__title__link">Сертификаты</a>
+        </h2>
+        <div class="sertificates__wrapper">
+            <div class="sertificates__inner scroll_animate">
+                {% if about_index.certificates.count|divisibleby:2 %}
+                    <div class="sertificate__inner_left__animation">
+                        {% for sertificate in about_index.certificates.all|slice:":half" %}
+                        <div class="sertificates__item">
+                            <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                        </div>
+                        {% empty %}
+                        <p>Нет сертификатов для отображения.</p>
+                        {% endfor %}
+                    </div>
+                    <div class="sertificate__inner_right__animation">
+                        {% for sertificate in about_index.certificates.all|slice:"half:" %}
+                        <div class="sertificates__item">
+                            <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                        </div>
+                        {% empty %}
+                        <p>Нет сертификатов для отображения.</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="sertificate__inner_left__animation">
+                        {% for sertificate in about_index.certificates.all %}
+                        <div class="sertificates__item">
+                            <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                        </div>
+                        {% empty %}
+                        <p>Нет сертификатов для отображения.</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="button__accent__light button sertificates__button">
+                <a href="{% url 'download_certificates' %}" class="button__link">
+                    <i class="fas fa-solid fa-download"></i>
+                    <span class="sertificates__button__text">Скачать всё</span>
+                </a>
+            </div>
+        </div>
+    </div>
