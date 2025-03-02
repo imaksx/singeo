@@ -1,0 +1,178 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}О компании{% endblock %}
+
+
+
+{% block content %}
+
+<div class="identificator" data-page="about"></div>  
+
+  <div class="about-us">
+    <div class="container">
+      <h2 class="about-us__title">О нас</h2>
+      <div class="about-us__desc">
+        <p class="about-us__text">{{ about_company.company_description }}</p>
+        <div class="about-us__info">
+          <div class="about-us__info__item">
+            <div class="about-us__info__item__accent">{{ years_in_market }} лет</div>
+            <div class="about-us__info__item__text">на рынке</div>
+          </div>
+          <div class="about-us__info__item">
+            <div class="about-us__info__item__accent">{{ project_count }} проектов</div>
+            <div class="about-us__info__item__text">действующих</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="download">
+    <div class="container">
+        <div class="download__wrapper">
+            {% for company_pdf in company_pdfs %}
+                <div class="download__area">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <a href="{{ company_pdf.file.url }}" class="download__link">{{ company_pdf.name }}</a>
+                </div>
+            {% empty %}
+                <p>Нет доступных PDF-файлов для загрузки.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+  <section class="team">
+    <div class="container">
+      <h2 class="section__title team__title">Команда</h2>
+      <div class="team__inner">
+        <div class="team__preview">
+          <img src="{{ about_company.colleagues_main_image.url }}" alt="" class="team__preview__img">
+        </div>
+        <div class="team__content">
+          <p class="team__content__paragraph">
+            {{about_company.colleagues_description}}
+          </p>
+        </div>
+        <div class="team__carousel carousel">
+          <div class="team__carousel__cards carousel__cards">
+            {% for colleague in colleagues %}
+              <div class="carousel-item card team__card">
+                <div class="card__preview">
+                  <img src="{{ colleague.image.url }}" alt="{{ colleague.name }}" class="card__prev-img">
+                </div>
+                <div class="card__content">
+                  <div class="card__title">{{ colleague.name }}</div>
+                  <div class="card__desc">{{ colleague.position }}</div>
+                  <a href="#" class="button button__accent card__button">
+                    <span>Смотреть</span>
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="structure">
+  <div class="container">
+
+    <h2 class="section__title structure__title">
+      <a href="#" class="section__title__link structure__title__link">
+        Структура работ
+      </a>
+    </h2>
+
+    <div class="structure__wrapper">
+      <div class="structure__inner">
+        <div class="structure__item">
+          <img src="{% static 'main/src/img/structure-1.png' %}" alt="" class="structure__item__img">
+          <span class="structure__item__title">Проектирование</span>
+        </div>
+        <div class="structure__item">
+          <img src="{% static 'main/src/img/structure-2.png' %}" alt="" class="structure__item__img">
+          <span class="structure__item__title">Производство</span>
+        </div>
+        <div class="structure__item">
+          <img src="{% static 'main/src/img/structure-3.png' %}" alt="" class="structure__item__img">
+          <span class="structure__item__title">Монтаж</span>
+        </div>
+        <div class="structure__item">
+          <img src="{% static 'main/src/img/structure-4.png' %}" alt="" class="structure__item__img">
+          <span class="structure__item__title">Сервис</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sertificates">
+  <div class="container">
+      <h2 class="section__title sertificates__title">
+          <a href="#" class="section__title__link sertificates__title__link">Сертификаты</a>
+      </h2>
+      <div class="sertificates__wrapper">
+          <div class="sertificates__inner scroll_animate">
+              {% if certificates.count|divisibleby:2 %}
+                  <div class="sertificate__inner_left__animation">
+                      {% for sertificate in certificates|slice:":half" %}
+                      <div class="sertificates__item">
+                          <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                      </div>
+                      {% empty %}
+                      <p>Нет сертификатов для отображения.</p>
+                      {% endfor %}
+                  </div>
+                  <div class="sertificate__inner_right__animation">
+                      {% for sertificate in certificates|slice:"half:" %}
+                      <div class="sertificates__item">
+                          <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                      </div>
+                      {% empty %}
+                      <p>Нет сертификатов для отображения.</p>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  <div class="sertificate__inner_left__animation">
+                      {% for sertificate in certificates %}
+                      <div class="sertificates__item">
+                          <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
+                      </div>
+                      {% empty %}
+                      <p>Нет сертификатов для отображения.</p>
+                      {% endfor %}
+                  </div>
+              {% endif %}
+          </div>
+          <div class="button__accent__light button sertificates__button">
+              <a href="{% url 'download_certificates' %}" class="button__link">
+                  <i class="fas fa-solid fa-download"></i>
+                  <span class="sertificates__button__text">Скачать всё</span>
+              </a>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section class="partners">
+  <div class="container">
+    <div class="partners__inner">
+      {% for logo_image in logo_images %}
+      <div class="partners__item">
+          <img src="{{ logo_image.image.url }}" alt="Логотип" class="partners__item__img">
+      </div>
+      {% empty %}
+      <p>Нет логотипов для отображения.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+</main>
+
+
+{% endblock %}
+

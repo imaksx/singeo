@@ -14,6 +14,8 @@ from api.views import (
     project_detail_view,
     news_view,
     new_detail_view,
+    about_company_view,
+    download_certificates
 )
 
 router = SimpleRouter()
@@ -30,7 +32,7 @@ router = SimpleRouter()
 # ]
 urlpatterns = [
     # URL для страницы с продуктами
-    path('about/', about_view, name='about'),
+    path('about/', about_company_view, name='about'),
     path('', index_view, name='index'),
     path('projects/', project_list, name='projects'),
     path('projects/<int:id>/', project_detail_view, name='project_detail'),
@@ -39,6 +41,7 @@ urlpatterns = [
     path('news/', news_view, name='news'),
     path('news/<int:id>/', new_detail_view, name='news_detail'),
     path('admin/', admin.site.urls),
+    path('download-certificates/', download_certificates, name='download_certificates')
 
 ]
 

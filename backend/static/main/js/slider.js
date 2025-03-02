@@ -229,7 +229,8 @@ var initSlider = function (countWidth, carousel) {
   let currentItem = 0;
   let isAnimate = false;
 
-  if (carouselItemList.length <= 0) {
+  if (carouselItemList.length <= countWidth || carouselItemList.length <= 0) {
+    if (carouselPagArrow) carouselPagArrow.style.display = "none";
     return;
   }
 
@@ -243,7 +244,7 @@ var initSlider = function (countWidth, carousel) {
     });
 
     carouselPagPoint.addEventListener("click", (e) => {
-      if (!e.target.closest(".carousel__pagination_point") || isAnimate) return;
+      if (!e.target.closest(".carousel__pagination_point") || isAnimate || !e.target.closest(".carousel__pagination_point__item")) return;
       let target = e.target.closest(".carousel__pagination_point__item");
 
       target.style.opacity = ".6";
@@ -311,13 +312,29 @@ var initSlider = function (countWidth, carousel) {
 
 const project = document.querySelector(".projects");
 const product = document.querySelector(".products");
-const projectCarousels = project.querySelectorAll(".carousel");
-const productCarousels = product.querySelectorAll(".carousel");
-
-projectCarousels.forEach((carousel) => {
-  initSlider(1, carousel);
-});
-
-productCarousels.forEach((carousel) => {
-  initSlider(4, carousel);
-});
+const news = document.querySelector(".news__banner");
+const team = document.querySelector(".team");
+if (project) {
+  const projectCarousels = project.querySelectorAll(".carousel");
+  projectCarousels.forEach((carousel) => {
+    initSlider(1, carousel);
+  });
+}
+if (product) {
+  const productCarousels = product.querySelectorAll(".carousel");
+  productCarousels.forEach((carousel) => {
+    initSlider(4, carousel);
+  });
+}
+if (news) {
+  const newsCarousels = news.querySelectorAll(".carousel");
+  newsCarousels.forEach((carousel) => {
+    initSlider(1, carousel);
+  });
+}
+if (team) {
+  const teamCarousels = team.querySelectorAll(".carousel");
+  teamCarousels.forEach((carousel) => {
+    initSlider(4, carousel);
+  });
+}

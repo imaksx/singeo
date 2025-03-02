@@ -96,12 +96,76 @@ class About(models.Model):
     slogan = models.TextField(
         verbose_name="Слоган")
     description_1 = models.TextField(
-        verbose_name="Описание 'О нас' для первого блока")
+        verbose_name="Описание 'О компании' для первого блока главной страницы")
     description_2 = models.TextField(
-        verbose_name="Описание 'О нас' для второго блока")
+        verbose_name="Описание 'О компании' для второго блока главной страницы")
 
     class Meta:
         verbose_name = 'О нас'
+
+
+class AboutCompany(models.Model):
+    """Модель для раздела 'О нас'"""
+
+    company_description = models.TextField(
+        verbose_name='Текст с описанием компании в самом верху страницы'
+    )
+    colleagues_description = models.TextField(
+        verbose_name="Текст для раздела 'Команда'",
+        null=True
+    )
+    colleagues_main_image = models.ImageField(
+        verbose_name="Общее фото для раздела 'Команда'",
+        upload_to='company_image/',
+    )
+    colleagues = models.ManyToManyField(
+        'Colleague',
+        related_name='companies',
+        blank=True,
+        verbose_name='Коллеги',
+    )
+
+    def __str__(self):
+        return "О компании"
+
+
+class CompanyPDF(models.Model):
+    """Модель для хранения PDF-файлов, связанных с компанией."""
+    file = models.FileField(upload_to='pdfs/company/')
+    name = models.CharField(max_length=255, verbose_name='Название файла')
+    about_company = models.ForeignKey(
+        'AboutCompany',
+        related_name='pdfs',
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"PDF Файл: {self.file.name}"
+
+class LogoImage(models.Model):
+    """Модель для логотипов компании"""
+    image = models.ImageField(upload_to='logo_images/',
+                              verbose_name='Логотип компании')
+    about_company = models.ForeignKey(
+        AboutCompany,
+        related_name='logo_images',
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"Логотип для {self.about_company}"
+
+
+class Colleague(models.Model):
+    """Модель для коллег компании"""
+
+    name = models.CharField(max_length=255, verbose_name='Имя коллеги')
+    position = models.TextField(verbose_name='Должность')
+    image = models.ImageField(upload_to='colleagues_images/',
+                              verbose_name='Фотография коллеги')
+
+    def __str__(self):
+        return self.name
 
 
 class Region(models.Model):
@@ -163,7 +227,7 @@ class Project(models.Model):
 
 class TagForProject(models.Model):
     """Модель объектов для товара."""
-    #ПОКА НИКУДА НЕ ПОДКЛЮЧЕН
+    # ПОКА НИКУДА НЕ ПОДКЛЮЧЕН
     name = models.CharField(
         max_length=32,
         verbose_name='Название отрасли')
