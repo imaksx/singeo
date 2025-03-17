@@ -2137,9 +2137,16 @@ button{
   .header__navbar__list__link{
     color: var(--color-light);
   }
+  .banner{
+    height: 100vh;
+  }
 
   .banner__title{
     width: 280px;
+  }
+
+  .banner__wrapper{
+    padding-inline: 3.6rem;
   }
 
   .company__column__wrapper{
@@ -2258,6 +2265,21 @@ button{
     font-size: 7rem;
   }
 
+  .download__wrapper,
+  .team__title,
+  .team__content,
+  .team__carousel,
+  .structure__title,
+  .sertificates__title,
+  .news__title,
+  .sertificates__wrapper,
+  .products__title,
+  .products__carousel
+  {
+    padding-inline: 3.6rem;
+  }
+
+
   .download__wrapper{
     display: flex;
     flex-direction: column;
@@ -2269,20 +2291,7 @@ button{
     justify-content: start;
   }
 
-  .download__wrapper,
-  .team__title,
-  .team__content,
-  .team__carousel,
-  .structure__title,
-  .sertificates__title,
-  .sertificates__wrapper,
-  .projects__title,
-  .products__title,
-  .products__carousel
-  {
-    padding-inline: 3.6rem;
-  }
-
+  
   .structure__inner{
     display: flex;
     flex-direction: column;
@@ -2313,24 +2322,55 @@ button{
     overflow-x: scroll;
   }
 
-  .products__row{
+  .products__row,
+  .news__row{
     justify-content: center;
     align-items: center;
     padding-inline: 3.6rem;
   }
 
-  .products__row > .card{
+  .products__row > .card,
+  .projects__row > .card,
+  .news__row > .card{
     width: 100%;
     height: 424px;
   }
 
-  .products__row .card__prev{
+  .products__row .card__prev,
+  .projects__row .card__prev,
+  .news__row .card__prev{
     display: flex;
     flex: 1;
   }
 
-  .products__row .card__prev > img{
+  .products__row .card__prev > img,
+  .projects__row .card__prev > img,
+  .news__row .card__prev > img{
     height: auto;
     object-fit: cover;
+  }
+
+  .projects{
+    padding-top: 95px;
+    padding-inline: 3.6rem;
+  }
+
+  .projects__filters{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .projects__filters > div{
+    width: 100%;
+  }
+
+  .filters__area.active .projects__filters__dropdown{
+    z-index: 1;
+  }
+
+  .projects__row{
+    display: flex;
+    flex-direction: column;
   }
 }

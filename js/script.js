@@ -61,35 +61,6 @@ YourNamespace = {
       });
     },
   },
-  products: {
-    init: function () {
-      const filters = document.querySelector(".product__filters");
-      const filtersItems = document.querySelectorAll(".product__filters__item__text");
-
-      //console.log(filters);
-
-      filters.addEventListener("click", (e) => {
-        //console.log(!e.target.closest(".product__filters__dropdown"));
-        //console.log(!e.target.closest(".product__filters__area"));
-
-        if (!e.target.closest(".product__filters__area") || e.target.closest(".product__filters__dropdown")) return;
-        let target = e.target.closest(".product__filters__area");
-        //console.log(target);
-
-        target.classList.toggle("active");
-
-        showDropDown();
-      });
-
-      filtersItems.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          item.previousElementSibling.checked = item.previousElementSibling.checked ? false : true;
-        });
-      });
-
-      function showDropDown(item) {}
-    },
-  },
   product: {
     init: function () {
       const props = document.querySelectorAll(".product__props");
@@ -217,6 +188,9 @@ YourNamespace = {
     },
   },
 };
+
+console.log("asd");
+
 {
   UTIL = {
     fire: function (func, funcname, args) {
@@ -243,6 +217,10 @@ YourNamespace = {
   const burger = document.querySelector(".burger");
   const navbar = document.querySelector(".header__navbar");
   const logo = document.querySelector(".header__logo");
+
+  window.addEventListener("click", (e) => {
+    console.log(e.target);
+  });
 
   burger.addEventListener("click", (e) => {
     burger.classList.toggle("active");
