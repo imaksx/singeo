@@ -16,6 +16,9 @@
   <a href="#top" class="button-up">
     <img src="./src/icon/arrow_up.svg" alt="" class="button-up__img">
   </a>
+  <div class="burger">
+    <span class="burger__lines"></span>
+  </div>
 
   <header class="header">
 
@@ -24,7 +27,13 @@
         <div class="header__main-menu">
           <div class="header__logo">
             <a href="./index.html" class="header__logo_link">
-              <img src="./src/img/logo.png" alt="" class="header__logo__img">
+              <div class="header__logo__icon">
+                <img src="./src/icon/logo.svg" alt="" class="header__logo__img">
+              </div>
+              <div class="header__logo__text">
+                <div class="header__logo__title">синтезгео</div>
+                <div class="header__logo__subtitle">геотехнический мониторинг</div>
+              </div>
             </a>
           </div>
 
@@ -80,15 +89,16 @@
   <main class="main">
 
     <section class="banner">
+      <img src="./src/img/banner.png" alt="" class="banner__inner__img">
       <div class="container">
         <div class="banner__wrapper">
           <div class="banner__timestamp">25/10/2024</div>
           <div class="banner__title">
             Dorem ipsum dolor sit amet, consectetur adipiscing elit.
           </div>
-          <button class="button button__accent banner__button">
+          <a class="button button__accent banner__button" href="./news.html">
             <span>Перейти к новости</span> <!-- Проверить кнопку -->
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -426,9 +436,15 @@
           </div>
         </div>
         <div class="footer__divider"></div>
-        <div class="footer__logo">
-          <a href="./index.html" class="header__logo_link">
-            <img src="./src/img/logo_footer.png" alt="" class="header__logo__img">
+        <div class="header__logo footer__logo">
+          <a href="./index.html" class="header__logo_link footer__logo_link">
+            <div class="header__logo__icon footer__logo__icon">
+              <img src="./src/icon/logo.svg" alt="" class="header__logo__img footer__logo__img">
+            </div>
+            <div class="header__logo__text footer__logo__text">
+              <div class="header__logo__title footer__logo__title">синтезгео</div>
+              <div class="header__logo__subtitle footer__logo__subtitle">геотехнический мониторинг</div>
+            </div>
           </a>
         </div>
       </div>

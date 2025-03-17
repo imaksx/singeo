@@ -217,26 +217,39 @@ YourNamespace = {
     },
   },
 };
+{
+  UTIL = {
+    fire: function (func, funcname, args) {
+      var namespace = YourNamespace; // indicate your obj literal namespace here
 
-UTIL = {
-  fire: function (func, funcname, args) {
-    var namespace = YourNamespace; // indicate your obj literal namespace here
+      funcname = funcname === undefined ? "init" : funcname;
+      if (func !== "" && namespace[func] && typeof namespace[func][funcname] == "function") {
+        namespace[func][funcname](args);
+      }
+    },
 
-    funcname = funcname === undefined ? "init" : funcname;
-    if (func !== "" && namespace[func] && typeof namespace[func][funcname] == "function") {
-      namespace[func][funcname](args);
-    }
-  },
+    loadEvents: function () {
+      var bodyDataPage = document.querySelector(".identificator").dataset.page;
+      //console.log(bodyDataPage);
 
-  loadEvents: function () {
-    var bodyDataPage = document.querySelector(".identificator").dataset.page;
-    //console.log(bodyDataPage);
+      UTIL.fire(bodyDataPage);
+    },
+  };
 
-    UTIL.fire(bodyDataPage);
-  },
-};
+  UTIL.loadEvents();
+}
 
-UTIL.loadEvents();
+{
+  const burger = document.querySelector(".burger");
+  const navbar = document.querySelector(".header__navbar");
+  const logo = document.querySelector(".header__logo");
+
+  burger.addEventListener("click", (e) => {
+    burger.classList.toggle("active");
+    navbar.classList.toggle("active");
+    logo.classList.toggle("active");
+  });
+}
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const locOpenButton = document.querySelectorAll(".project__map__item__button");

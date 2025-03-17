@@ -262,8 +262,9 @@ var initSlider = function (countWidth, carousel) {
     nextBtn.addEventListener("click", (e) => {
       if (isAnimate) return;
       currentItem++;
+
       prevBtn.disabled = false;
-      if (currentItem >= carouselItemList.length - countWidth + 1) {
+      if (Visible(carouselItemList[carouselItemList.length - 1])) {
         nextBtn.disabled = true;
         currentItem--;
         return;
@@ -274,7 +275,7 @@ var initSlider = function (countWidth, carousel) {
       if (isAnimate) return;
       currentItem--;
       nextBtn.disabled = false;
-      if (currentItem < 0) {
+      if (Visible(carouselItemList[0])) {
         prevBtn.disabled = true;
         currentItem++;
         return;
@@ -285,8 +286,10 @@ var initSlider = function (countWidth, carousel) {
 
   var updatePosition = function (currentItem) {
     let width = carouselItemList[1].offsetLeft;
+    let width2 = carouselItemList[0].offsetWidth;
 
-    carouselInner.style.transform = `translateX(${(-currentItem * width) / 10}rem)`;
+    carouselInner.style.transform = `translateX(${-currentItem * width}px)`;
+
     isAnimate = true;
     setTimeout(() => {
       isAnimate = false;
@@ -304,6 +307,38 @@ var initSlider = function (countWidth, carousel) {
           point.style.transform = "scale(.8, .8)";
         }
       });
+    }
+  };
+
+  var Visible = function (target) {
+    const container = document.querySelector(".container");
+
+    // Все позиции элемента
+    var targetPosition = {
+        top: window.scrollY + target.getBoundingClientRect().top,
+        left: window.scrollX + target.getBoundingClientRect().left,
+        right: window.scrollX + target.getBoundingClientRect().right,
+        bottom: window.scrollY + target.getBoundingClientRect().bottom,
+      },
+      // Получаем позиции окна
+      windowPosition = {
+        top: window.scrollY,
+        left: window.scrollX + container.offsetLeft,
+        right: window.scrollX + container.offsetLeft + container.clientWidth,
+        bottom: window.scrollY + document.documentElement.clientHeight,
+      };
+
+    if (
+      // Если позиция верхней части элемента меньше позиции нижней чайти окна, то элемент виден снизу
+      targetPosition.right - 50 < windowPosition.right && // Если позиция правой стороны элемента больше позиции левой части окна, то элемент виден слева
+      targetPosition.left + 50 > windowPosition.left
+    ) {
+      // Если позиция левой стороны элемента меньше позиции правой чайти окна, то элемент виден справа
+      // Если элемент полностью видно, то запускаем следующий код
+      return true;
+    } else {
+      // Если элемент не видно, то запускаем этот код
+      return false;
     }
   };
 
