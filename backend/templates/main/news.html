@@ -18,12 +18,28 @@
 </a>
 
 <section class="banner">
+    {% if latest_news.video %}
+    <video class="banner__inner__img" autoplay muted loop>
+        <source src="{{ latest_news.video.url }}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    {% elif latest_news.images.count > 0 %}
+        <img src="{{ latest_news.images.first.image.url }}" alt="Баннер" class="banner__inner__img">
+    {% else %}
+    <div class="banner__inner__img banner__inner__img--placeholder">
+        <p>Нет медиа для отображения</p>
+    </div>
+    {% endif %}
     <div class="container">
         <div class="banner__wrapper">
+            <div class="banner__timestamp">{{ latest_news.pub_date }}</div>
             <div class="banner__title">
-                Новости
+                <a>{{ latest_news.name }}</a>
             </div>
         </div>
+        <a href="{% url 'news_detail' latest_news.id %}" class="button button__accent banner__button">
+            <span>Перейти к новости</span>
+        </a>
     </div>
 </section>
 
@@ -34,8 +50,6 @@
                 Новости
             </a>
         </h2>
-        <h4 class="section__subtitle news__subtitle">Borem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          vulputate libero et velit interdum, ac aliquet odio mattis.</h4>
 
         <div class="news__grid">
             <div class="news__row">

@@ -15,6 +15,8 @@ from content.models import (
     Certificate
 )
 
+from api.utils import format_multiline_text
+
 
 def download_certificates(request):
     """Функция для скачивания архива с сертификатами."""
@@ -96,8 +98,14 @@ def products_view(request):
 
 
 def product_detail_view(request, id):
-    product = get_object_or_404(Product, id=id)
-    return render(request, 'main/product_detail.html', {'product': product})
+    product = get_object_or_404(Product, id=id)  # Получаем продукт по ID
+    related_projects = product.project_set.all()  # Получаем связанные проекты
+
+    return render(request, 'main/product_detail.html', {
+        'product': product,
+        'related_projects': related_projects,
+        'specifications': format_multiline_text(product.specifications)
+    })
 
 
 def projects_view(request):
@@ -112,7 +120,8 @@ def project_detail_view(request, id):
 
 def news_view(request):
     news = New.objects.all().order_by('-pub_date')
-    return render(request, 'main/news.html', {'news': news})
+    latest_news = news.first()  # Получаем последнюю новость
+    return render(request, 'main/news.html', {'news': news, 'latest_news': latest_news})
 
 
 def new_detail_view(request, id):

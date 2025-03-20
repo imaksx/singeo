@@ -11,7 +11,8 @@ from .models import (New, Product,
                      TechnicalDescription,
                      AboutCompany, Colleague,
                      LogoImage,
-                     CompanyPDF, NewsImage
+                     CompanyPDF, NewsImage,
+                     ProductPDF
                      )
 
 
@@ -62,3 +63,4 @@ admin.site.register(AboutCompany)
 admin.site.register(Colleague)
 admin.site.register(LogoImage)
 admin.site.register(CompanyPDF)
+admin.site.register(ProductPDF)

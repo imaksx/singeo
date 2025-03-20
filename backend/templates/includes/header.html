@@ -1,4 +1,59 @@
-{% load static %}
+{% load static %} 
+<header class="header">
+
+  <div class="container">
+    <div class="header__wrapper">
+      <div class="header__main-menu">
+        <div class="header__logo">
+            <a href="{% url 'index' %}" class="header__logo_link">
+            <div class="header__logo__icon">
+                <img src="{% static 'main/src/img/logo.svg' %}" alt="Логотип" class="header__logo__img">
+            </div>
+            <div class="header__logo__text">
+              <div class="header__logo__title">синтезгео</div>
+              <div class="header__logo__subtitle">геотехнический мониторинг</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="header__contacts">
+            <div class="header__contacts__phone">
+                <img src="{% static 'main/src/icon/phone.svg' %}" alt="Телефон" class="header__contacts__phone__icon">
+                <a href="tel:{{ about_index.phone }}" class="header__contacts__phone__text">{{ about_index.phone }}</a>
+            </div>
+            <div class="header__contacts__mail">
+                <img src="{% static 'main/src/icon/email.svg' %}" alt="Email" class="header__contacts__mail__icon">
+                <a href="mailto:{{ about_index.email }}" class="header__contacts__mail__text">{{ about_index.email }}</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="header__navbar navbar">
+        <ul class="header__navbar__list">
+            <a href="{% url 'about' %}" class="header__navbar__list__link">
+                <li class="header__navbar__list__item">о компании</li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="{% url 'products' %}" class="header__navbar__list__link">
+                <li class="header__navbar__list__item">продукция</li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="{% url 'projects' %}" class="header__navbar__list__link">
+                <li class="header__navbar__list__item">проекты</li>
+            </a>
+            <li class="header__navbar__list__divider"></li>
+            <a href="{% url 'news' %}" class="header__navbar__list__link">
+                <li class="header__navbar__list__item">новости</li>
+            </a>
+        </ul>
+    </nav>
+    </div>
+  </div>
+
+</header>
+
+
+{% comment %} {% load static %}
 <header class="header">
 
     <div class="container">
@@ -44,4 +99,4 @@
         </div>
     </div>
 
-</header>
+</header> {% endcomment %}

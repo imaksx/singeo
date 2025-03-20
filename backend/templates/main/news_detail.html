@@ -7,16 +7,55 @@
     <img src="{% static 'main/src/icon/arrow_up.svg' %}" alt="Наверх" class="button-up__img">
 </a>
 
-<section class="banner">
-    <div class="container">
-        <div class="banner__wrapper">
-            <div class="banner__title">
-                {{ article.name }}
+<section class="banner news__banner">
+    <div class="news__carousel carousel">
+      <div class="news__carousel__cards carousel__cards">
+        {% if article.video %}
+        <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+                <div class="news__banner__background">
+                    <video controls class="news-content__article-video" autoplay muted loop>
+                        <source src="{{ article.video.url }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+                <div class="container">
+                    <div class="banner__wrapper">
+                        <div class="banner__timestamp">{{ article.pub_date }}</div>
+                        <div class="banner__title">
+                            {{ article.name }}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="banner__timestamp">{{ article.pub_date }}</div>
         </div>
+        {% endif %}
+        
+        {% for image_one in article.images.all %}
+            <div class="carousel-item news__carousel-item">
+            <div class="news__carousel-item__wrapper">
+                <div class="news__banner__background">
+                <img src="{{ image_one.image.url }}" alt="" class="news__banner__background__img">
+                </div>
+                <div class="container">
+                <div class="banner__wrapper">
+                    <div class="banner__timestamp">{{ article.pub_date }}</div>
+                    <div class="banner__title">
+                    {{ article.name }}
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+
+      </div>
+      <div class="news__carousel__pagination carousel__pagination carousel__pagination_point">
+
+      </div>
     </div>
-</section>
+
+  </section>
 
 <section class="news-content">
     <div class="container">
@@ -24,7 +63,7 @@
             <div class="news-content__text">
                 {% if article.video %}
                 <video controls class="news-content__article-video">
-                    <source src="{{ article.video.url }}" type="video/mp4">  <!-- Убедитесь, что формат видео поддерживается -->
+                    <source src="{{ article.video.url }}" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
                 {% elif article.image %}
@@ -33,12 +72,6 @@
                 <p class="news-content__paragraph">{{ article.text }}</p>
             </div>
             <div class="news-content__buttons">
-                {% comment %} <button class="button button__accent__light">
-                    <span>
-                        <i class="fa-solid fa-copy"></i>
-                        Копировать ссылку
-                    </span>
-                </button> {% endcomment %}
                 <button class="button button__accent">
                     <span>
                         <i class="fa-solid fa-share-nodes"></i>

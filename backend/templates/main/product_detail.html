@@ -3,62 +3,102 @@
 {% block title %}{{ product.name }} - Singeo{% endblock %}
 
 {% block content %}
-<section>
-    <div class="identificator" data-page="product_detail"></div>
-        <div class="container no-overflow">
-            <section class="product">
-                <h2 class="section__title project__title">{{ product.name }}</h2>
+<div class="identificator" data-page="product_detail"></div>
+<div class="container no-overflow">
+    <section class="product">
+        <h2 class="section__title project__title">{{ product.name }}</h2>
 
-                <div class="product__wrapper">
-                    <div class="product__preview">
-                        <img src="{{ product.preview.url }}" alt="{{ product.name }}" class="project__preview_img"> <!-- Изображение продукта -->
-                    </div>
-                    <div class="product__desc">
-                        <p class="project__desc__paragraph">{{ product.description }}</p>
+        <div class="product__wrapper">
+            <div class="product__preview">
+                {% if product.preview %}
+                    <img src="{{ product.preview.url }}" alt="{{ product.name }}" class="project__preview_img">
+                {% else %}
+                    <p>Изображение отсутствует</p>
+                {% endif %}
+            </div>
+            <div class="product__desc">
+                <p class="project__desc__paragraph">{{ product.description }}</p>
 
+                <div class="product__props__wrapper">
+                    {% if product.specifications %}
                         <div class="product__props">
                             <div class="product__props__title">Основные технические характеристики
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="product__props__dropdown">
                                 <ul class="product__props__list">
-                                    {% comment %} <li class="product__props__list__item">{{ product.technical_description }}</li> <!-- Display technical description --> {% endcomment %}
-                                    {% for tech_desc in product.technical_descriptions.all %}
-                                        <li class="product__props__list__item">{{ tech_desc.description }}</li>
-                                    {% endfor %}
+                                    {% for spec in specifications %}
+                                    <li class="product__props__list__item">{{ spec }}</li>
+                                {% endfor %}
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    {% endif %}
 
-            <section class="project">
-                <h2 class="section__title project__title">Действующий проект</h2>
-                <div class="project__wrapper">
-                    <div class="project__preview">
-                        <img src="{% static 'main/src/img/project.png' %}" alt="Проект" class="project__preview_img"> <!-- Изображение проекта -->
+                    {% if product.applying_object %}
+                        <div class="product__props">
+                            <div class="product__props__title">Объект применения
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="product__props__dropdown">
+                                <ul class="product__props__list">
+                                    <li class="product__props__list__item">{{ product.applying_object }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if product.sphere %}
+                        <div class="product__props">
+                            <div class="product__props__title">Отрасль
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="product__props__dropdown">
+                                <ul class="product__props__list">
+                                    <li class="product__props__list__item">{{ product.sphere }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="product__download__wrapper">
+                    {% if product.pdfs.exists %}
+                        {% for pdf in product.pdfs.all %}
+                            <div class="product__download__area">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                <a href="{{ pdf.file.url }}" class="product__download__link">{{ pdf.name }}</a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if related_projects.exists %}
+    <section class="project">
+        <h2 class="section__title project__title">Связанные проекты</h2>
+        <div class="project__wrapper">
+            {% for project in related_projects %}
+                <div class="project__preview">
+                    <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project__preview_img">
+                </div>
+                <div class="project__content">
+                    <h3 class="project__content__title"><a href="{% url 'project_detail' project.id %}" class="section__title__link company__title__link">
+                        {{ project.name }}
+                      </a></h3>
+                    <div class="project__desc">
+                        <p class="project__desc__paragraph">{{ project.description }}</p>
                     </div>
-                    <div class="project__content">
-                        <h3 class="project__content__title">Название проекта</h3>
-                        <div class="project__desc">
-                            <p class="project__desc__paragraph">
-                                Horem ipsum dolor sit amet, consectetur adipiscing elit. <!-- Здесь можно добавить описание проекта -->
-                            </p>
-                            <p class="project__desc__paragraph">
-                                Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus.
-                            </p>
-                            <p class="project__desc__paragraph">
-                                Maecenas eget condimentum velit, sit amet feugiat lectus.
-                            </p>
-                        </div>
-                        <div class="project__location">
-                            <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
-                            <span class="project__location__text">мурманск</span> <!-- Местоположение проекта -->
-                        </div>
+                    <div class="project__location">
+                        <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="project__location__text">{{ project.location }}</span>
                     </div>
                 </div>
-            </section>
+            {% endfor %}
         </div>
-</section>
+    </section>
+    {% endif %}
+</div>
 {% endblock %}

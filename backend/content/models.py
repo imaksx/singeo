@@ -57,6 +57,18 @@ class Product(models.Model):
         null=True,
         default=None,
         verbose_name='Фотография продукта')
+    specifications = models.TextField(
+        verbose_name='Основные технические характеристики',
+        default=None
+    )
+    applying_object = models.TextField(
+        verbose_name='Объект применения',
+        default=None
+    )
+    sphere = models.TextField(
+        verbose_name='Отрасль',
+        default=None
+    )
 
     class Meta:
         verbose_name = 'Продукт'
@@ -64,6 +76,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProductPDF(models.Model):
+    """Модель для хранения PDF-файлов, связанных с продуктом."""
+    file = models.FileField(upload_to='pdfs/products/')
+    name = models.CharField(max_length=255, verbose_name='Название файла')
+    product = models.ForeignKey(
+        Product,
+        related_name='pdfs',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = 'PDF файл продукта'
+        verbose_name_plural = 'PDF файлы продуктов'
+
+    def __str__(self):
+        return f"PDF Файл: {self.file.name} для продукта: {self.product.name}"
 
 
 class Certificate(models.Model):

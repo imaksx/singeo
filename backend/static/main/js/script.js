@@ -90,7 +90,7 @@ YourNamespace = {
       function showDropDown(item) {}
     },
   },
-  product: {
+  product_detail: {
     init: function () {
       const props = document.querySelectorAll(".product__props");
       props.forEach((prop) => {
