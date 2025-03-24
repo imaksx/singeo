@@ -221,6 +221,33 @@ class Region(models.Model):
         return self.name
 
 
+class ObjectTagForProject(models.Model):
+    """Модель для типа проекта."""
+    name = models.CharField(
+        max_length=32, verbose_name='Название объекта применения')
+    slug = models.SlugField(verbose_name='Тип объекта применения slug')
+
+    class Meta:
+        verbose_name = 'Объект применения'
+        verbose_name_plural = 'Объекты применения'
+
+    def __str__(self):
+        return self.name
+
+
+class IndustryTagForProject(models.Model):
+    """Модель для отрасли проекта."""
+    name = models.CharField(max_length=32, verbose_name='Название отрасли')
+    slug = models.SlugField(verbose_name='Отрасль slug')
+
+    class Meta:
+        verbose_name = 'Тег для отрасли'
+        verbose_name_plural = 'Теги для отрасли'
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     """Модель проекта."""
 
@@ -247,6 +274,10 @@ class Project(models.Model):
         through='ProjectProduct',
         verbose_name='Продукты, используемые в проекте',
         blank=False)
+    tag_object = models.ManyToManyField(
+        ObjectTagForProject, related_name='projects', verbose_name='Объект применения')
+    tag_sphere = models.ManyToManyField(
+        IndustryTagForProject, related_name='projects', verbose_name='Отрасль')
 
     class Meta:
         verbose_name = 'Проект'
@@ -254,20 +285,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class TagForProject(models.Model):
-    """Модель объектов для товара."""
-    # ПОКА НИКУДА НЕ ПОДКЛЮЧЕН
-    name = models.CharField(
-        max_length=32,
-        verbose_name='Название отрасли')
-    slug = models.SlugField(
-        verbose_name='project_slug')
-
-    class Meta:
-        verbose_name = 'Тег для проекта'
-        verbose_name_plural = 'Теги для проекта'
 
 
 class Map(models.Model):

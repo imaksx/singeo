@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block title %}{{ article.name }} - Singeo{% endblock %}
+{% block title %}{{ project.name }} - Singeo{% endblock %}
 
 {% block content %}
 <div class="container no-overflow">
@@ -19,6 +19,7 @@
                     <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
                     <span class="project__location__text">{{ project.location }}</span>
                 </div>
+                <!-- Отображение тегов для типа проекта -->
             </div>
         </div>
     </section>
@@ -31,23 +32,25 @@
                 </a>
             </h2>
 
-            <div class="products__carousel">
+            <div class="products__carousel carousel">
                 <div class="products__carousel__cards carousel__cards">
-                    {% for product in project.products.all %}
+                    {% for product in project.related_products.all %}
                     <div class="card card_shadow">
                         <div class="card__prev">
-                            {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card__prev-img">
+                            {% if product.preview %}
+                            <img src="{{ product.preview.url }}" alt="{{ product.name }}" class="card__prev-img">
                             {% endif %}
                         </div>
                         <div class="card__content">
                             <div class="card__title">{{ product.name }}</div>
-                            <div class="card__desc">{{ product.description }}</div>
+                            <div class="card__desc">{{ product.short_description }}</div>
                             <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
                                 <span>Смотреть</span>
                             </a>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>Нет доступных продуктов для этого проекта.</p>
                     {% endfor %}
                 </div>
                 <div class="products__carousel__pagination">

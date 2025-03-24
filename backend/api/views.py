@@ -114,8 +114,8 @@ def projects_view(request):
 
 
 def project_detail_view(request, id):
-    project = get_object_or_404(Product, id=id)  # Получаем продукт по ID
-    return render(request, 'main/project_detail.html', {'product': project})
+    project = get_object_or_404(Project, id=id)  # Получаем продукт по ID
+    return render(request, 'main/project_detail.html', {'project': project})
 
 
 def news_view(request):

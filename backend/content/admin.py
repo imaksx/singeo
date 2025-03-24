@@ -12,7 +12,7 @@ from .models import (New, Product,
                      AboutCompany, Colleague,
                      LogoImage,
                      CompanyPDF, NewsImage,
-                     ProductPDF
+                     ProductPDF, ObjectTagForProject, IndustryTagForProject
                      )
 
 
@@ -64,3 +64,5 @@ admin.site.register(Colleague)
 admin.site.register(LogoImage)
 admin.site.register(CompanyPDF)
 admin.site.register(ProductPDF)
+admin.site.register(IndustryTagForProject)
+admin.site.register(ObjectTagForProject)
