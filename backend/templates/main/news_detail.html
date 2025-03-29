@@ -61,14 +61,6 @@
     <div class="container">
         <div class="news-content__wrapper">
             <div class="news-content__text">
-                {% if article.video %}
-                <video controls class="news-content__article-video">
-                    <source src="{{ article.video.url }}" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-                {% elif article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.name }}" class="news-content__article-image">
-                {% endif %}
                 <p class="news-content__paragraph">{{ article.text }}</p>
             </div>
             <div class="news-content__buttons">

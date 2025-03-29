@@ -696,7 +696,7 @@ button {
 
 .banner__inner__img {
   position: absolute;
-
+  object-fit: cover;
   top: 0;
   left: 0;
 
@@ -740,7 +740,8 @@ button {
 
 }
 
-.news__banner__background img {
+.news__banner__background img, 
+.news__banner__background video{
   display: flex;
   width: 100vw;
 
