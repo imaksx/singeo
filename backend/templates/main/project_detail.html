@@ -31,12 +31,11 @@
                     В проекте было использовано
                 </a>
             </h2>
-
             <div class="products__carousel carousel">
                 <div class="products__carousel__cards carousel__cards">
                     {% for product in project.related_products.all %}
-                    <div class="card card_shadow">
-                        <div class="card__prev">
+                    <div class="carousel-item card">
+                        <div class="card__preview">
                             {% if product.preview %}
                             <img src="{{ product.preview.url }}" alt="{{ product.name }}" class="card__prev-img">
                             {% endif %}
@@ -51,14 +50,18 @@
                     </div>
                     {% empty %}
                     <p>Нет доступных продуктов для этого проекта.</p>
-                    {% endfor %}
+                    {% endfor %} 
+        
+                  </div>
+                  <div class="products__carousel__pagination carousel__pagination carousel__pagination_arrow">
+                    <div class="products__carousel__pagination-prev carousel__pagination-prev"><i
+                        class="fa-solid fa-arrow-left-long"></i></div>
+                    <div class="products__carousel__pagination-next carousel__pagination-next"><i
+                        class="fa-solid fa-arrow-right-long"></i></div>
+                  </div>
                 </div>
-                <div class="products__carousel__pagination">
-                    <div class="products__carousel__pagination-prev"><i class="fa-solid fa-arrow-left-long"></i></div>
-                    <div class="products__carousel__pagination-next"><i class="fa-solid fa-arrow-right-long"></i></div>
-                </div>
-            </div>
-        </div>
+                    </div>
     </section>
 </div>
 {% endblock %}
+

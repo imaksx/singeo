@@ -4,7 +4,7 @@
             <a href="{% url 'products' %}" class="section__title__link about-us__title__link">Продукция</a>
         </h2>
 
-        <div class="products__carousel">
+        <div class="products__carousel carousel">
             <div class="products__carousel__cards carousel__cards">
                 {% for product in products %}
                 <div class="carousel-item card" id="card-{{ forloop.counter }}">
