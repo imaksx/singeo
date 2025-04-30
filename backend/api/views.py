@@ -12,7 +12,10 @@ from content.models import (
     Project,
     AboutCompany,
     Colleague,
-    Certificate
+    Certificate,
+    ObjectTagForProject,
+    IndustryTagForProject
+
 )
 
 from api.utils import format_multiline_text
@@ -77,19 +80,41 @@ def index_view(request):
 
 
 def project_list(request):
-    # НУЖДАЕТСЯ В ОТЛАДКЕ
     projects = Project.objects.all()
-
-    # Получаем все уникальные продукты, используемые в проектах
+    
+    # Получаем все уникальные теги объектов применения
+    object_tags = ObjectTagForProject.objects.all()
+    
+    # Получаем все уникальные теги отраслей
+    industry_tags = IndustryTagForProject.objects.all()
+    
+    # Получаем все уникальные продукты, используемые в проектах (если нужно)
     products_used_in_projects = Product.objects.filter(
         projectproduct__project__in=projects).distinct()
 
     context = {
         'projects': projects,
-        # Передаем продукты в качестве фильтров
-        'sensor_types': products_used_in_projects,
+        'object_tags': object_tags,
+        'industry_tags': industry_tags,
+        'sensor_types': products_used_in_projects,  # если все еще нужно
     }
     return render(request, 'main/projects.html', context)
+
+#старый рабочий до попытки завести фильтрацию
+# def project_list(request):
+#     # НУЖДАЕТСЯ В ОТЛАДКЕ
+#     projects = Project.objects.all()
+
+#     # Получаем все уникальные продукты, используемые в проектах
+#     products_used_in_projects = Product.objects.filter(
+#         projectproduct__project__in=projects).distinct()
+
+#     context = {
+#         'projects': projects,
+#         # Передаем продукты в качестве фильтров
+#         'sensor_types': products_used_in_projects,
+#     }
+#     return render(request, 'main/projects.html', context)
 
 
 def products_view(request):

@@ -5,28 +5,26 @@
         </h2>
         <div class="sertificates__wrapper">
             <div class="sertificates__inner scroll_animate">
-                {% if certificates.count|divisibleby:2 %}
+                {% if about_index.certificates.count|divisibleby:2 %}
+                    {# Четное количество - анимация с двух сторон #}
                     <div class="sertificate__inner_left__animation">
-                        {% for sertificate in certificates|slice:":half" %}
+                        {% for sertificate in about_index.certificates.all|slice:":half" %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>
-                        {% empty %}
-                        <p>Нет сертификатов для отображения.</p>
                         {% endfor %}
                     </div>
                     <div class="sertificate__inner_right__animation">
-                        {% for sertificate in certificates|slice:"half:" %}
+                        {% for sertificate in about_index.certificates.all|slice:"half:" %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>
-                        {% empty %}
-                        <p>Нет сертификатов для отображения.</p>
                         {% endfor %}
                     </div>
                 {% else %}
-                    <div class="sertificate__inner_left__animation">
-                        {% for sertificate in certificates %}
+                    {# Нечетное количество - анимация только слева и центрирование #}
+                    <div class="sertificate__inner_center__animation" style="margin: 0 auto;">
+                        {% for sertificate in about_index.certificates.all %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>

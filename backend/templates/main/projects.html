@@ -1,5 +1,180 @@
 {% extends 'main/base.html' %}
 
+{% load static %}
+
+{% block title %}Проекты - Singeo{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'main/css/projects.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'main/js/projects.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="identificator" data-page="projects"></div>  
+<section class="projects">
+    <div class="container no-overflow">
+        <h2 class="section__title projects__title">
+            <a href="#" class="section__title__link">Проекты</a>
+        </h2>
+
+        <div class="projects__filters filters">
+            <!-- Фильтр по объекту применения -->
+            <div class="projects__filters__area filters__area">
+                <div class="projects__filters__placeholder filters__placeholder">Объект применения</div>
+                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__dropdown filters__dropdown">
+                    {% for tag in object_tags %}
+                    <div class="projects__filters__item filters__item">
+                        <input type="checkbox" class="projects__filter__item__checkbox filter__item__checkbox" 
+                               data-filter-type="object" data-filter-id="{{ tag.id }}">
+                        <label class="projects__filters__item__text filters__item__text">
+                            {{ tag.name }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Фильтр по отрасли -->
+            <div class="projects__filters__area filters__area">
+                <div class="projects__filters__placeholder filters__placeholder">Отрасль</div>
+                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__dropdown filters__dropdown">
+                    {% for tag in industry_tags %}
+                    <div class="projects__filters__item filters__item">
+                        <input type="checkbox" class="projects__filter__item__checkbox filter__item__checkbox" 
+                               data-filter-type="industry" data-filter-id="{{ tag.id }}">
+                        <label class="projects__filters__item__text filters__item__text">
+                            {{ tag.name }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Фильтр по продуктам (если нужно оставить) -->
+            <div class="projects__filters__area filters__area">
+                <div class="projects__filters__placeholder filters__placeholder">Продукты</div>
+                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__dropdown filters__dropdown">
+                    {% for projects in sensor_types %}
+                    <div class="projects__filters__item filters__item">
+                        <input type="checkbox" class="projects__filter__item__checkbox filter__item__checkbox" 
+                            data-filter-type="projects" data-filter-id="{{ product.id }}">
+                        <label  class="projects__filters__item__text filters__item__text">
+                            {{ projects.name }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="projects__grid">
+            <div class="projects__row" id="projects-container">
+                {% for project in projects %}
+                <div class="card card_shadow" 
+                     data-object-tags="{% for tag in project.tag_object.all %}{{ tag.id }},{% endfor %}"
+                     data-industry-tags="{% for tag in project.tag_sphere.all %}{{ tag.id }},{% endfor %}"
+                     data-products="{% for product in project.related_products.all %}{{ product.id }},{% endfor %}">
+                    <div class="card__prev">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="card__prev-img">
+                        {% endif %}
+                    </div>
+                    <div class="card__content">
+                        <div class="card__title">{{ project.name }}</div>
+                        <div class="card__desc">{{ project.description }}</div>
+                        <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
+                            <span>Смотреть</span>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterCheckboxes = document.querySelectorAll('.filter__item__checkbox');
+        const projectsContainer = document.getElementById('projects-container');
+        const projectCards = projectsContainer.querySelectorAll('.card');
+        
+        // Добавляем обработчики событий для всех чекбоксов
+        filterCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterProjects);
+        });
+        
+        function filterProjects() {
+            // Получаем выбранные фильтры
+            const selectedFilters = {
+                object: [],
+                industry: [],
+                product: []
+            };
+            
+            document.querySelectorAll('.filter__item__checkbox:checked').forEach(checkbox => {
+                const type = checkbox.dataset.filterType;
+                const id = checkbox.dataset.filterId;
+                selectedFilters[type].push(id);
+            });
+            
+            // Фильтруем проекты
+            projectCards.forEach(card => {
+                const objectTags = card.dataset.objectTags.split(',').filter(Boolean);
+                const industryTags = card.dataset.industryTags.split(',').filter(Boolean);
+                const products = card.dataset.products.split(',').filter(Boolean);
+                
+                // Проверяем соответствие фильтрам
+                const matchesObject = selectedFilters.object.length === 0 || 
+                                     selectedFilters.object.some(id => objectTags.includes(id));
+                
+                const matchesIndustry = selectedFilters.industry.length === 0 || 
+                                       selectedFilters.industry.some(id => industryTags.includes(id));
+                
+                const matchesProduct = selectedFilters.product.length === 0 || 
+                                      selectedFilters.product.some(id => products.includes(id));
+                
+                // Показываем/скрываем карточку в зависимости от соответствия фильтрам
+                if (matchesObject && matchesIndustry && matchesProduct) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+    </script>
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'main/base.html' %}
+
 {% load static %}  <!-- Подключаем статические файлы -->
 
 {% block title %}Проекты - Singeo{% endblock %}
@@ -89,4 +264,4 @@
         </div>
     </div>
 </section>
-{% endblock %}
+{% endblock %} {% endcomment %}
