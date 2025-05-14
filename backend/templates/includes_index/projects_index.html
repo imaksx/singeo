@@ -6,6 +6,9 @@
             <a href="#" class="section__title__link projects__title__link">Проекты</a>
         </h2>
     </div>
+
+
+
     <div class="projects__wrapper">
         <div class="projects__map">
             <img src="{% static 'main/src/img/map.svg' %}" alt="Карта проектов" class="projects__map__inner">
@@ -14,7 +17,38 @@
                 <button class="project__map__item__button">
                     <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
                 </button>
-                <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
+
+
+                <div class="project__map__item__wrapper">
+
+                    <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
+                      <div class="project__map__item__button__close card__exit">
+                      </div>
+      
+                      <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                        <div class="project__map__card carousel-item card">
+                          <div class="project__map__item__preview">
+                            <img src="{{ project.image.url }}" alt="card__prev-img">
+                          </div>
+                          <div class="card__desc project__map__card__desc">{{ project.description }}</div>
+                          <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
+                              <span>Смотреть</span>
+                          </a>
+                      </div>
+                        </div>
+    
+      
+                      </div>
+                      <div
+                        class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
+      
+                      </div>
+      
+                    </div>
+                  </div>
+
+
+                {% comment %} <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
                     <div class="project__map__item__button__close card__exit"></div>
                     <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
                         <div class="project__map__card carousel-item card">
@@ -30,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
             {% endfor %}
         </div>
