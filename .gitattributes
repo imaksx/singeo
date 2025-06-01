@@ -1,0 +1,2 @@
+backend/static/media/**/*.mov filter=lfs diff=lfs merge=lfs -text
+backend/static/media/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
