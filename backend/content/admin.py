@@ -1,24 +1,62 @@
 from django.contrib import admin
-from .models import (New, Product,
-                     AboutIndex,
-                     Project,
-                     ProjectProduct,
-                     ProjectRegion,
-                     Region,
-                     Map,
-                     MapRegion,
-                     Certificate,
-                     TechnicalDescription,
-                     AboutCompany, Colleague,
-                     LogoImage,
-                     CompanyPDF, NewsImage,
-                     ProductPDF, ObjectTagForProject, IndustryTagForProject
-                     )
+from .models import (
+    New,
+    NewsImage,
+    Product,
+    ProductPDF,
+    IndustryTag,
+    ObjectTag,
+    AboutIndex,
+    Certificate,
+    AboutCompany,
+    CompanyPDF,
+    LogoImage,
+    Colleague,
+    Region,
+    Map,
+    Project,
+    ProjectProduct,
+)
+
+
+class NewsImageInline(admin.TabularInline):
+    model = NewsImage
+    extra = 1
+
+
+@admin.register(New)
+class NewAdmin(admin.ModelAdmin):
+    list_display = ("name", "pub_date")
+    inlines = [NewsImageInline]
+
+
+class ProductPDFInline(admin.TabularInline):
+    model = ProductPDF
+    extra = 1
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("name", "short_description")
+    inlines = [ProductPDFInline]
+    filter_horizontal = ("applying_objects", "industries")
+
+
+@admin.register(IndustryTag)
+class IndustryTagAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    list_display = ("name", "slug")
+
+
+@admin.register(ObjectTag)
+class ObjectTagAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    list_display = ("name", "slug")
 
 
 class CertificateInline(admin.TabularInline):
     model = Certificate
-    extra = 1  # Количество пустых форм для добавления новых сертификатов
+    extra = 1
 
 
 @admin.register(AboutIndex)
@@ -26,43 +64,44 @@ class AboutAdmin(admin.ModelAdmin):
     inlines = [CertificateInline]
 
 
-@admin.register(Certificate)
-class CertificateAdmin(admin.ModelAdmin):
-    list_display = ['image']
+class CompanyPDFInline(admin.TabularInline):
+    model = CompanyPDF
+    extra = 1
 
 
-class NewsImageInline(admin.TabularInline):
-    model = NewsImage
-    extra = 1  # Количество пустых форм для добавления новых изображений
+class LogoImageInline(admin.TabularInline):
+    model = LogoImage
+    extra = 1
 
 
-@admin.register(New)
-class NewAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pub_date')
-    inlines = [NewsImageInline]  # Добавляем встроенные модели
+@admin.register(AboutCompany)
+class AboutCompanyAdmin(admin.ModelAdmin):
+    inlines = [CompanyPDFInline, LogoImageInline]
 
 
-@admin.register(NewsImage)
-class NewsImageAdmin(admin.ModelAdmin):
-    list_display = ('news', 'image')
+@admin.register(Colleague)
+class ColleagueAdmin(admin.ModelAdmin):
+    list_display = ("name", "position")
 
 
-# Удалите следующую строку, чтобы избежать ошибки
-# admin.site.register(NewsImage)  # Эта строка вызывает ошибку
+class ProjectProductInline(admin.TabularInline):
+    model = ProjectProduct
+    extra = 1
 
-# Регистрация остальных моделей
-admin.site.register(Product)
-admin.site.register(Project)
-admin.site.register(Region)
-admin.site.register(ProjectProduct)
-admin.site.register(ProjectRegion)
-admin.site.register(Map)
-admin.site.register(MapRegion)
-admin.site.register(TechnicalDescription)
-admin.site.register(AboutCompany)
-admin.site.register(Colleague)
-admin.site.register(LogoImage)
-admin.site.register(CompanyPDF)
-admin.site.register(ProductPDF)
-admin.site.register(IndustryTagForProject)
-admin.site.register(ObjectTagForProject)
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    inlines = [ProjectProductInline]
+    filter_horizontal = ("tag_object", "tag_sphere")
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ("name", "is_active", "coord_x", "coord_y")
+    list_editable = ("is_active",)
+
+
+@admin.register(Map)
+class MapAdmin(admin.ModelAdmin):
+    list_display = ("name",)

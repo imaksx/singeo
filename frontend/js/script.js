@@ -1,61 +1,3 @@
-<<<<<<< HEAD:frontend/js/script.js
-document.addEventListener("DOMContentLoaded", () => {
-  const locOpenButton = document.querySelectorAll(".project__map__item__button");
-  const locCloseButton = document.querySelectorAll(".project__map__item__button__close");
-  const projectsMap = document.querySelector(".projects__map");
-  const projectsList = projectsMap.querySelectorAll(".project__map__item__inner");
-
-  locOpenButton.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      projectsList.forEach((project) => {
-        if (project == item.nextElementSibling) {
-          project.classList.add("active");
-        } else {
-          project.classList.remove("active");
-        }
-      });
-    });
-  });
-
-  locCloseButton.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      item.parentElement.classList.remove("active");
-    });
-  });
-
-  const animateElems = document.querySelectorAll(".scroll_animate");
-  if (animateElems.length > 0) {
-    window.addEventListener("scroll", animateOnScroll);
-    function animateOnScroll() {
-      for (let index = 0; index < animateElems.length; index++) {
-        const animateElem = animateElems[index];
-        const animateElemHight = animateElem.offsetHeight;
-        const animateElemPosY = getCoords(animateElem).top;
-        const animateDelay = 10;
-        const clientHeight = window.innerHeight;
-
-        let animateElemPoint = clientHeight - animateElemHight / animateDelay;
-        if (animateElemHight > clientHeight) animateElemPoint = clientHeight - clientHeight / animateDelay;
-
-        if (scrollY > animateElemPosY - animateElemPoint) animateElem.classList.add("visible");
-      }
-    }
-
-    animateOnScroll();
-
-    function getCoords(elem) {
-      let box = elem.getBoundingClientRect();
-
-      return {
-        top: box.top + window.pageYOffset,
-        right: box.right + window.pageXOffset,
-        bottom: box.bottom + window.pageYOffset,
-        left: box.left + window.pageXOffset,
-      };
-    }
-  }
-});
-=======
 YourNamespace = {
   index: {
     init: function () {
@@ -119,21 +61,20 @@ YourNamespace = {
       });
     },
   },
-
   products: {
     init: function () {
       const filters = document.querySelector(".product__filters");
       const filtersItems = document.querySelectorAll(".product__filters__item__text");
 
-      console.log(filters);
+      //console.log(filters);
 
       filters.addEventListener("click", (e) => {
-        console.log(!e.target.closest(".product__filters__dropdown"));
-        console.log(!e.target.closest(".product__filters__area"));
+        //console.log(!e.target.closest(".product__filters__dropdown"));
+        //console.log(!e.target.closest(".product__filters__area"));
 
         if (!e.target.closest(".product__filters__area") || e.target.closest(".product__filters__dropdown")) return;
         let target = e.target.closest(".product__filters__area");
-        console.log(target);
+        //console.log(target);
 
         target.classList.toggle("active");
 
@@ -151,9 +92,12 @@ YourNamespace = {
   },
   product: {
     init: function () {
-      const propsTitle = document.querySelector(".product__props__title");
-      propsTitle.addEventListener("click", (e) => {
-        propsTitle.closest(".product__props").classList.toggle("active");
+      const props = document.querySelectorAll(".product__props");
+      props.forEach((prop) => {
+        const propsTitle = prop.querySelector(".product__props__title");
+        propsTitle.addEventListener("click", (e) => {
+          propsTitle.closest(".product__props").classList.toggle("active");
+        });
       });
     },
   },
@@ -161,16 +105,52 @@ YourNamespace = {
     init: function () {
       const filters = document.querySelector(".projects__filters");
       const filtersItems = document.querySelectorAll(".projects__filters__item__text");
+      let activeFilters = new Set();
+      const projects = document.querySelectorAll(".card");
 
-      console.log(filters);
+      //console.log(filters);
 
       filters.addEventListener("click", (e) => {
-        console.log(!e.target.closest(".projects__filters__dropdown"));
-        console.log(!e.target.closest(".projects__filters__area"));
+        //console.log(e.target.classList.contains("projects__filters__item__text"));
 
-        if (!e.target.closest(".projects__filters__area") || e.target.closest(".projects__filters__dropdown")) return;
+        if (
+          !e.target.closest(".projects__filters__area") ||
+          (e.target.closest(".projects__filters__dropdown") && !e.target.classList.contains("projects__filters__item__text"))
+        ) {
+          return;
+        }
+
+        if (e.target.classList.contains("projects__filters__item__text")) {
+          const item = e.target;
+          const tagName = item.innerText;
+          item.previousElementSibling.checked = item.previousElementSibling.checked ? false : true;
+
+          if (item.previousElementSibling.checked) {
+            activeFilters.add(item.innerText);
+          } else {
+            activeFilters.delete(item.innerText);
+          }
+
+          //console.log(activeFilters);
+          if (activeFilters.size) {
+            projects.forEach((project) => {
+              if (activeFilters.has(project.dataset.tag)) {
+                project.style.display = "flex";
+              } else {
+                project.style.display = "none";
+              }
+            });
+          } else {
+            projects.forEach((project) => {
+              project.style.display = "flex";
+            });
+          }
+
+          return;
+        }
+
         let target = e.target.closest(".projects__filters__area");
-        console.log(target);
+        //console.log(target);
 
         target.classList.toggle("active");
 
@@ -179,11 +159,61 @@ YourNamespace = {
 
       filtersItems.forEach((item) => {
         item.addEventListener("click", (e) => {
-          item.previousElementSibling.checked = item.previousElementSibling.checked ? false : true;
+          //item.previousElementSibling.checked = item.previousElementSibling.checked ? false : true;
+          // if (item.previousElementSibling.checked) {
+          //   projects.forEach((project) => {
+          //     const projectName = item.innerText;
+          //     console.log(project.dataset.tag);
+          //     console.log(item.innerText);
+          //     if (project.dataset.tag == projectName) {
+          //       project.style.display = "none";
+          //     }
+          //     if (item.previousElementSibling.checked && project.dataset.tag == projectName) {
+          //       project.style.display = "flex";
+          //     }
+          //   });
+          // }
         });
       });
 
       function showDropDown(item) {}
+    },
+  },
+  about: {
+    init: function () {
+      document.addEventListener("DOMContentLoaded", () => {
+        const animateElems = document.querySelectorAll(".scroll_animate");
+        if (animateElems.length > 0) {
+          window.addEventListener("scroll", animateOnScroll);
+          function animateOnScroll() {
+            for (let index = 0; index < animateElems.length; index++) {
+              const animateElem = animateElems[index];
+              const animateElemHight = animateElem.offsetHeight;
+              const animateElemPosY = getCoords(animateElem).top;
+              const animateDelay = 10;
+              const clientHeight = window.innerHeight;
+
+              let animateElemPoint = clientHeight - animateElemHight / animateDelay;
+              if (animateElemHight > clientHeight) animateElemPoint = clientHeight - clientHeight / animateDelay;
+
+              if (scrollY > animateElemPosY - animateElemPoint) animateElem.classList.add("visible");
+            }
+          }
+
+          animateOnScroll();
+
+          function getCoords(elem) {
+            let box = elem.getBoundingClientRect();
+
+            return {
+              top: box.top + window.pageYOffset,
+              right: box.right + window.pageXOffset,
+              bottom: box.bottom + window.pageYOffset,
+              left: box.left + window.pageXOffset,
+            };
+          }
+        }
+      });
     },
   },
 };
@@ -199,8 +229,8 @@ UTIL = {
   },
 
   loadEvents: function () {
-    var bodyDataPage = document.querySelector("body").dataset.page;
-    console.log(bodyDataPage);
+    var bodyDataPage = document.querySelector(".identificator").dataset.page;
+    //console.log(bodyDataPage);
 
     UTIL.fire(bodyDataPage);
   },
@@ -276,4 +306,3 @@ UTIL.loadEvents();
 
 //   function showDropDown(item) {}
 // });
->>>>>>> ee575966cbba1c211aaaf8a40c204de226509ae9:js/script.js
