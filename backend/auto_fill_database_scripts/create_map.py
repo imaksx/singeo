@@ -1,6 +1,5 @@
 import os
 import sys
-from django.db import models
 import django
 
 # Определяем базовый путь к проекту
