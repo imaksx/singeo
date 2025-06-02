@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 
 class New(models.Model):
@@ -17,12 +19,23 @@ class New(models.Model):
         verbose_name="Видео новости",
     )
 
+    # Метод для ручного удаления видео
+    def delete_video(self):
+        if self.video:
+            self.video.delete(save=False)
+
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
 
     def __str__(self):
         return self.name
+
+
+# Сигнал для автоматического удаления видео при удалении новости
+@receiver(pre_delete, sender=New)
+def delete_news_video(sender, instance, **kwargs):
+    instance.delete_video()
 
 
 class NewsImage(models.Model):
@@ -38,9 +51,22 @@ class NewsImage(models.Model):
         upload_to="news_images/", verbose_name="Фотография новости"
     )
 
+    def delete_image(self):
+        if self.image:
+            self.image.delete(save=False)
+
     class Meta:
         verbose_name = "Изображение новости"
         verbose_name_plural = "Изображения новостей"
+
+
+# Сигнал для автоматического удаления изображений при удалении новости
+@receiver(pre_delete, sender=New)
+def delete_news_images(sender, instance, **kwargs):
+    # Удаляем все связанные изображения
+    for image in instance.images.all():
+        image.delete_image()
+        image.delete()
 
 
 class IndustryTag(models.Model):
@@ -191,6 +217,8 @@ class AboutCompany(models.Model):
     colleagues_main_image = models.ImageField(
         verbose_name="Общее фото для раздела 'Команда'",
         upload_to="company_image/",
+        null=True,  # Добавляем возможность null для корректного удаления
+        blank=True,
     )
     colleagues = models.ManyToManyField(
         "Colleague",
@@ -205,6 +233,13 @@ class AboutCompany(models.Model):
 
     def __str__(self):
         return "О компании"
+
+
+# Сигнал для автоматического удаления файла изображения при удалении AboutCompany
+@receiver(pre_delete, sender=AboutCompany)
+def delete_company_image(sender, instance, **kwargs):
+    if instance.colleagues_main_image:
+        instance.colleagues_main_image.delete(save=False)
 
 
 class CompanyPDF(models.Model):

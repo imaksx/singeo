@@ -1,0 +1,4 @@
+id,name,pub_date,text,video,image
+1,Первая новость,2025-06-01,"Это первая новость с видео и изображением","../static/media/news_videos/test_news_video.mp4","../static/media/news_images/test_news_image.png"
+2,Вторая новость,2025-06-02,"Это вторая новость только с изображением",,"../static/media/news_images/test_news_image.png"
+3,Третья новость,2025-06-03,"Это третья новость тоже только с изображением",,"../static/media/news_images/test_news_image.png"

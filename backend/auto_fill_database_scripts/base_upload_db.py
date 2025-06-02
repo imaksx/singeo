@@ -15,6 +15,22 @@ if __name__ == "__main__":
             script_content = file.read()
         exec(script_content)
 
+        # Запуск create_about_index.py
+        with open("create_about_index.py", "r", encoding="utf-8") as file:
+            script_content = file.read()
+        exec(script_content)
+
+        # Запуск create_about_company.py
+        with open("create_about_company.py", "r", encoding="utf-8") as file:
+            script_content = file.read()
+        exec(script_content)
+
+        # Запуск create_test_news.py
+        with open("create_test_news.py", "r", encoding="utf-8") as file:
+            script_content = file.read()
+        exec(script_content)
+
+        print("")
         print("Все скрипты выполнены успешно")
     except Exception as e:
         print(f"Произошла ошибка: {e}")

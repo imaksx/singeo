@@ -18,6 +18,7 @@
     <img src="{% static 'main/src/icon/arrow_up.svg' %}" alt="Наверх" class="button-up__img">
 </a>
 
+{% if latest_news %}
 <section class="banner">
     {% if latest_news.video %}
     <video class="banner__inner__img" autoplay muted loop>
@@ -87,5 +88,9 @@
         </div>
     </div>
 </section>
-
+{% else %}
+    <div>
+        <p>Пока новостей нет</p>
+    </div>
+{% endif %}
 {% endblock %}
