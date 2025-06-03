@@ -1,6 +1,8 @@
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
+from django.core.files.storage import default_storage
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class New(models.Model):
@@ -143,6 +145,53 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# Сигнал для удаления медиа при удалении продукта
+@receiver(pre_delete, sender=Product)
+def delete_product_media(sender, instance, **kwargs):
+    # Удаляем изображение
+    if instance.preview:
+        file_path = instance.preview.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+    # Удаляем все связанные PDF-файлы
+    for pdf in instance.pdfs.all():
+        file_path = pdf.file.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
+# Сигнал для удаления медиа при обновлении продукта
+@receiver(pre_save, sender=Product)
+def update_product_media(sender, instance, **kwargs):
+    # Получаем предыдущую версию объекта
+    if instance.pk:
+        try:
+            old_instance = Product.objects.get(pk=instance.pk)
+
+            # Проверяем и удаляем старое изображение
+            if old_instance.preview and old_instance.preview != instance.preview:
+                if default_storage.exists(old_instance.preview.path):
+                    default_storage.delete(old_instance.preview.path)
+
+            # Проверяем и удаляем старые PDF-файлы
+            # Удаляем PDF-файлы, которые были удалены из связи
+            old_pdf_ids = set(old_instance.pdfs.values_list("id", flat=True))
+            new_pdf_ids = set(instance.pdfs.values_list("id", flat=True))
+            removed_pdf_ids = old_pdf_ids - new_pdf_ids
+
+            for pdf_id in removed_pdf_ids:
+                try:
+                    pdf = ProductPDF.objects.get(id=pdf_id)
+                    file_path = pdf.file.path
+                    if default_storage.exists(file_path):
+                        default_storage.delete(file_path)
+                except ProductPDF.DoesNotExist:
+                    pass  # Если PDF-файл уже был удален другим процессом
+        except ObjectDoesNotExist:
+            pass  # Если старый объект не найден
 
 
 class ProductPDF(models.Model):
@@ -302,6 +351,34 @@ class Colleague(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# Сигнал для удаления файла изображения при удалении модели
+@receiver(pre_delete, sender=Colleague)
+def delete_colleague_image(sender, instance, **kwargs):
+    # Проверяем, существует ли файл изображения
+    if instance.image:
+        # Получаем путь к файлу
+        file_path = instance.image.path
+        # Проверяем существование файла
+        if default_storage.exists(file_path):
+            # Удаляем файл
+            default_storage.delete(file_path)
+
+
+# Сигнал для удаления файла изображения при обновлении модели
+@receiver(pre_save, sender=Colleague)
+def update_colleague_image(sender, instance, **kwargs):
+    # Получаем предыдущую версию объекта
+    if instance.pk:
+        try:
+            old_instance = Colleague.objects.get(pk=instance.pk)
+            # Если изображение изменилось, удаляем старое
+            if old_instance.image and old_instance.image != instance.image:
+                if default_storage.exists(old_instance.image.path):
+                    default_storage.delete(old_instance.image.path)
+        except Colleague.DoesNotExist:
+            pass
 
 
 class Region(models.Model):
