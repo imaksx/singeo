@@ -9,36 +9,65 @@ if __name__ == "__main__":
         with open("create_superuser.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
         # Запуск create_map.py
         with open("create_map.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
         # Запуск create_about_index.py
         with open("create_about_index.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
         # Запуск create_about_company.py
         with open("create_about_company.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
         # Запуск create_test_news.py
         with open("create_test_news.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
         # Запуск create_regions.py
         with open("create_regions.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
 
-        # Запуск create_test_products.py
-        with open("create_test_products.py", "r", encoding="utf-8") as file:
+        # Запуск create_industries.py
+        with open("create_industries.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)
+        print("")
+
+        # Запуск create_objects.py
+        with open("create_objects.py", "r", encoding="utf-8") as file:
+            script_content = file.read()
+        exec(script_content)
+        print("")
+
+        # # Запуск create_test_products.py
+        # with open("create_test_products.py", "r", encoding="utf-8") as file:
+        #     script_content = file.read()
+        # exec(script_content)
+        # print("")
+
+        # Запуск create_test_products_with_industries_and_objects.py
+        with open(
+            "create_test_products_with_industries_and_objects.py",
+            "r",
+            encoding="utf-8",
+        ) as file:
+            script_content = file.read()
+        exec(script_content)
+        print("")
 
         print("")
         print("Все скрипты выполнены успешно")
