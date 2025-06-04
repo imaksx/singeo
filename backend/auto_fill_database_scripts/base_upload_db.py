@@ -30,7 +30,12 @@ if __name__ == "__main__":
             script_content = file.read()
         exec(script_content)
 
-        # Запуск create_test_news.py
+        # Запуск create_regions.py
+        with open("create_regions.py", "r", encoding="utf-8") as file:
+            script_content = file.read()
+        exec(script_content)
+
+        # Запуск create_test_products.py
         with open("create_test_products.py", "r", encoding="utf-8") as file:
             script_content = file.read()
         exec(script_content)

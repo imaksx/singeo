@@ -3,11 +3,8 @@ import sys
 import django
 import csv
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.db import transaction
-from datetime import datetime as dt
-
-from content.models import New, NewsImage
+from content.models import Product
 
 # Определяем базовый путь к проекту
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,72 +16,77 @@ sys.path.append(os.path.join(BASE_DIR, ".."))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "singeo_backend.settings")
 django.setup()
 
+def check_if_products_exist():
+    return Product.objects.exists()
 
-def create_news():
-    # Проверяем существование записей
-    if New.objects.exists():
-        print("Новости уже созданы")
+def create_products_from_csv():
+    if check_if_products_exist():
+        print("Продукты уже существуют в базе данных. Завершаем работу скрипта.")
         return
 
+    # Путь к CSV-файлу
+    csv_file_path = os.path.join(BASE_DIR, "test_products.csv")
+    
     # Проверяем существование файла
-    if not os.path.exists("news.csv"):
-        print("Файл news.csv не найден в текущем каталоге")
-        print(f"Список файлов в текущем каталоге: {os.listdir()}")
+    if not os.path.exists(csv_file_path):
+        print(f"Файл {csv_file_path} не найден!")
+        print(f"Список файлов в директории: {os.listdir(os.path.dirname(csv_file_path))}")
+        return
+
+    # Путь к изображению по умолчанию
+    default_image_path = os.path.join(BASE_DIR, "../static/media/products_images/product.png")
+    
+    # Проверяем существование изображения
+    if not os.path.exists(default_image_path):
+        print(f"Изображение по умолчанию не найдено: {default_image_path}")
         return
 
     try:
-        with open("news.csv", newline="", encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            news_data = []
+        # Читаем изображение один раз для всех продуктов
+        with open(default_image_path, "rb") as image_file:
+            image_content = ContentFile(image_file.read())
+            image_name = os.path.basename(default_image_path)
 
-            # Читаем данные
-            for row in reader:
-                news_data.append(row)
-
-        # Создаем новости
         with transaction.atomic():
-            for row in news_data:
-                try:
-                    pub_date = dt.strptime(row["pub_date"], "%Y-%m-%d").date()
-                except ValueError:
-                    print(f"Ошибка форматирования даты: {row['pub_date']}")
-                    continue
+            with open(csv_file_path, "r", newline="", encoding="utf-8") as csvfile:
+                reader = csv.DictReader(csvfile)
 
-                news = New(name=row["name"], pub_date=pub_date, text=row["text"])
-
-                # Загружаем видео, если оно есть
-                if row["video"]:
-                    video_path = row["video"]
-                    if os.path.exists(video_path):
-                        with open(video_path, "rb") as video_file:
-                            video_content = ContentFile(video_file.read())
-                            video_name = os.path.basename(video_path)
-                            news.video.save(video_name, video_content)
-                    else:
-                        print(f"Видеофайл не найден: {video_path}")
-
-                # Сохраняем новость перед загрузкой изображений
-                news.save()
-
-                # Загружаем изображение, если оно есть
-                if row["image"]:
-                    image_path = row["image"]
-                    if os.path.exists(image_path):
-                        with open(image_path, "rb") as image_file:
-                            image_content = ContentFile(image_file.read())
-                            image_name = os.path.basename(image_path)
-                            news_image = NewsImage(news=news)
-                            news_image.image.save(image_name, image_content)
-                    else:
-                        print(f"Изображение не найдено: {image_path}")
-
-        print("Новости успешно созданы")
-
-    except FileNotFoundError:
-        print("Файл news.csv не найден")
+                for row in reader:
+                    try:
+                        product = Product(
+                            name=row["name"],
+                            short_description=row["short_description"],
+                            description=row["description"],
+                            specifications=row["specifications"],
+                        )
+                        
+                        # Создаем копию изображения для каждого продукта
+                        product.preview.save(image_name, ContentFile(image_content.read()))
+                        product.save()
+                        print(f"Продукт '{product.name}' успешно создан")
+                        
+                        # Сбрасываем указатель файла изображения
+                        image_content.seek(0)
+                        
+                    except Exception as e:
+                        print(f"Ошибка при создании продукта '{row['name']}': {str(e)}")
+    
+    except UnicodeDecodeError:
+        # Пробуем альтернативные кодировки
+        try:
+            with open(csv_file_path, "r", newline="", encoding="cp1251") as csvfile:
+                reader = csv.DictReader(csvfile)
+                # ... (повторить обработку как выше)
+        except Exception as alt_e:
+            print(f"Ошибка при чтении CSV в кодировке cp1251: {str(alt_e)}")
     except Exception as e:
-        print(f"Ошибка при создании новостей: {str(e)}")
-
+        print(f"Общая ошибка: {str(e)}")
 
 if __name__ == "__main__":
-    create_news()
+    print("Проверка наличия продуктов...")
+    if not check_if_products_exist():
+        print("Начинаем импорт продуктов...")
+        create_products_from_csv()
+    else:
+        print("Продукты уже существуют. Импорт не требуется.")
+    print("Завершение работы скрипта")

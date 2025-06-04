@@ -21,7 +21,6 @@ class New(models.Model):
         verbose_name="Видео новости",
     )
 
-    # Метод для ручного удаления видео
     def delete_video(self):
         if self.video:
             self.video.delete(save=False)
@@ -34,7 +33,6 @@ class New(models.Model):
         return self.name
 
 
-# Сигнал для автоматического удаления видео при удалении новости
 @receiver(pre_delete, sender=New)
 def delete_news_video(sender, instance, **kwargs):
     instance.delete_video()
@@ -62,10 +60,8 @@ class NewsImage(models.Model):
         verbose_name_plural = "Изображения новостей"
 
 
-# Сигнал для автоматического удаления изображений при удалении новости
 @receiver(pre_delete, sender=New)
 def delete_news_images(sender, instance, **kwargs):
-    # Удаляем все связанные изображения
     for image in instance.images.all():
         image.delete_image()
         image.delete()
@@ -147,37 +143,29 @@ class Product(models.Model):
         return self.name
 
 
-# Сигнал для удаления медиа при удалении продукта
 @receiver(pre_delete, sender=Product)
 def delete_product_media(sender, instance, **kwargs):
-    # Удаляем изображение
     if instance.preview:
         file_path = instance.preview.path
         if default_storage.exists(file_path):
             default_storage.delete(file_path)
 
-    # Удаляем все связанные PDF-файлы
     for pdf in instance.pdfs.all():
         file_path = pdf.file.path
         if default_storage.exists(file_path):
             default_storage.delete(file_path)
 
 
-# Сигнал для удаления медиа при обновлении продукта
 @receiver(pre_save, sender=Product)
 def update_product_media(sender, instance, **kwargs):
-    # Получаем предыдущую версию объекта
     if instance.pk:
         try:
             old_instance = Product.objects.get(pk=instance.pk)
 
-            # Проверяем и удаляем старое изображение
             if old_instance.preview and old_instance.preview != instance.preview:
                 if default_storage.exists(old_instance.preview.path):
                     default_storage.delete(old_instance.preview.path)
 
-            # Проверяем и удаляем старые PDF-файлы
-            # Удаляем PDF-файлы, которые были удалены из связи
             old_pdf_ids = set(old_instance.pdfs.values_list("id", flat=True))
             new_pdf_ids = set(instance.pdfs.values_list("id", flat=True))
             removed_pdf_ids = old_pdf_ids - new_pdf_ids
@@ -189,9 +177,9 @@ def update_product_media(sender, instance, **kwargs):
                     if default_storage.exists(file_path):
                         default_storage.delete(file_path)
                 except ProductPDF.DoesNotExist:
-                    pass  # Если PDF-файл уже был удален другим процессом
+                    pass
         except ObjectDoesNotExist:
-            pass  # Если старый объект не найден
+            pass
 
 
 class ProductPDF(models.Model):
@@ -232,6 +220,15 @@ class Certificate(models.Model):
         verbose_name_plural = "Сертификаты"
 
 
+@receiver(pre_delete, sender=Certificate)
+def delete_certificate_image(sender, instance, **kwargs):
+    """Удаляет файл изображения сертификата перед удалением записи."""
+    if instance.image:
+        file_path = instance.image.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
 class AboutIndex(models.Model):
     """Модель для главной страницы, подвала и хедера."""
 
@@ -266,7 +263,7 @@ class AboutCompany(models.Model):
     colleagues_main_image = models.ImageField(
         verbose_name="Общее фото для раздела 'Команда'",
         upload_to="company_image/",
-        null=True,  # Добавляем возможность null для корректного удаления
+        null=True,
         blank=True,
     )
     colleagues = models.ManyToManyField(
@@ -284,7 +281,6 @@ class AboutCompany(models.Model):
         return "О компании"
 
 
-# Сигнал для автоматического удаления файла изображения при удалении AboutCompany
 @receiver(pre_delete, sender=AboutCompany)
 def delete_company_image(sender, instance, **kwargs):
     if instance.colleagues_main_image:
@@ -314,6 +310,26 @@ class CompanyPDF(models.Model):
         return f"PDF Файл: {self.file.name}"
 
 
+@receiver(pre_delete, sender=CompanyPDF)
+def delete_company_pdf(sender, instance, **kwargs):
+    if instance.file:
+        file_path = instance.file.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
+@receiver(pre_save, sender=CompanyPDF)
+def update_company_pdf(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_instance = CompanyPDF.objects.get(pk=instance.pk)
+            if old_instance.file and old_instance.file != instance.file:
+                if default_storage.exists(old_instance.file.path):
+                    default_storage.delete(old_instance.file.path)
+        except CompanyPDF.DoesNotExist:
+            pass
+
+
 class LogoImage(models.Model):
     """Модель для логотипов компании-заказчика"""
 
@@ -336,6 +352,26 @@ class LogoImage(models.Model):
         return f"Логотип для {self.about_company}"
 
 
+@receiver(pre_delete, sender=LogoImage)
+def delete_logo_image(sender, instance, **kwargs):
+    if instance.image:
+        file_path = instance.image.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
+@receiver(pre_save, sender=LogoImage)
+def update_logo_image(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_instance = LogoImage.objects.get(pk=instance.pk)
+            if old_instance.image and old_instance.image != instance.image:
+                if default_storage.exists(old_instance.image.path):
+                    default_storage.delete(old_instance.image.path)
+        except LogoImage.DoesNotExist:
+            pass
+
+
 class Colleague(models.Model):
     """Модель для сотрудников компании"""
 
@@ -353,27 +389,19 @@ class Colleague(models.Model):
         return self.name
 
 
-# Сигнал для удаления файла изображения при удалении модели
 @receiver(pre_delete, sender=Colleague)
 def delete_colleague_image(sender, instance, **kwargs):
-    # Проверяем, существует ли файл изображения
     if instance.image:
-        # Получаем путь к файлу
         file_path = instance.image.path
-        # Проверяем существование файла
         if default_storage.exists(file_path):
-            # Удаляем файл
             default_storage.delete(file_path)
 
 
-# Сигнал для удаления файла изображения при обновлении модели
 @receiver(pre_save, sender=Colleague)
 def update_colleague_image(sender, instance, **kwargs):
-    # Получаем предыдущую версию объекта
     if instance.pk:
         try:
             old_instance = Colleague.objects.get(pk=instance.pk)
-            # Если изображение изменилось, удаляем старое
             if old_instance.image and old_instance.image != instance.image:
                 if default_storage.exists(old_instance.image.path):
                     default_storage.delete(old_instance.image.path)
@@ -448,6 +476,26 @@ class Project(models.Model):
         return self.name
 
 
+@receiver(pre_delete, sender=Project)
+def delete_project_image(sender, instance, **kwargs):
+    if instance.image:
+        file_path = instance.image.path
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
+
+
+@receiver(pre_save, sender=Project)
+def update_project_image(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            old_instance = Project.objects.get(pk=instance.pk)
+            if old_instance.image and old_instance.image != instance.image:
+                if default_storage.exists(old_instance.image.path):
+                    default_storage.delete(old_instance.image.path)
+        except Project.DoesNotExist:
+            pass
+
+
 class Map(models.Model):
     """Модель карты с активными регионами."""
 
@@ -471,11 +519,7 @@ class Map(models.Model):
 
 
 class ProjectProduct(models.Model):
-    """
-    Промежуточная модель.
-    Реализует отношение многие-ко-многим между
-    продуктом и проектом.
-    """
+    """Промежуточная модель."""
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -486,3 +530,16 @@ class ProjectProduct(models.Model):
 
     def __str__(self):
         return f"Продукт '{self.product.name}' для проекта '{self.project.name}'"
+
+
+@receiver(pre_delete, sender=AboutCompany)
+def delete_about_company_files(sender, instance, **kwargs):
+    """Удаляет все связанные файлы при удалении модели AboutCompany"""
+    if instance.colleagues_main_image:
+        instance.colleagues_main_image.delete(save=False)
+
+    for logo in instance.logo_images.all():
+        logo.delete()
+
+    for pdf in instance.pdfs.all():
+        pdf.delete()
