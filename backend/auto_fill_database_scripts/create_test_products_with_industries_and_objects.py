@@ -3,7 +3,6 @@ import sys
 import django
 import csv
 import random
-from django.core.files import File
 from django.core.files.base import ContentFile
 from content.models import Product, IndustryTag, ObjectTag
 
@@ -13,38 +12,84 @@ sys.path.append(os.path.join(BASE_DIR, ".."))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "singeo_backend.settings")
 django.setup()
 
+# Список возможных слогов для отраслей и объектов
+INDUSTRY_SLUGS = ["oil-and-gas", "energy", "construction"]
+OBJECT_SLUGS = ["oil-refinery", "power-plant", "residential-complex"]
 
-def check_if_products_exist():
-    return Product.objects.exists()
+
+def clear_existing_products():
+    """Удаляет все существующие продукты"""
+    if Product.objects.exists():
+        print("Удаление существующих продуктов...")
+        Product.objects.all().delete()
+        print("Все существующие продукты удалены")
+    else:
+        print("Нет существующих продуктов для удаления")
+
+
+def get_industry_by_slug(slug):
+    """Возвращает отрасль по slug или None если не найдена"""
+    try:
+        return IndustryTag.objects.get(slug=slug)
+    except IndustryTag.DoesNotExist:
+        print(f"Предупреждение: Отрасль со slug '{slug}' не найдена!")
+        return None
+
+
+def get_object_by_slug(slug):
+    """Возвращает объект по slug или None если не найдена"""
+    try:
+        return ObjectTag.objects.get(slug=slug)
+    except ObjectTag.DoesNotExist:
+        print(f"Предупреждение: Объект со slug '{slug}' не найден!")
+        return None
 
 
 def get_random_industries():
-    """Возвращает 1-3 случайные отрасли"""
-    industries = list(IndustryTag.objects.all())
-    if not industries:
-        print("Предупреждение: Нет отраслей в базе данных!")
-        return []
-    return random.sample(industries, k=min(random.randint(1, 3), len(industries)))
+    """Возвращает 1-3 случайные отрасли по их slug"""
+    selected_slugs = random.sample(
+        INDUSTRY_SLUGS, k=random.randint(1, min(3, len(INDUSTRY_SLUGS)))
+    )
+    industries = []
+    for slug in selected_slugs:
+        industry = get_industry_by_slug(slug)
+        if industry:
+            industries.append(industry)
+    return industries
 
 
 def get_random_objects():
-    """Возвращает 1-3 случайных объекта применения"""
-    objects = list(ObjectTag.objects.all())
-    if not objects:
-        print("Предупреждение: Нет объектов применения в базе данных!")
-        return []
-    return random.sample(objects, k=min(random.randint(1, 3), len(objects)))
+    """Возвращает 1-3 случайных объекта применения по их slug"""
+    selected_slugs = random.sample(
+        OBJECT_SLUGS, k=random.randint(1, min(3, len(OBJECT_SLUGS)))
+    )
+    objects = []
+    for slug in selected_slugs:
+        obj = get_object_by_slug(slug)
+        if obj:
+            objects.append(obj)
+    return objects
 
 
 def create_products_from_csv():
-    if check_if_products_exist():
-        print("Продукты уже существуют в базе данных. Завершаем работу скрипта.")
-        return
-
-    # Проверяем наличие тегов
-    industries_count = IndustryTag.objects.count()
-    objects_count = ObjectTag.objects.count()
-    print(f"Найдено отраслей: {industries_count}, объектов применения: {objects_count}")
+    print(
+        "Доступные отрасли:",
+        list(
+            IndustryTag.objects.values_list(
+                "slug",
+                flat=True,
+            )
+        ),
+    )
+    print(
+        "Доступные объекты:",
+        list(
+            ObjectTag.objects.values_list(
+                "slug",
+                flat=True,
+            )
+        ),
+    )
 
     csv_file_path = os.path.join(BASE_DIR, "test_products.csv")
 
@@ -52,14 +97,16 @@ def create_products_from_csv():
         reader = csv.DictReader(csvfile)
 
         for row in reader:
-            # Загружаем изображение
             image_path = os.path.join(
                 BASE_DIR, "../static/media/products_images/product.png"
             )
-            with open(image_path, "rb") as image_file:
-                image_content = ContentFile(image_file.read())
+            if os.path.exists(image_path):
+                with open(image_path, "rb") as image_file:
+                    image_content = ContentFile(image_file.read())
+            else:
+                print(f"Ошибка: Файл изображения не найден: {image_path}")
+                image_content = None
 
-            # Создаем продукт
             product = Product(
                 name=row["name"],
                 short_description=row["short_description"],
@@ -67,37 +114,37 @@ def create_products_from_csv():
                 specifications=row["specifications"],
             )
 
-            # Устанавливаем изображение
-            product.preview.save("product.png", image_content)
-
             try:
-                product.save()
+                if image_content:
+                    product.preview.save("product.png", image_content)
+                else:
+                    product.save()
 
-                # Добавляем случайные отрасли (если они есть)
                 industries = get_random_industries()
                 if industries:
-                    product.industries.set(industries)  # Исправлено на industries
+                    product.industries.set(industries)
+                    print(f"Назначены отрасли: {[i.slug for i in industries]}")
+                else:
+                    print("Не удалось назначить отрасли - ни одна не найдена")
 
-                # Добавляем случайные объекты применения (если они есть)
                 applying_objects = get_random_objects()
                 if applying_objects:
                     product.applying_objects.set(applying_objects)
+                    print(f"Назначены объекты: {[o.slug for o in applying_objects]}")
+                else:
+                    print("Не удалось назначить объекты - ни один не найден")
 
-                print(
-                    f"Продукт '{product.name}' создан. "
-                    f"Отрасли: {[i.name for i in industries] if industries else 'нет'}, "
-                    f"Объекты: {[o.name for o in applying_objects] if applying_objects else 'нет'}"
-                )
+                # Сохраняем продукт снова, чтобы убедиться, что связи сохранены
+                product.save()
+
+                print(f"Продукт '{product.name}' успешно создан с ID {product.id}")
 
             except Exception as e:
                 print(f"Ошибка при создании продукта '{row['name']}': {str(e)}")
 
 
 if __name__ == "__main__":
-    print("Начинаем проверку наличия продуктов...")
-    if not check_if_products_exist():
-        print("Продукты не найдены. Начинаем создание...")
-        create_products_from_csv()
-    else:
-        print("Продукты уже существуют в базе данных. Завершаем работу.")
+    print("Начинаем создание продуктов...")
+    clear_existing_products()
+    create_products_from_csv()
     print("Процесс завершен")

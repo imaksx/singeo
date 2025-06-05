@@ -69,6 +69,16 @@ if __name__ == "__main__":
         exec(script_content)
         print("")
 
+        # После создания продуктов
+        with open(
+            "create_test_projects_with_industries_and_objects.py",
+            "r",
+            encoding="utf-8",
+        ) as file:
+            script_content = file.read()
+        exec(script_content)
+        print("")
+
         print("")
         print("Все скрипты выполнены успешно")
     except Exception as e:
