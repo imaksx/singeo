@@ -14,6 +14,7 @@ from content.models import (
     Certificate,
     IndustryTag,
     ObjectTag,
+    Region,
 )
 
 from api.utils import format_multiline_text
@@ -70,6 +71,15 @@ def about_company_view(request):
 def index_view(request):
     products = Product.objects.all()
     projects = Project.objects.all()
+    regions = (
+        Region.objects.filter(is_active=True, projects__isnull=False)
+        .distinct()
+        .prefetch_related("projects")
+    )
+
+    for region in regions:
+        region.coords_x = str(region.coord_x).replace(',', '.')
+        region.coords_y = str(region.coord_y).replace(',', '.')
 
     return render(
         request,
@@ -77,6 +87,7 @@ def index_view(request):
         {
             "products": products,
             "projects": projects,
+            "regions": regions,
         },
     )
 
@@ -141,9 +152,15 @@ def product_detail_view(request, id):
     )
 
 
-def projects_view(request):
-    projects = Project.objects.all()
-    return render(request, "main/projects.html", {"projects": projects})
+# def projects_view(request):
+#     # Получаем активные регионы (те, у которых есть проекты и is_active=True)
+#     regions = (
+#         Region.objects.filter(is_active=True, projects__isnull=False)
+#         .distinct()
+#         .prefetch_related("projects")
+#     )
+
+#     return render(request, "includes_index/projects_index.html", {"regions": regions})
 
 
 def project_detail_view(request, id):

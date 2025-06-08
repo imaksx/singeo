@@ -23,9 +23,9 @@ def create_regions_from_csv():
         print("Регионы уже существуют в базе данных. Завершаем работу скрипта.")
         return
 
-    csv_file_path = os.path.join(BASE_DIR, "regions.csv")
+    csv_file_path = os.path.join(BASE_DIR, "regions_percent.csv")
 
-    with open(csv_file_path, newline="", encoding='utf-8') as csvfile:
+    with open(csv_file_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
 
         for row in reader:
