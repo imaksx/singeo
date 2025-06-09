@@ -110,7 +110,7 @@ def project_list(request):
         "projects": projects,
         "object_tags": object_tags,
         "industry_tags": industry_tags,
-        "sensor_types": products_used_in_projects,  # если все еще нужно
+        "products_used_in_projects": products_used_in_projects,  # если все еще нужно
     }
     return render(request, "main/projects.html", context)
 

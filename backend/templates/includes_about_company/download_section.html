@@ -2,10 +2,10 @@
     <div class="container">
         <div class="download__wrapper">
             {% for company_pdf in company_pdfs %}
-                <div class="download__area">
+                <a href="{{ company_pdf.file.url }}" class="download__area">
                     <i class="fa-solid fa-file-pdf"></i>
-                    <a href="{{ company_pdf.file.url }}" class="download__link">{{ company_pdf.name }}</a>
-                </div>
+                    <span class="download__link">{{ company_pdf.name }}</span>
+                </a>
             {% empty %}
                 <p>Нет доступных PDF-файлов для загрузки.</p>
             {% endfor %}

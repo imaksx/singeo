@@ -1059,7 +1059,6 @@ button {
 .project__map__item {
 
   position: absolute;
-
 }
 
 .project__map__item.p1 {
@@ -1073,7 +1072,7 @@ button {
 }
 
 .project__map__item__button {
-
+  transform: translate(-50%, -100%);
   cursor: pointer;
 
   display: flex;
@@ -1884,7 +1883,8 @@ button {
   padding: 2.1rem 4rem 2.1rem 2rem;
 
   background-color: #e5e5e5;
-
+  color: var(--color-accent);
+  font-weight: 900;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-timing-function);
 

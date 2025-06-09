@@ -12,7 +12,7 @@
             <img src="{% static 'main/src/img/map.png' %}" alt="Карта проектов" class="projects__map__inner">
             {% for region in regions %}
             <div class="project__map__item" 
-                 style="left: {{ region.coords_x }}%; top: {{ region.coords_y }}%; transform: translate(-50%, -100%)"
+                 style="left: {{ region.coords_x }}%; top: {{ region.coords_y }}%;"
             >
                 <button class="project__map__item__button">
                     <img src="{% static 'main/src/icon/map_location.svg' %}" alt="Местоположение" class="projects__map__location">
