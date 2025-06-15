@@ -5,26 +5,26 @@
         </h2>
         <div class="sertificates__wrapper">
             <div class="sertificates__inner scroll_animate">
-                {% if about_index.certificates.count|divisibleby:2 %}
-                    {# Четное количество - анимация с двух сторон #}
+                {% if certificates_first_half and certificates_second_half %}
+                    <!-- Четное количество - две анимированные колонки -->
                     <div class="sertificate__inner_left__animation">
-                        {% for sertificate in about_index.certificates.all|slice:":half" %}
+                        {% for sertificate in certificates_first_half %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>
                         {% endfor %}
                     </div>
                     <div class="sertificate__inner_right__animation">
-                        {% for sertificate in about_index.certificates.all|slice:"half:" %}
+                        {% for sertificate in certificates_second_half %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {# Нечетное количество - анимация только слева и центрирование #}
+                    <!-- Нечетное количество - одна центральная колонка -->
                     <div class="sertificate__inner_center__animation" style="margin: 0 auto;">
-                        {% for sertificate in about_index.certificates.all %}
+                        {% for sertificate in certificates %}
                         <div class="sertificates__item">
                             <img src="{{ sertificate.image.url }}" alt="Сертификат" class="sertificates__item__img">
                         </div>

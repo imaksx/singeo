@@ -46,10 +46,23 @@ def download_certificates(request):
 def about_company_view(request):
     about_company = AboutCompany.objects.first()
 
+    # Получаем сертификаты и считаем их количество
+    certificates = Certificate.objects.all()
+    certificates_count = certificates.count()
+
+    # Инициализируем переменные для половин
+    certificates_first_half = None
+    certificates_second_half = None
+
+    # Если сертификатов четное количество, делим их на две части
+    if certificates_count > 0 and certificates_count % 2 == 0:
+        half = certificates_count // 2
+        certificates_first_half = certificates[:half]  # Первая половина
+        certificates_second_half = certificates[half:]  # Вторая половина
+
     established_year = 2019
     current_year = timezone.now().year
     years_in_market = current_year - established_year
-    certificates = Certificate.objects.all()
     project_count = Project.objects.count()
     logo_images = about_company.logo_images.all()
     company_pdfs = about_company.pdfs.all()
@@ -60,7 +73,9 @@ def about_company_view(request):
         "colleagues": colleagues,
         "years_in_market": years_in_market,
         "project_count": project_count,
-        "certificates": certificates,
+        "certificates": certificates,  # Все сертификаты (для нечетного количества)
+        "certificates_first_half": certificates_first_half,  # Первая половина (если четное)
+        "certificates_second_half": certificates_second_half,  # Вторая половина (если четное)
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,
     }
@@ -78,8 +93,8 @@ def index_view(request):
     )
 
     for region in regions:
-        region.coords_x = str(region.coord_x).replace(',', '.')
-        region.coords_y = str(region.coord_y).replace(',', '.')
+        region.coords_x = str(region.coord_x).replace(",", ".")
+        region.coords_y = str(region.coord_y).replace(",", ".")
 
     return render(
         request,
