@@ -12,13 +12,12 @@
 
 <body data-page="index">
 
+  <div class="identificator" data-page="index"></div>
+
   <a href="" id="top"></a>
-  <div class="burger">
-    <span class="burger__lines"></span>
-  </div>
+
 
   <header class="header">
-
     <div class="container">
       <div class="header__wrapper">
         <div class="header__main-menu">
@@ -32,7 +31,12 @@
                 <div class="header__logo__subtitle">геотехнический мониторинг</div>
               </div>
             </a>
+            <div class="burger">
+              <span class="burger__lines"></span>
+            </div>
           </div>
+
+
 
           <div class="header__contacts">
             <div class="header__contacts__phone">
@@ -53,7 +57,7 @@
         <nav class="header__navbar navbar">
           <ul class="header__navbar__list">
             <a href="./about.html" class="header__navbar__list__link">
-              <li class="header__navbar__list__item">
+              <li class="header__navbar__list__item active">
                 о компании
               </li>
             </a>
@@ -83,10 +87,9 @@
   </header>
 
   <main class="main">
-    <div class="identificator" data-page="index"></div>
 
     <a href="#top" class="button-up">
-      <img src="./src/icon/arrow_up.svg" alt="" class="button-up__img">
+      <i class="fas fa-solid fa-arrow-up-long"></i>
     </a>
 
     <section class="banner">
@@ -167,22 +170,19 @@
         </h2>
         <div class="sertificates__wrapper">
           <div class="sertificates__inner scroll_animate">
-            <div class="sertificate__inner_left__animation">
-              <div class="sertificates__item">
-                <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
-              </div>
-              <div class="sertificates__item">
-                <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
-              </div>
+            <div class="sertificates__item">
+              <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
             </div>
-            <div class="sertificate__inner_right__animation">
-              <div class="sertificates__item">
-                <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
-              </div>
-              <div class="sertificates__item">
-                <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
-              </div>
+            <div class="sertificates__item">
+              <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
             </div>
+            <div class="sertificates__item">
+              <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
+            </div>
+            <div class="sertificates__item">
+              <img src="./src/img/sertificate.png" alt="" class="sertificates__item__img">
+            </div>
+
           </div>
 
           <div class=" button__accent__light button sertificates__button">
@@ -206,170 +206,165 @@
         </h2>
       </div>
       <div class="projects__wrapper">
+
         <div class="projects__map">
+
           <img src="./src/img/map.svg" alt="" class="projects__map__inner">
-          <div class="project__map__item p1" data-left="20%" data-top="50%">
+          <div class="project__map__item" style="left: 20%; top:30%;" data-left="20%" data-top="50%">
             <button class="project__map__item__button">
-              <img src="./src/icon/map_location.svg" alt="" class="projects__map__location">
+              <i class="fa-solid fa-location-dot"></i>
             </button>
 
-            <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
-              <div class="project__map__item__button__close card__exit">
-              </div>
-              <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
-                  </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
-                  </div>
+            <div class="project__map__item__wrapper">
+
+              <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
+                <div class="project__map__item__button__close card__exit">
                 </div>
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
+
+                <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
                   </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
+
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
                   </div>
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
-                  </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
-                  </div>
+                <div
+                  class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
+
                 </div>
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
-                  </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
 
               </div>
-
             </div>
 
           </div>
 
-          <div class="project__map__item p2" data-left="60%" data-top="50%">
+
+
+
+          <div class="project__map__item p2" style="left: 50%; top:30%;" data-left="60%" data-top="50%">
             <button class="project__map__item__button">
-              <img src="./src/icon/map_location.svg" alt="" class="projects__map__location">
+              <i class="fa-solid fa-location-dot"></i>
             </button>
 
-            <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
-              <div class="project__map__item__button__close card__exit">
-              </div>
-              <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
+            <div class="project__map__item__wrapper">
+              <div class="project__map__item__inner project__map__carousel card__carousel carousel card">
+                <div class="project__map__item__button__close card__exit">
+                </div>
+                <div class="project__map__carousel__cards card__carousel__cards carousel__cards">
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
                   </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
+
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
                   </div>
+                  <div class="project__map__card carousel-item card">
+                    <div class="project__map__item__preview">
+                      <img src="./src/img/projects.png" alt="card__prev-img">
+                    </div>
+                    <div class="card__content">
+                      <div class="card__title">Название предприятия</div>
+                      <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nunc vulputate
+                        libero
+                        et
+                        velit interdum, ac aliquet odio mattis.</div>
+                      <a href="/" class="button button__accent card__button">
+                        <span>
+                          Смотреть
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+                <div
+                  class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
+
                 </div>
 
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
-                  </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
-                  </div>
-                </div>
-                <div class="project__map__card carousel-item card">
-                  <div class="card__preview">
-                    <img src="./src/img/projects.png" alt="card__prev-img">
-                  </div>
-                  <div class="card__content">
-                    <div class="card__title">Название предприятия</div>
-                    <div class="card__desc project__map__card__desc">Yorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Nunc vulputate
-                      libero
-                      et
-                      velit interdum, ac aliquet odio mattis.</div>
-                    <a href="/" class="button button__accent card__button">
-                      <span>
-                        Смотреть
-                      </span>
-                    </a>
-                  </div>
-                </div>
-
               </div>
-              <div
-                class="project__carousel__pagination card__carousel__pagination carousel__pagination carousel__pagination_point">
-
-              </div>
-
             </div>
           </div>
 
@@ -590,7 +585,7 @@
           </div>
         </div>
         <div class="footer__divider"></div>
-        <div class="header__logo footer__logo">
+        <div class=" footer__logo">
           <a href="./index.html" class="header__logo_link footer__logo_link">
             <div class="header__logo__icon footer__logo__icon">
               <img src="./src/icon/logo.svg" alt="" class="header__logo__img footer__logo__img">
@@ -611,164 +606,3 @@
 </body>
 
 </html>
-
-<!-- <div class="card" id="card-1">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-2">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-3">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-4">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-5">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-6">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-7">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-8">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-9">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="card" id="card-10">
-              <div class="card__prev">
-                <img src="./src/img/product.png" alt="card__prev-img">
-              </div>
-              <div class="card__content">
-                <div class="card__title">Датчик нагрузки анкерный</div>
-                <div class="card__desc">Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero
-                  et
-                  velit interdum, ac aliquet odio mattis.</div>
-                <a href="/" class="button card__button">
-                  <span>
-                    Смотреть
-                  </span>
-                </a>
-              </div>
-            </div> -->
