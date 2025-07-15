@@ -77,26 +77,46 @@
     </section>
 
     {% if related_projects.exists %}
-    <section class="project">
-        <h2 class="section__title project__title">Связанные проекты</h2>
-        <div class="project__wrapper">
-            {% for project in related_projects %}
-                <div class="project__preview">
-                    <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project__preview_img">
-                </div>
-                <div class="project__content">
-                    <h3 class="project__content__title"><a href="{% url 'project_detail' project.id %}" class="section__title__link company__title__link">
-                        {{ project.name }}
-                      </a></h3>
-                    <div class="project__desc">
-                        <p class="project__desc__paragraph">{{ project.description }}</p>
+    <section class="project product-project">
+        <h2 class="section__title project__title">Действующий проект</h2>
+        <div class="product-project__carousel carousel">
+            <div class="product-project__carousel__cards carousel__cards">
+                {% for project in related_projects %}
+                <div class="carousel-item product-project__carousel-item">
+                    <div class="project__wrapper">
+                        <div class="project__preview">
+                            <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project__preview_img">
+                        </div>
+                        <div class="project__content">
+                            <h3 class="project__content__title">
+                                <a href="{% url 'project_detail' project.id %}" class="section__title__link company__title__link">
+                                    {{ project.name }}
+                                </a>
+                            </h3>
+                            <div class="project__desc">
+                                <p class="project__desc__paragraph">{{ project.description }}</p>
+                            </div>
+                            <div class="project__location">
+                                <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
+                                <span class="project__location__text">{{ project.location }}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project__location">
-                        <span class="project__location__icon"><i class="fa-solid fa-location-dot"></i></span>
-                        <span class="project__location__text">{{ project.location }}</span>
-                    </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            
+            <div class="product-project__carousel__pagination carousel__pagination carousel__pagination_arrow">
+                <div class="product-project__carousel__pagination-prev carousel__pagination-prev">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                </div>
+                <div class="product-project__carousel__pagination-next carousel__pagination-next">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </div>
+            </div>
+            <div class="product-project__carousel__pagination carousel__pagination carousel__pagination_point">
+                <!-- Точки пагинации будут добавляться JavaScript'ом -->
+            </div>
         </div>
     </section>
     {% endif %}

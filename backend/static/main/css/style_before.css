@@ -88,13 +88,6 @@ button {
   overflow: visible;
 }
 
-.noscroll {
-  position: fixed; 
-  top: var(--st, 0);
-  inline-size: 100%;
-  overflow-y:scroll; 
-}
-
 .button {
   padding: 1.4rem 2rem;
   font-size: 1.6rem;
@@ -126,7 +119,6 @@ button {
 
 .button__accent__light:hover {
   color: var(--color-light);
-  border: 1px solid var(--color-secondary);;
 }
 
 .button__accent__light>* {
@@ -185,10 +177,6 @@ button {
   color: var(--color-light);
 }
 
-.button__link {
-  color: var(--color-accent);
-}
-
 .button__accent::before {
   content: "";
   position: absolute;
@@ -217,13 +205,11 @@ button {
 }
 
 .section__title {
-  font-size: 3.6rem;
+  font-size: 4.8rem;
   font-weight: 700;
   line-height: 5.9rem;
 
   color: var(--color-accent);
-
-  margin-bottom: 6.4rem;
 }
 
 .section__title a {
@@ -265,6 +251,10 @@ button {
   font-size: 1.6rem;
   line-height: 1.8rem;
 
+}
+
+.card_shadow {
+  box-shadow: 0 8px 24px 0 var(--color-accent-rgba);
 }
 
 .card__preview {
@@ -906,11 +896,11 @@ button {
 }
 
 .company__title {
-  margin-bottom: 3.2rem;
+  margin-bottom: 3.6rem;
 }
 
 .sertificates {
-  margin-bottom: 12.8rem;
+  margin-bottom: 64px;
 }
 
 .sertificates__wrapper {
@@ -925,31 +915,32 @@ button {
 
 .sertificates__inner {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
   width: 100%;
-  padding: 3.2rem 0;
+  padding: 32px 0 24px 0;
 }
 
 .sertificates__inner>div {
   display: flex;
-  width: 24.4%;
+  width: 49.5%;
+  justify-content: space-between;
   transition-duration: .8s;
 }
 
-.sertificates__inner>div:nth-child(odd) {
-  transform: translate(-120%, -100%);
+.sertificates__inner>div:nth-child(1) {
+  transform: translate(-120%, 0);
 }
 
-.sertificates__inner>div:nth-child(even) {
-  transform: translate(120%, -100%);
+.sertificates__inner>div:nth-child(2) {
+  transform: translate(120%, 0);
 }
 
-.sertificates__inner.visible>div:nth-child(odd) {
+.sertificates__inner.visible>div:nth-child(1) {
   transform: translate(0, 0);
 }
 
-.sertificates__inner.visible>div:nth-child(even) {
+.sertificates__inner.visible>div:nth-child(2) {
   transform: translate(0, 0);
 }
 
@@ -967,6 +958,71 @@ button {
   padding: 12px 0;
 }
 
+/* .sertificates__button{
+  position: relative;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  width: 24rem;
+  height: 4.8rem;
+  padding: 12px 0;
+
+  background-color: transparent;
+
+  border: 1px solid var(--color-accent);
+
+  color: var(--color-accent);
+  font-size: 1.6rem;
+
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing-function);
+
+}
+
+.sertificates__button:hover{
+  color: var(--color-light);
+}
+
+.sertificates__button>*{
+  z-index: 2;
+}
+
+.sertificates__button::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--color-accent);
+  box-shadow: 0px 0px 10px 20px var(--color-accent);
+  
+  border-radius: 50%;
+
+  opacity:0;
+
+  transform: scaleY(0.1) scaleX(0.7);
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing-function);
+  
+  z-index: 0;
+}
+
+.sertificates__button:hover::before{
+  box-shadow: 0px 0px 50px 50px var(--color-accent);
+  border-radius: 0;
+  opacity:1;
+  transform: scale(1);
+} */
 
 .projects {}
 
@@ -1003,12 +1059,20 @@ button {
 .project__map__item {
 
   position: absolute;
-
 }
 
+.project__map__item.p1 {
+  top: 50%;
+  left: 20%;
+}
+
+.project__map__item.p2 {
+  top: 50%;
+  left: 40%;
+}
 
 .project__map__item__button {
-
+  transform: translate(-50%, -100%);
   cursor: pointer;
 
   display: flex;
@@ -1117,13 +1181,16 @@ button {
   margin-bottom: 64px;
 }
 
+.products__title {
+  margin-bottom: 3.6rem;
+}
+
 .carousel {
   overflow: hidden;
 }
 
 .carousel__cards {
   position: relative;
-
 
   display: flex;
   align-items: center;
@@ -1170,7 +1237,7 @@ button {
   display: flex;
   justify-content: center;
   gap: 2.4rem;
-  margin-top: 3.2rem;
+  margin-top: 1.8rem;
 }
 
 .carousel__pagination-prev,
@@ -1269,7 +1336,7 @@ button {
 }
 
 .news {
-  padding: 12.8rem 0 12.8rem 0;
+  padding: 2rem 0 7.1rem 0;
 }
 
 .news__subtitle {
@@ -1282,8 +1349,8 @@ button {
 }
 
 .news__grid {
-  margin-top: 6.4rem;
-  margin-bottom: 3.2rem;
+  margin-top: 3.6rem;
+  margin-bottom: 4rem;
 }
 
 .news__row {
@@ -1293,6 +1360,7 @@ button {
   justify-content: space-between; 
   gap: 2.4rem;
 
+  margin: 2.4rem 0;
 }
 
 .news__button__wrapper,
@@ -1318,10 +1386,10 @@ button {
 
 
 .news-content__wrapper {
-  padding: 3.2rem 0 4.5rem 0;
+  padding: 6.4rem 0 4.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 6.1rem;
 }
 
 
@@ -1362,12 +1430,13 @@ button {
 
 .products,
 .projects {
-  padding: 2.8rem 0 7.1rem 0;
+  padding: 2rem 0 7.1rem 0;
 }
 
 .products__grid,
 .projects__grid {
-  margin-bottom: 3.2rem;
+  margin-top: 3.6rem;
+  margin-bottom: 4rem;
 }
 
 .products__row,
@@ -1378,6 +1447,7 @@ button {
   justify-content: space-between; 
   gap: 2.4rem;
 
+  margin: 2.4rem 0;
 }
 
 .products__row2 {
@@ -1390,9 +1460,9 @@ button {
 .filters {
   display: flex;
 
+  padding-top: 1.6rem;
 
   gap: 2.4rem;
-  margin-bottom: 3.2rem;
 }
 
 .product__filters__area,
@@ -1418,12 +1488,6 @@ button {
 
 
 
-}
-
-.filters__placeholder{
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
 }
 
 .product__filters__dropdown,
@@ -1462,7 +1526,7 @@ button {
   content: "";
   display: block;
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 5%;
   height: 1px;
   width: 90%;
@@ -1475,6 +1539,8 @@ button {
   background-color: var(--color-accent);
   color: var(--color-light);
   box-shadow: 0 0 20px 5px var(--color-accent);
+
+
 }
 
 .product__filters__icon>i,
@@ -1546,6 +1612,7 @@ button {
 }
 
 .project__wrapper {
+  margin-top: 3.6rem;
   display: flex;
 
 }
@@ -1591,6 +1658,7 @@ button {
 .project__desc__paragraph {
   font-size: 1.6rem;
   text-align: justify;
+  text-indent: 4rem;
 
   max-width: 100%;
 }
@@ -1599,10 +1667,6 @@ button {
   margin-top: auto;
   text-transform: uppercase;
   font-weight: 700;
-}
-
-.product-project__carousel-item{
-  min-width: 100%;
 }
 
 .product__wrapper {
@@ -1749,15 +1813,11 @@ button {
   cursor: pointer;
 }
 
-.product-project__carousel__pagination.carousel__pagination_point{
-  display: none;
-}
-
 .about-us {
   background-color: var(--color-accent);
   padding: 6.4rem 3.6rem;
   color: var(--color-light);
-  margin-bottom: 3.2rem;
+  margin-bottom: 3.6rem;
 }
 
 .about-us__title {
@@ -1774,7 +1834,7 @@ button {
 
 .about-us__text {
   font-size: 2rem;
-  line-height: 160%;
+  line-height: 140%;
 }
 
 .about-us__info {
@@ -1823,7 +1883,8 @@ button {
   padding: 2.1rem 4rem 2.1rem 2rem;
 
   background-color: #e5e5e5;
-
+  color: var(--color-accent);
+  font-weight: 900;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-timing-function);
 
@@ -1858,7 +1919,7 @@ button {
   flex-direction: column;
   gap: 3.6rem;
 
-  margin: 6.4rem 0 12.8rem 0;
+  margin: 6.4rem 0;
 }
 
 .team__preview {
@@ -2021,18 +2082,14 @@ button {
     display: flex;
     justify-content: space-between;
 
-    gap: 20px;
+    width: fit-content;
 
-    width: auto;
+    gap: 20px;
 
     transition-duration: .8s;
   }
 
   .sertificates__item {
-    width: 232px;
-  }
-
-  .sertificates__item img{
     width: 232px;
   }
 
@@ -2080,98 +2137,6 @@ button {
 
   }
 
-  .products__row,
-  .projects__row,
-  .news__row {
-    grid-template-columns: repeat(auto-fill, 100%);
-  }
-
-  .project__wrapper{
-    flex-direction: column;
-  }
-
-  .project__preview{
-    width: 100%;
-  }
-  
-  .products__row>.card,
-  .projects__row>.card,
-  .news__row>.card {
-    width: 100%;
-    height: 624px;
-  }
-
-  .products__row .card__prev,
-  .projects__row .card__prev,
-  .news__row .card__prev {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .products__row .card__prev>img,
-  .projects__row .card__prev>img,
-  .news__row .card__prev>img {
-    height: auto;
-    object-fit: cover;
-  }
-
-  .products__row .card>.card__content ,
-  .projects__row .card>.card__content,
-  .news__row .card>.card__content {
-    width: 100%;
-  }
-
-    .projects__filters {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .projects__filters>div {
-    width: 100%;
-  }
-  
-  .filters__area{
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    transition: all 0.3s linear;
-  }
-
-  .filters__placeholder{
-    display: flex;
-    justify-content: space-between;    
-  }
-
-  .filters__icon{
-    display: flex;
-  }
-
-  .filters__dropdown {
-    z-index: 1;
-
-    position: relative;
-    max-height: 0px;
-    overflow: hidden;
-    padding: 0;
-
-    transition: all .3s ease-in-out;
-  }
-
-  .filters__dropdown::before {
-  top: 2px;
-  left: 2.5%;
-  height: 1px;
-  width: 95%;
-}
-
-  .filters__area.active .filters__dropdown{
-    max-height: 400px;
-    padding: 1.2rem 1.6rem 1.6rem;
-  }
-
-
 }
 
 @media (max-width: 576px) {
@@ -2217,7 +2182,7 @@ button {
   }
 
   .header__logo.active {
-    margin-top: 10vh;
+    margin-top: 30%;
   }
 
   .header__logo__text {
@@ -2236,7 +2201,7 @@ button {
     top: 0;
     left: -100%;
 
-    padding-top: 20vh;
+    padding-top: 75%;
 
     background-image: url("../src/img/burger.jpg");
     background-position: center;
@@ -2258,10 +2223,7 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    height: 60vh;
-
-    gap: 6vh;
+    gap: 48px;
 
     font-size: 3rem;
   }
@@ -2351,7 +2313,7 @@ button {
   }
 
   .project__map__item__preview img {
-    width: 100%;
+    width: auto;
     height: 70vh;
   }
 
@@ -2533,44 +2495,9 @@ button {
   .projects__filters>div {
     width: 100%;
   }
-  
-  .filters__area{
-    flex-wrap: wrap;
-    flex-direction: column;
 
-    transition: all 0.3s linear;
-  }
-
-  .filters__placeholder{
-    display: flex;
-    justify-content: space-between;    
-  }
-
-  .filters__icon{
-    display: flex;
-  }
-
-  .filters__dropdown {
+  .filters__area.active .projects__filters__dropdown {
     z-index: 1;
-
-    position: relative;
-    max-height: 0px;
-    overflow: hidden;
-    padding: 0;
-
-    transition: all .3s ease-in-out;
-  }
-
-  .filters__dropdown::before {
-  top: 2px;
-  left: 2.5%;
-  height: 1px;
-  width: 95%;
-}
-
-  .filters__area.active .filters__dropdown{
-    max-height: 400px;
-    padding: 1.2rem 1.6rem 1.6rem;
   }
 
   .projects__row {
@@ -2618,7 +2545,4 @@ button {
     padding-inline: 3.6rem;
   }
 
-  .product-project__carousel__pagination.carousel__pagination_point{
-    display: flex;
-  }
 }

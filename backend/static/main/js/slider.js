@@ -183,6 +183,7 @@ const project = document.querySelector(".projects");
 const product = document.querySelector(".products");
 const news = document.querySelector(".news__banner");
 const team = document.querySelector(".team");
+const productProject = document.querySelector(".product-project");
 if (project) {
   const projectCarousels = project.querySelectorAll(".carousel");
   projectCarousels.forEach((carousel) => {
@@ -219,6 +220,16 @@ if (team) {
     initSlider({
       countWidth: 4,
       carousel,
+    });
+  });
+}
+if (productProject) {
+  const productProjectCarousels = productProject.querySelectorAll(".carousel");
+  productProjectCarousels.forEach((carousel) => {
+    initSlider({
+      countWidth: 1,
+      carousel,
+      swipe: true,
     });
   });
 }

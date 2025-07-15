@@ -4,6 +4,9 @@ import os
 import zipfile
 from django.http import HttpResponse
 from django.conf import settings
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.shortcuts import render
 
 from content.models import (
     New,
@@ -46,21 +49,9 @@ def download_certificates(request):
 def about_company_view(request):
     about_company = AboutCompany.objects.first()
 
-    # Получаем сертификаты и считаем их количество
     certificates = Certificate.objects.all()
-    certificates_count = certificates.count()
 
-    # Инициализируем переменные для половин
-    certificates_first_half = None
-    certificates_second_half = None
-
-    # Если сертификатов четное количество, делим их на две части
-    if certificates_count > 0 and certificates_count % 2 == 0:
-        half = certificates_count // 2
-        certificates_first_half = certificates[:half]  # Первая половина
-        certificates_second_half = certificates[half:]  # Вторая половина
-
-    established_year = 2019
+    established_year = 2020
     current_year = timezone.now().year
     years_in_market = current_year - established_year
     project_count = Project.objects.count()
@@ -73,9 +64,7 @@ def about_company_view(request):
         "colleagues": colleagues,
         "years_in_market": years_in_market,
         "project_count": project_count,
-        "certificates": certificates,  # Все сертификаты (для нечетного количества)
-        "certificates_first_half": certificates_first_half,  # Первая половина (если четное)
-        "certificates_second_half": certificates_second_half,  # Вторая половина (если четное)
+        "certificates": certificates,
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,
     }
@@ -187,6 +176,44 @@ def news_view(request):
     news = New.objects.all().order_by("-pub_date")
     latest_news = news.first()  # Получаем последнюю новость
     return render(request, "main/news.html", {"news": news, "latest_news": latest_news})
+
+
+def news_view_paginator(request, page=1):
+    """Представление для пагинированных страниц новостей"""
+    news_list = New.objects.all().order_by("-pub_date")
+    paginator = Paginator(news_list, 8)
+
+    try:
+        page_obj = paginator.page(page)
+    except:
+        return redirect("news")
+
+    # Обработка AJAX-запросов
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        news_data = []
+        for article in page_obj:
+            image_url = (
+                article.images.first().image.url if article.images.exists() else None
+            )
+            news_data.append(
+                {
+                    "id": article.id,
+                    "name": article.name,
+                    "pub_date": article.pub_date.strftime("%d.%m.%Y"),
+                    "text": article.text[:150] + "..."
+                    if len(article.text) > 150
+                    else article.text,
+                    "image_url": image_url,
+                    "detail_url": f"/news/{article.id}/",
+                }
+            )
+        return JsonResponse({"news": news_data, "has_next": page_obj.has_next()})
+
+    return render(
+        request,
+        "main/news.html",
+        {"news": page_obj, "has_next": page_obj.has_next()},
+    )
 
 
 def new_detail_view(request, id):

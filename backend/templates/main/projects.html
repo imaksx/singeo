@@ -23,8 +23,10 @@
         <div class="projects__filters filters">
             <!-- Фильтр по объекту применения -->
             <div class="projects__filters__area filters__area">
-                <div class="projects__filters__placeholder filters__placeholder">Объект применения</div>
-                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__placeholder filters__placeholder">
+                    Объект применения <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                </div>
+                
                 <div class="projects__filters__dropdown filters__dropdown">
                     {% for tag in object_tags %}
                     <div class="projects__filters__item filters__item">
@@ -40,8 +42,9 @@
 
             <!-- Фильтр по отрасли -->
             <div class="projects__filters__area filters__area">
-                <div class="projects__filters__placeholder filters__placeholder">Отрасль</div>
-                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__placeholder filters__placeholder">
+                    Отрасль <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                </div>
                 <div class="projects__filters__dropdown filters__dropdown">
                     {% for tag in industry_tags %}
                     <div class="projects__filters__item filters__item">
@@ -57,8 +60,10 @@
             
             <!-- Фильтр по продуктам -->
             <div class="projects__filters__area filters__area">
-                <div class="projects__filters__placeholder filters__placeholder">Продукты</div>
-                <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                <div class="projects__filters__placeholder filters__placeholder">
+                    Продукты <div class="projects__filters__icon filters__icon"><i class="fa-solid fa-chevron-down"></i></div>
+                </div>
+                
                 <div class="projects__filters__dropdown filters__dropdown">
                     {% for product in products_used_in_projects %}
                     <div class="projects__filters__item filters__item">
