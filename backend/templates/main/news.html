@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% load static %}
+{% load static %}  <!-- Подключаем статические файлы -->
 
 {% block title %}Новости - Singeo{% endblock %}
 
@@ -10,83 +10,6 @@
 
 {% block extra_scripts %}
     <script src="{% static 'main/js/news.js' %}" defer></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadMoreBtn = document.getElementById('load-more');
-        if (!loadMoreBtn) return;
-
-        loadMoreBtn.addEventListener('click', async function() {
-            const nextPage = loadMoreBtn.dataset.nextPage;
-            if (!nextPage) return;
-
-            // Показываем индикатор загрузки
-            const spinner = loadMoreBtn.querySelector('.loading-spinner');
-            const buttonText = loadMoreBtn.querySelector('span:first-child');
-            buttonText.style.display = 'none';
-            spinner.style.display = 'inline';
-            loadMoreBtn.disabled = true;
-
-            try {
-                // Используем новый URL для пагинации
-                const response = await fetch(`/news/page/${nextPage}/`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Ошибка загрузки данных');
-                }
-
-                const data = await response.json();
-                
-                if (data.news && data.news.length > 0) {
-                    const newsContainer = document.getElementById('news-container');
-                    
-                    // Добавляем новые новости
-                    data.news.forEach(article => {
-                        const imageHTML = article.image_url ? 
-                            `<img src="${article.image_url}" alt="${article.name}" class="news-image">` : 
-                            `<p>Нет изображений</p>`;
-                        
-                        const cardHTML = `
-                        <div class="card">
-                            <div class="card__prev">
-                                ${imageHTML}
-                            </div>
-                            <div class="card__content">
-                                <div class="card__timestamp">${article.pub_date}</div>
-                                <div class="card__title card__title_news">${article.name}</div>
-                                <div class="card__desc">${article.text}</div>
-                                <a href="${article.detail_url}" class="button button__accent__light card__button">
-                                    <span>Читать дальше</span>
-                                </a>
-                            </div>
-                        </div>
-                        `;
-                        newsContainer.insertAdjacentHTML('beforeend', cardHTML);
-                    });
-
-                    // Обновляем номер следующей страницы
-                    if (data.has_next) {
-                        loadMoreBtn.dataset.nextPage = parseInt(nextPage) + 1;
-                    } else {
-                        // Если больше нет страниц - удаляем кнопку
-                        loadMoreBtn.parentElement.remove();
-                    }
-                }
-            } catch (error) {
-                console.error('Ошибка:', error);
-                loadMoreBtn.innerHTML = '<span>Ошибка загрузки. Попробуйте снова</span>';
-            } finally {
-                // Восстанавливаем состояние кнопки
-                if (buttonText) buttonText.style.display = 'inline';
-                if (spinner) spinner.style.display = 'none';
-                loadMoreBtn.disabled = false;
-            }
-        });
-    });  
-    </script>
 {% endblock %}
 
 {% block content %}
@@ -95,9 +18,8 @@
     <img src="{% static 'main/src/icon/arrow_up.svg' %}" alt="Наверх" class="button-up__img">
 </a>
 
-{% if news %}
+{% if latest_news %}
 <section class="banner">
-    {% with latest_news=news.0 %}
     {% if latest_news.video %}
     <video class="banner__inner__img" autoplay muted loop>
         <source src="{{ latest_news.video.url }}" type="video/mp4">
@@ -112,7 +34,7 @@
     {% endif %}
     <div class="container">
         <div class="banner__wrapper">
-            <div class="banner__timestamp">{{ latest_news.pub_date|date:"d.m.Y" }}</div>
+            <div class="banner__timestamp">{{ latest_news.pub_date }}</div>
             <div class="banner__title">
                 <a>{{ latest_news.name }}</a>
             </div>
@@ -121,7 +43,6 @@
             <span>Перейти к новости</span>
         </a>
     </div>
-    {% endwith %}
 </section>
 
 <section class="news">
@@ -133,22 +54,24 @@
         </h2>
 
         <div class="news__grid">
-            <div class="news__row" id="news-container">
+            <div class="news__row">
                 {% for article in news %}
                     <div class="card">
                         <div class="card__prev">
                             {% if article.images.count > 0 %}
-                                <img src="{{ article.images.first.image.url }}" alt="{{ article.name }}" class="news-image">
+                                <img src="{{ article.images.first.image.url }}" alt="card__prev-img" class="news-image">
                             {% else %}
                                 <p>Нет изображений</p>
                             {% endif %}
                         </div>
-                        <div class="card__content">
-                            <div class="card__timestamp">{{ article.pub_date|date:"d.m.Y" }}</div>
+                        <div class="card__content ">
+                            <div class="card__timestamp">{{ article.pub_date }}</div>
                             <div class="card__title card__title_news">{{ article.name }}</div>
                             <div class="card__desc">{{ article.text|truncatewords:30 }}</div>
                             <a href="{% url 'news_detail' article.id %}" class="button button__accent__light card__button">
-                                <span>Читать дальше</span>
+                                <span>
+                                    Читать дальше
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -156,30 +79,18 @@
             </div>
         </div>
 
-        {% if has_next %}
         <div class="news__button__wrapper">
-            <button class="button button__accent news__button__more" id="load-more" data-next-page="2">
-                <span>Показать больше</span>
-                <span class="loading-spinner" style="display:none;">Загрузка...</span>
+            <button class="button button__accent news__button__more">
+                <span>
+                    Показать больше
+                </span>
             </button>
-        </div>
-        {% endif %}
-        
-        <!-- Пагинационные ссылки -->
-        <div class="pagination">
-            {% for i in news.paginator.page_range %}
-                {% if forloop.first %}
-                    <a href="{% url 'news' %}" class="pagination-link {% if news.number == 1 %}active{% endif %}">1</a>
-                {% else %}
-                    <a href="{% url 'news_paginator' page=i %}" class="pagination-link {% if news.number == i %}active{% endif %}">{{ i }}</a>
-                {% endif %}
-            {% endfor %}
         </div>
     </div>
 </section>
 {% else %}
-    <div class="container">
-        <p class="no-news">Пока новостей нет</p>
+    <div>
+        <p>Пока новостей нет</p>
     </div>
 {% endif %}
 {% endblock %}

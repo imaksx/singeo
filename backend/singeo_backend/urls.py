@@ -11,10 +11,11 @@ from api.views import (
     project_list,
     project_detail_view,
     news_view,
-    news_view_paginator,
+    # news_view_paginator,
     new_detail_view,
     about_company_view,
     download_certificates,
+    news_view_paginator_renat,
 )
 
 router = SimpleRouter()
@@ -27,7 +28,10 @@ urlpatterns = [
     path("product/<int:id>/", product_detail_view, name="product_detail"),
     path("products/", products_view, name="products"),
     path("news/", news_view, name="news"),
-    path("news/page/<int:page>/", news_view_paginator, name="news_paginator"),
+    # path("news/page/<int:page>/", news_view_paginator, name="news_paginator"),
+    path(
+        "news/ajax/<int:page>", news_view_paginator_renat, name="news_paginator_renat"
+    ),
     path("news/<int:id>/", new_detail_view, name="news_detail"),
     path("admin/", admin.site.urls),
     path(

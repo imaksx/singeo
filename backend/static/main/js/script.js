@@ -151,7 +151,7 @@ YourNamespace = {
         showDropDown();
       });
 
-      function showDropDown(item) {}
+      function showDropDown(item) { }
       function checkFilters() {
         projectsObjects.forEach((item) => {
           let { project, objects, industry, products } = item;
@@ -231,6 +231,52 @@ YourNamespace = {
       });
     },
   },
+  news: {
+    init: function () {
+      const moreButton = document.querySelector(".news__button__more");
+      const newsRow = document.querySelector(".news__row");
+      let counter = 1;
+      moreButton.addEventListener("click", async () => {
+        let res = await getNews();
+        let newCard = "";
+        console.log('Перед forEach', res);
+        res.news.forEach((item) => {
+          newCard += `
+                <div class="card ">
+                      <div class="card__prev">
+                        <img src="${item.image_url}" alt="card__prev-img">
+                      </div>
+                      <div class="card__content ">
+                        <div class="card__timestamp">${item.pub_date}</div>
+                        <div class="card__title card__title_news">${item.name}
+                        </div>
+                        <div class="card__desc">${item.text}</div>
+                        <a href="${item.detail_url}" class="button button__accent__light card__button">
+                          <span>
+                            Читать дальше
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                `;
+        });
+
+        newsRow.innerHTML += newCard;
+        if (res.checker == false) moreButton.style.display = "None";
+        counter += 1;
+      });
+
+      let getNews = async function () {
+        const url = `ajax/${counter}`;
+        let res = await fetch(url, {
+          method: "GET",
+        });
+
+        let news = res.json();
+        return news;
+      };
+    },
+  },
 };
 
 {
@@ -265,3 +311,5 @@ YourNamespace = {
     logo.classList.toggle("active");
   });
 }
+
+
