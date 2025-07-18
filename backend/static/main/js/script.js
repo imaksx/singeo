@@ -62,6 +62,51 @@ YourNamespace = {
       });
     },
   },
+  products: {
+    init: function () {
+      const moreButton = document.querySelector(".products__button__more");
+      const productsRow = document.querySelector(".products__row");
+      let counter = 1;
+      moreButton.addEventListener("click", async () => {
+        let res = await getProducts();
+        let newCard = "";
+        console.log('Перед forEach', res);
+        res.products.forEach((item) => {
+          newCard += `
+                <div class="card ">
+                      <div class="card__prev">
+                        <img src="${item.preview}" alt="card__prev-img">
+                      </div>
+                      <div class="card__content ">
+                        <div class="card__title">${item.name}
+                        </div>
+                        <div class="card__desc">${item.short_description}</div>
+                        <a href="${item.detail_url}" class="button button__accent card__button">
+                          <span>
+                            Смотреть
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                `;
+        });
+
+        productsRow.innerHTML += newCard;
+        if (res.checker == false) moreButton.style.display = "None";
+        counter += 1;
+      });
+
+      let getProducts = async function () {
+        const url = `ajax/${counter}`;
+        let res = await fetch(url, {
+          method: "GET",
+        });
+
+        let products = res.json();
+        return products;
+      };
+    },
+  },
   product_detail: {
     init: function () {
       const props = document.querySelectorAll(".product__props");

@@ -16,6 +16,7 @@ from api.views import (
     about_company_view,
     download_certificates,
     news_view_paginator_renat,
+    product_view_paginator_renat,
 )
 
 router = SimpleRouter()
@@ -31,6 +32,11 @@ urlpatterns = [
     # path("news/page/<int:page>/", news_view_paginator, name="news_paginator"),
     path(
         "news/ajax/<int:page>", news_view_paginator_renat, name="news_paginator_renat"
+    ),
+    path(
+        "products/ajax/<int:page>",
+        product_view_paginator_renat,
+        name="product_view_paginator_renat",
     ),
     path("news/<int:id>/", new_detail_view, name="news_detail"),
     path("admin/", admin.site.urls),

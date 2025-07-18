@@ -79,6 +79,7 @@
             </div>
         </div>
 
+        {% if news|length >= 12 %}
         <div class="news__button__wrapper">
             <button class="button button__accent news__button__more">
                 <span>
@@ -86,6 +87,7 @@
                 </span>
             </button>
         </div>
+        {% endif %}
     </div>
 </section>
 {% else %}

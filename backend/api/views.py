@@ -138,7 +138,7 @@ def project_list(request):
 
 def products_view(request):
     products = Product.objects.all()
-    return render(request, "main/products.html", {"products": products})
+    return render(request, "main/products.html", {"products": products[:12]})
 
 
 def product_detail_view(request, id):
@@ -214,3 +214,63 @@ def news_view_paginator_renat(request, page=1):
             }
         )
     return JsonResponse({"news": news_data, "checker": checker})
+
+
+def product_view_paginator_renat(request, page=1):
+    product_list = Product.objects.all()
+    product_data = []
+    slicer = page * 12
+    checker = True
+
+    if (len(product_list) - 1) < (slicer + 12):
+        checker = False
+
+    for product in product_list[slicer : (slicer + 12)]:
+        image_url = product.preview.url
+        product_data.append(
+            {
+                "name": product.name,
+                "short_description": product.short_description,
+                "preview": image_url,
+                "detail_url": f"/product/{product.id}/",
+            }
+        )
+    return JsonResponse({"products": product_data, "checker": checker})
+
+
+# class Product(models.Model):
+#     """Модель товара."""
+
+#     name = models.CharField(max_length=256, verbose_name="Название продукта")
+#     short_description = models.TextField(
+#         max_length=256, verbose_name="Краткое описание продукта"
+#     )
+#     description = models.TextField(verbose_name="Полное описание продукта")
+#     preview = models.ImageField(
+#         upload_to="products_images",
+#         null=True,
+#         default=None,
+#         verbose_name="Фотография продукта",
+#     )
+#     specifications = models.TextField(
+#         verbose_name="Основные технические характеристики", default=None
+#     )
+#     applying_objects = models.ManyToManyField(
+#         ObjectTag,
+#         related_name="products",
+#         verbose_name="Объекты применения",
+#         blank=True,
+#     )
+#     industries = models.ManyToManyField(
+#         IndustryTag,
+#         related_name="products",
+#         verbose_name="Отрасли",
+#         blank=True,
+#     )
+
+#     class Meta:
+#         verbose_name = "Продукт"
+#         verbose_name_plural = "Продукты"
+
+#     def __str__(self):
+#         return self.name

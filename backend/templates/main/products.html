@@ -40,6 +40,15 @@
                 {% endfor %}
             </div>
         </div>
+        {% if products|length >= 12 %}
+        <div class="news__button__wrapper">
+            <button class="button button__accent products__button__more">
+                <span>
+                    Показать больше
+                </span>
+            </button>
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
