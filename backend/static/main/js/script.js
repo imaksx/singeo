@@ -66,7 +66,8 @@ YourNamespace = {
     init: function () {
       const moreButton = document.querySelector(".products__button__more");
       const productsRow = document.querySelector(".products__row");
-      let counter = 1;
+      if (moreButton)
+      {let counter = 1;
       moreButton.addEventListener("click", async () => {
         let res = await getProducts();
         let newCard = "";
@@ -104,7 +105,7 @@ YourNamespace = {
 
         let products = res.json();
         return products;
-      };
+      };}
     },
   },
   product_detail: {
@@ -280,7 +281,8 @@ YourNamespace = {
     init: function () {
       const moreButton = document.querySelector(".news__button__more");
       const newsRow = document.querySelector(".news__row");
-      let counter = 1;
+      if (moreButton)
+      {let counter = 1;
       moreButton.addEventListener("click", async () => {
         let res = await getNews();
         let newCard = "";
@@ -319,7 +321,7 @@ YourNamespace = {
 
         let news = res.json();
         return news;
-      };
+      };}
     },
   },
 };

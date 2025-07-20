@@ -40,13 +40,20 @@ var initSlider = function (controls) {
   if (carouselPagArrow) {
     const prevBtn = carouselPagArrow.querySelector(".carousel__pagination-prev");
     const nextBtn = carouselPagArrow.querySelector(".carousel__pagination-next");
+    prevBtn.classList.add("disabled");
+    prevBtn.disabled = true;
     nextBtn.addEventListener("click", (e) => {
       if (isAnimate) return;
       currentItem++;
 
       prevBtn.disabled = false;
-      if (Visible(carouselItemList[carouselItemList.length - 1])) {
+      prevBtn.classList.remove("disabled");
+
+      if (currentItem >= carouselItemList.length - countWidth) {
         nextBtn.disabled = true;
+        nextBtn.classList.add("disabled");
+      }
+      if (Visible(carouselItemList[carouselItemList.length - 1])) {
         currentItem--;
         return;
       }
@@ -56,8 +63,12 @@ var initSlider = function (controls) {
       if (isAnimate) return;
       currentItem--;
       nextBtn.disabled = false;
-      if (Visible(carouselItemList[0])) {
+      nextBtn.classList.remove("disabled");
+      if (currentItem <= 0) {
         prevBtn.disabled = true;
+        prevBtn.classList.add("disabled");
+      }
+      if (Visible(carouselItemList[0])) {
         currentItem++;
         return;
       }
