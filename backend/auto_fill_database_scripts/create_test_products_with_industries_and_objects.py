@@ -1,10 +1,11 @@
-import os
-import sys
-import django
 import csv
+import os
 import random
+import sys
+
+import django
+from content.models import IndustryTag, ObjectTag, Product
 from django.core.files.base import ContentFile
-from content.models import Product, IndustryTag, ObjectTag
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,7 +13,6 @@ sys.path.append(os.path.join(BASE_DIR, ".."))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "singeo_backend.settings")
 django.setup()
 
-# Список возможных слогов для отраслей и объектов
 INDUSTRY_SLUGS = ["oil-and-gas", "energy", "construction"]
 OBJECT_SLUGS = ["oil-refinery", "power-plant", "residential-complex"]
 
@@ -134,7 +134,6 @@ def create_products_from_csv():
                 else:
                     print("Не удалось назначить объекты - ни один не найден")
 
-                # Сохраняем продукт снова, чтобы убедиться, что связи сохранены
                 product.save()
 
                 print(f"Продукт '{product.name}' успешно создан с ID {product.id}")

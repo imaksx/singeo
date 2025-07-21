@@ -1,10 +1,11 @@
+import csv
 import os
 import sys
+
 import django
-import csv
+from content.models import Product
 from django.core.files import File
 from django.core.files.base import ContentFile
-from content.models import Product
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -15,7 +16,6 @@ django.setup()
 
 
 def check_if_products_exist():
-    # Проверяем, есть ли уже продукты в базе данных
     return Product.objects.exists()
 
 
@@ -30,7 +30,6 @@ def create_products_from_csv():
         reader = csv.DictReader(csvfile)
 
         for row in reader:
-            # Загружаем изображение
             image_path = os.path.join(
                 BASE_DIR, "../static/media/products_images/product.png"
             )
@@ -44,7 +43,6 @@ def create_products_from_csv():
                 specifications=row["specifications"],
             )
 
-            # Устанавливаем изображение
             product.preview.save("product.png", image_content)
 
             try:

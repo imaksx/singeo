@@ -1,10 +1,9 @@
+import csv
 import os
 import sys
+
 import django
-import csv
-from django.core.files import File
-from django.core.files.base import ContentFile
-from content.models import Region  # Импортируйте вашу модель Region
+from content.models import Region
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -29,12 +28,11 @@ def create_regions_from_csv():
         reader = csv.DictReader(csvfile)
 
         for row in reader:
-            # Принудительно устанавливаем is_active=False для всех регионов
             region = Region(
                 name=row["name"],
                 coord_x=float(row["coord_x"]),
                 coord_y=float(row["coord_y"]),
-                is_active=False,  # Все новые регионы скрыты на карте
+                is_active=False,
             )
 
             try:
@@ -47,7 +45,9 @@ def create_regions_from_csv():
 if __name__ == "__main__":
     print("Начинаем проверку наличия регионов...")
     if not check_if_regions_exist():
-        print("Регионы не найдены. Начинаем создание (все будут скрыты на карте)...")
+        print(
+            "Регионы не найдены. Начинаем создание...",
+        )
         create_regions_from_csv()
     else:
         print("Регионы уже существуют в базе данных. Завершаем работу.")

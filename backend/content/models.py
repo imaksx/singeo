@@ -1,8 +1,8 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.storage import default_storage
 from django.db import models
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
-from django.core.files.storage import default_storage
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class New(models.Model):

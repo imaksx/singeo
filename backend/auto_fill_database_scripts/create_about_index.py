@@ -1,8 +1,8 @@
+import csv
 import os
 import sys
-import django
-import csv
 
+import django
 from content.models import AboutIndex
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

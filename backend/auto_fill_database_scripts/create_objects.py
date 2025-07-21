@@ -1,10 +1,9 @@
+import csv
 import os
 import sys
+
 import django
-import csv
-from django.core.files import File
-from django.core.files.base import ContentFile
-from content.models import ObjectTag  # Убедитесь, что путь к модели правильный
+from content.models import ObjectTag
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, ".."))

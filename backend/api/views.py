@@ -1,24 +1,21 @@
-from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
 import os
 import zipfile
-from django.http import HttpResponse
-from django.conf import settings
-from django.core.paginator import Paginator
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
 
 from content.models import (
+    AboutCompany,
+    Certificate,
+    Colleague,
+    IndustryTag,
     New,
+    ObjectTag,
     Product,
     Project,
-    AboutCompany,
-    Colleague,
-    Certificate,
-    IndustryTag,
-    ObjectTag,
     Region,
 )
+from django.conf import settings
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 
 from api.utils import format_multiline_text
 
@@ -34,7 +31,10 @@ def download_certificates(request):
         for certificate in certificates:
             if certificate.image:
                 zip_file.write(
-                    certificate.image.path, os.path.basename(certificate.image.path)
+                    certificate.image.path,
+                    os.path.basename(
+                        certificate.image.path,
+                    ),
                 )
 
     with open(zip_filepath, "rb") as zip_file:
@@ -47,10 +47,10 @@ def download_certificates(request):
 
 
 def about_company_view(request):
+    """Функция для страницы 'О компании'."""
+
     about_company = AboutCompany.objects.first()
-
     certificates = Certificate.objects.all()
-
     established_year = 2020
     current_year = timezone.now().year
     years_in_market = current_year - established_year
@@ -59,11 +59,32 @@ def about_company_view(request):
     company_pdfs = about_company.pdfs.all()
     colleagues = Colleague.objects.all()
 
+    def get_declension(number, forms):
+        if 10 <= number % 100 <= 20:
+            return forms[2]
+        last_digit = number % 10
+        if last_digit == 1:
+            return forms[0]
+        elif 2 <= last_digit <= 4:
+            return forms[1]
+        else:
+            return forms[2]
+
+    years_text = get_declension(
+        years_in_market, ["год на рынке", "года на рынке", "лет на рынке"]
+    )
+    projects_text = get_declension(
+        project_count,
+        ["действующий проект", "действующих проекта", "действующих проектов"],
+    )
+
     context = {
         "about_company": about_company,
         "colleagues": colleagues,
         "years_in_market": years_in_market,
         "project_count": project_count,
+        "years_text": years_text,
+        "projects_text": projects_text,
         "certificates": certificates,
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,
@@ -73,6 +94,8 @@ def about_company_view(request):
 
 
 def index_view(request):
+    """Функция для главной страницы."""
+
     products = Product.objects.all()
     projects = Project.objects.all()
     regions = (
@@ -97,15 +120,11 @@ def index_view(request):
 
 
 def project_list(request):
+    """Функция для страницы со всеми проектами."""
+
     projects = Project.objects.all()
-
-    # Получаем все уникальные теги объектов применения
     object_tags = ObjectTag.objects.all()
-
-    # Получаем все уникальные теги отраслей
     industry_tags = IndustryTag.objects.all()
-
-    # Получаем все уникальные продукты, используемые в проектах (если нужно)
     products_used_in_projects = Product.objects.filter(
         projectproduct__project__in=projects
     ).distinct()
@@ -114,36 +133,23 @@ def project_list(request):
         "projects": projects,
         "object_tags": object_tags,
         "industry_tags": industry_tags,
-        "products_used_in_projects": products_used_in_projects,  # если все еще нужно
+        "products_used_in_projects": products_used_in_projects,
     }
     return render(request, "main/projects.html", context)
 
 
-# старый рабочий до попытки завести фильтрацию
-# def project_list(request):
-#     # НУЖДАЕТСЯ В ОТЛАДКЕ
-#     projects = Project.objects.all()
-
-#     # Получаем все уникальные продукты, используемые в проектах
-#     products_used_in_projects = Product.objects.filter(
-#         projectproduct__project__in=projects).distinct()
-
-#     context = {
-#         'projects': projects,
-#         # Передаем продукты в качестве фильтров
-#         'sensor_types': products_used_in_projects,
-#     }
-#     return render(request, 'main/projects.html', context)
-
-
 def products_view(request):
+    """Функция для страницы со всеми продуктами."""
+
     products = Product.objects.all()
     return render(request, "main/products.html", {"products": products[:12]})
 
 
 def product_detail_view(request, id):
-    product = get_object_or_404(Product, id=id)  # Получаем продукт по ID
-    related_projects = product.project_set.all()  # Получаем связанные проекты
+    """Функция для отдельной страницы продукта."""
+
+    product = get_object_or_404(Product, id=id)
+    related_projects = product.project_set.all()
 
     return render(
         request,
@@ -156,39 +162,44 @@ def product_detail_view(request, id):
     )
 
 
-# def projects_view(request):
-#     # Получаем активные регионы (те, у которых есть проекты и is_active=True)
-#     regions = (
-#         Region.objects.filter(is_active=True, projects__isnull=False)
-#         .distinct()
-#         .prefetch_related("projects")
-#     )
-
-#     return render(request, "includes_index/projects_index.html", {"regions": regions})
-
-
 def project_detail_view(request, id):
-    project = get_object_or_404(Project, id=id)  # Получаем продукт по ID
+    """Функция для отдельной страницы проекта."""
+
+    project = get_object_or_404(Project, id=id)
     return render(request, "main/project_detail.html", {"project": project})
 
 
 def news_view(request):
+    """Функция для страницы со всеми новостями."""
+
     news = New.objects.all().order_by("-pub_date")
-    latest_news = news.first()  # Получаем последнюю новость
+    latest_news = news.first()
     return render(
-        request, "main/news.html", {"news": news[:12], "latest_news": latest_news}
+        request,
+        "main/news.html",
+        {
+            "news": news[:12],
+            "latest_news": latest_news,
+        },
     )
 
 
 def new_detail_view(request, id):
-    article = get_object_or_404(New, id=id)  # Получаем новость по ID
-    images = article.images.all()  # Получаем все изображения для этой новости
+    """Функция для отдельной страницы новости."""
+
+    article = get_object_or_404(New, id=id)
+    images = article.images.all()
     return render(
-        request, "main/news_detail.html", {"article": article, "images": images}
+        request,
+        "main/news_detail.html",
+        {
+            "article": article,
+            "images": images,
+        },
     )
 
 
-def news_view_paginator_renat(request, page=1):
+def news_view_paginator(request, page=1):
     news_list = New.objects.all().order_by("-pub_date")
     news_data = []
     slicer = page * 12
@@ -216,7 +227,7 @@ def news_view_paginator_renat(request, page=1):
     return JsonResponse({"news": news_data, "checker": checker})
 
 
-def product_view_paginator_renat(request, page=1):
+def product_view_paginator(request, page=1):
     product_list = Product.objects.all()
     product_data = []
     slicer = page * 12
@@ -236,41 +247,3 @@ def product_view_paginator_renat(request, page=1):
             }
         )
     return JsonResponse({"products": product_data, "checker": checker})
-
-
-# class Product(models.Model):
-#     """Модель товара."""
-
-#     name = models.CharField(max_length=256, verbose_name="Название продукта")
-#     short_description = models.TextField(
-#         max_length=256, verbose_name="Краткое описание продукта"
-#     )
-#     description = models.TextField(verbose_name="Полное описание продукта")
-#     preview = models.ImageField(
-#         upload_to="products_images",
-#         null=True,
-#         default=None,
-#         verbose_name="Фотография продукта",
-#     )
-#     specifications = models.TextField(
-#         verbose_name="Основные технические характеристики", default=None
-#     )
-#     applying_objects = models.ManyToManyField(
-#         ObjectTag,
-#         related_name="products",
-#         verbose_name="Объекты применения",
-#         blank=True,
-#     )
-#     industries = models.ManyToManyField(
-#         IndustryTag,
-#         related_name="products",
-#         verbose_name="Отрасли",
-#         blank=True,
-#     )
-
-#     class Meta:
-#         verbose_name = "Продукт"
-#         verbose_name_plural = "Продукты"
-
-#     def __str__(self):
-#         return self.name

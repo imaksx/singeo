@@ -1,11 +1,11 @@
-import os
-import sys
-import django
 import csv
+import os
 import random
-from django.core.files import File
+import sys
+
+import django
+from content.models import Product, Project, Region
 from django.core.files.base import ContentFile
-from content.models import Project, Region, Product, IndustryTag, ObjectTag
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -43,7 +43,6 @@ def get_random_product():
 
 
 def create_projects_from_csv():
-    # Проверяем наличие необходимых данных
     if not Region.objects.exists():
         print("Ошибка: Нет регионов в базе данных!")
         return
@@ -58,7 +57,6 @@ def create_projects_from_csv():
         reader = csv.DictReader(csvfile)
 
         for row in reader:
-            # Загружаем изображение
             image_path = os.path.join(
                 BASE_DIR, "../static/media/projects_images/project.jpg"
             )
@@ -69,51 +67,42 @@ def create_projects_from_csv():
                 print(f"Ошибка: Файл изображения не найден: {image_path}")
                 image_content = None
 
-            # Создаем проект
             project = Project(
                 name=row["name"],
                 description=row["description"],
             )
 
             try:
-                # Устанавливаем изображение
                 if image_content:
                     project.image.save("project.jpg", image_content)
                 else:
                     project.save()
 
-                # Добавляем случайный регион
                 region = get_random_region()
                 if region:
                     project.regions.add(region)
-
-                    # Устанавливаем название региона в поле location
                     project.location = region.name
                     print(f"Назначен регион: {region.name} (записано в location)")
-
-                    # Активируем регион для отображения на карте
                     region.is_active = True
                     region.save()
                     print(f"Регион '{region.name}' активирован (is_active=True)")
 
-                # Добавляем случайный продукт
                 product = get_random_product()
                 if product:
                     project.related_products.add(product)
                     print(f"Назначен продукт: {product.name}")
-
-                    # Добавляем отрасли и объекты из продукта
                     industries = product.industries.all()
+                    
                     if industries:
                         project.tag_sphere.add(*industries)
                         print(f"Назначены отрасли: {[i.name for i in industries]}")
 
                     objects = product.applying_objects.all()
+
                     if objects:
                         project.tag_object.add(*objects)
                         print(f"Назначены объекты: {[o.name for o in objects]}")
 
-                # Сохраняем проект
                 project.save()
 
                 print(f"Проект '{project.name}' успешно создан с ID {project.id}")
