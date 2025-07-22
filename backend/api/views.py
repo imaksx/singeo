@@ -72,14 +72,22 @@ def about_company_view(request):
         else:
             return forms[2]
 
-    years_text = get_declension(
-        years_in_market, ["год на рынке", "года на рынке", "лет на рынке"]
-    )
-    projects_text = get_declension(
-        project_count,
-        ["действующий проект", "действующих проекта", "действующих проектов"],
-    )
+    try:
+        years_text = get_declension(
+            years_in_market, 
+            ["год на рынке", "года на рынке", "лет на рынке"]
+        )
+    except Exception as e:
+        years_text = f"Ошибка: {str(e)}"
 
+    try:
+        projects_text = get_declension(
+            project_count, 
+            ["действующий проект", "действующих проекта", "действующих проектов"]
+        )
+    except Exception as e:
+        projects_text = f"Ошибка: {str(e)}"
+        
     context = {
         "about_company": about_company,
         "colleagues": colleagues,
