@@ -60,6 +60,8 @@ def about_company_view(request):
     colleagues = Colleague.objects.all()
 
     def get_declension(number, forms):
+        if not isinstance(number, int):
+            return ""
         if 10 <= number % 100 <= 20:
             return forms[2]
         last_digit = number % 10
