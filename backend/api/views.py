@@ -74,7 +74,7 @@ def about_company_view(request):
 
     try:
         years_text = get_declension(
-            years_in_market, 
+            years_in_market,
             ["год на рынке", "года на рынке", "лет на рынке"]
         )
     except Exception as e:
@@ -87,7 +87,7 @@ def about_company_view(request):
         )
     except Exception as e:
         projects_text = f"Ошибка: {str(e)}"
-        
+
     context = {
         "about_company": about_company,
         "colleagues": colleagues,

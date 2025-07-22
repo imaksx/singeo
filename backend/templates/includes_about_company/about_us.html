@@ -6,23 +6,11 @@
             <div class="about-us__info">
                 <div class="about-us__info__item">
                     <div class="about-us__info__item__accent">{{ years_in_market }}</div>
-                    <div class="about-us__info__item__text">
-                        {% if years_text %}
-                            {{ years_text }}
-                        {% else %}
-                            Переменная years_text пуста!
-                        {% endif %}
-                    </div>
+                    <div class="about-us__info__item__text">{{ years_text }}</div>
                 </div>
                 <div class="about-us__info__item">
                     <div class="about-us__info__item__accent">{{ project_count }}</div>
-                    <div class="about-us__info__item__text">
-                        {% if projects_text %}
-                            {{ projects_text }}
-                        {% else %}
-                            Переменная projects_text пуста!
-                        {% endif %}
-                    </div>
+                    <div class="about-us__info__item__text">{{ projects_text }}</div>
                 </div>
             </div>
         </div>
