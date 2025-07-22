@@ -59,32 +59,39 @@ def about_company_view(request):
     company_pdfs = about_company.pdfs.all()
     colleagues = Colleague.objects.all()
 
-    def get_declension(number, forms):
+    def get_declension_years(number):
         if not isinstance(number, int):
             return ""
         if 10 <= number % 100 <= 20:
-            return forms[2]
+            return "лет на рынке"
         last_digit = number % 10
         if last_digit == 1:
-            return forms[0]
+            return "год на рынке"
         elif 2 <= last_digit <= 4:
-            return forms[1]
+            return "года на рынке"
         else:
-            return forms[2]
+            return "лет на рынке"
+
+    def get_declension_projects(number):
+        if not isinstance(number, int):
+            return ""
+        if 10 <= number % 100 <= 20:
+            return "действующих проектов"
+        last_digit = number % 10
+        if last_digit == 1:
+            return "действующий проект"
+        elif 2 <= last_digit <= 4:
+            return "действующих проекта"
+        else:
+            return "действующих проектов"
 
     try:
-        years_text = get_declension(
-            years_in_market,
-            ["год на рынке", "года на рынке", "лет на рынке"]
-        )
+        years_text = get_declension_years(years_in_market)
     except Exception as e:
         years_text = f"Ошибка: {str(e)}"
 
     try:
-        projects_text = get_declension(
-            project_count, 
-            ["действующий проект", "действующих проекта", "действующих проектов"]
-        )
+        projects_text = get_declension_projects(project_count)
     except Exception as e:
         projects_text = f"Ошибка: {str(e)}"
 
