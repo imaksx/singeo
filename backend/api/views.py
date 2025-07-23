@@ -59,49 +59,11 @@ def about_company_view(request):
     company_pdfs = about_company.pdfs.all()
     colleagues = Colleague.objects.all()
 
-    def get_declension_years(number):
-        if not isinstance(number, int):
-            return ""
-        if 10 <= number % 100 <= 20:
-            return "лет на рынке"
-        last_digit = number % 10
-        if last_digit == 1:
-            return "год на рынке"
-        elif 2 <= last_digit <= 4:
-            return "года на рынке"
-        else:
-            return "лет на рынке"
-
-    def get_declension_projects(number):
-        if not isinstance(number, int):
-            return ""
-        if 10 <= number % 100 <= 20:
-            return "действующих проектов"
-        last_digit = number % 10
-        if last_digit == 1:
-            return "действующий проект"
-        elif 2 <= last_digit <= 4:
-            return "действующих проекта"
-        else:
-            return "действующих проектов"
-
-    try:
-        years_text = get_declension_years(years_in_market)
-    except Exception as e:
-        years_text = f"Ошибка: {str(e)}"
-
-    try:
-        projects_text = get_declension_projects(project_count)
-    except Exception as e:
-        projects_text = f"Ошибка: {str(e)}"
-
-    # Создаем список из двух пар
-    stats = [(years_in_market, years_text), (project_count, projects_text)]
-
     context = {
         "about_company": about_company,
         "colleagues": colleagues,
-        "stats": stats,  # Передаем список пар
+        "years_in_market": years_in_market,
+        "project_count": project_count,
         "certificates": certificates,
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,
