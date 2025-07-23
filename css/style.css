@@ -265,7 +265,6 @@ button {
 }
 
 .card__preview {
-  width: inherit;
   overflow: hidden;
 }
 
