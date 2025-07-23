@@ -2118,10 +2118,6 @@ button {
     display: flex;
   }
 
-  .card {
-    width: 250px;
-  }
-
   .header {
     position: fixed;
     background: linear-gradient(180deg, rgba(36, 45, 83, 1) 0%, rgba(80, 100, 185, 0) 100%);
