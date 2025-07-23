@@ -1,3 +1,4 @@
+<!-- main/about_company.html -->
 <div class="about-us">
     <div class="container">
         <h2 class="about-us__title">О нас</h2>
@@ -6,51 +7,11 @@
             <div class="about-us__info">
                 <div class="about-us__info__item">
                     <div class="about-us__info__item__accent">{{ years_in_market }}</div>
-                    <div class="about-us__info__item__text">
-                        {% with years=years_in_market %}
-                            {% if years %}
-                                {% if years|divisibleby:"100" or years|divisibleby:"1000" %}
-                                    лет на рынке
-                                {% else %}
-                                    {% with last_digit=years|slice:"-1" %}
-                                        {% if last_digit == "1" and years != 11 %}
-                                            год на рынке
-                                        {% elif last_digit in "234" and years not in "12,13,14" %}
-                                            года на рынке
-                                        {% else %}
-                                            лет на рынке
-                                        {% endif %}
-                                    {% endwith %}
-                                {% endif %}
-                            {% else %}
-                                лет на рынке
-                            {% endif %}
-                        {% endwith %}
-                    </div>
+                    <div class="about-us__info__item__text">{{ years_form }}</div>
                 </div>
                 <div class="about-us__info__item">
                     <div class="about-us__info__item__accent">{{ project_count }}</div>
-                    <div class="about-us__info__item__text">
-                        {% with projects=project_count %}
-                            {% if projects %}
-                                {% if projects|divisibleby:"100" or projects|divisibleby:"1000" %}
-                                    проектов
-                                {% else %}
-                                    {% with last_digit=projects|slice:"-1" %}
-                                        {% if last_digit == "1" and projects != 11 %}
-                                            проект
-                                        {% elif last_digit in "234" and projects not in "12,13,14" %}
-                                            проекта
-                                        {% else %}
-                                            проектов
-                                        {% endif %}
-                                    {% endwith %}
-                                {% endif %}
-                            {% else %}
-                                проектов
-                            {% endif %}
-                        {% endwith %}
-                    </div>
+                    <div class="about-us__info__item__text">{{ projects_form }}</div>
                 </div>
             </div>
         </div>

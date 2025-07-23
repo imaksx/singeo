@@ -17,7 +17,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
-from api.utils import format_multiline_text
+from api.utils import format_multiline_text, get_plural_form
 
 
 def download_certificates(request):
@@ -55,15 +55,24 @@ def about_company_view(request):
     current_year = timezone.now().year
     years_in_market = current_year - established_year
     project_count = Project.objects.count()
-    logo_images = about_company.logo_images.all()
-    company_pdfs = about_company.pdfs.all()
+    logo_images = about_company.logo_images.all() if about_company else []
+    company_pdfs = about_company.pdfs.all() if about_company else []
     colleagues = Colleague.objects.all()
+
+    # Получаем правильные формы слов
+    years_form = get_plural_form(
+        years_in_market, "год на рынке", "года на рынке", "лет на рынке"
+    )
+
+    projects_form = get_plural_form(project_count, "проект", "проекта", "проектов")
 
     context = {
         "about_company": about_company,
         "colleagues": colleagues,
         "years_in_market": years_in_market,
+        "years_form": years_form,
         "project_count": project_count,
+        "projects_form": projects_form,
         "certificates": certificates,
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,
