@@ -4,14 +4,12 @@
         <div class="about-us__desc">
             <p class="about-us__text">{{ about_company.company_description }}</p>
             <div class="about-us__info">
+                {% for stat in stats %}
                 <div class="about-us__info__item">
-                    <div class="about-us__info__item__accent">{{ years_in_market }}</div>
-                    <div class="about-us__info__item__text">{{ years_text }}</div>
+                    <div class="about-us__info__item__accent">{{ stat.0 }}</div>
+                    <div class="about-us__info__item__text">{{ stat.1 }}</div>
                 </div>
-                <div class="about-us__info__item">
-                    <div class="about-us__info__item__accent">{{ project_count }}</div>
-                    <div class="about-us__info__item__text">{{ projects_text }}</div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

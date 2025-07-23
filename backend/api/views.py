@@ -95,13 +95,13 @@ def about_company_view(request):
     except Exception as e:
         projects_text = f"Ошибка: {str(e)}"
 
+    # Создаем список из двух пар
+    stats = [(years_in_market, years_text), (project_count, projects_text)]
+
     context = {
         "about_company": about_company,
         "colleagues": colleagues,
-        "years_in_market": years_in_market,
-        "project_count": project_count,
-        "years_text": years_text,
-        "projects_text": projects_text,
+        "stats": stats,  # Передаем список пар
         "certificates": certificates,
         "logo_images": logo_images,
         "company_pdfs": company_pdfs,

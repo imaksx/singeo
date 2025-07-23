@@ -89,15 +89,19 @@ button {
 }
 
 .noscroll {
-  position: fixed; 
+  position: fixed;
   top: var(--st, 0);
   inline-size: 100%;
-  overflow-y:scroll; 
+  overflow-y: scroll;
 }
 
 .button {
   padding: 1.4rem 2rem;
   font-size: 1.6rem;
+}
+
+.button__link {
+  color: var(--color-accent);
 }
 
 .button__accent__light {
@@ -126,7 +130,8 @@ button {
 
 .button__accent__light:hover {
   color: var(--color-light);
-  border: 1px solid var(--color-secondary);;
+  border: 1px solid var(--color-secondary);
+  ;
 }
 
 .button__accent__light>* {
@@ -264,7 +269,6 @@ button {
 }
 
 .card__preview {
-  width: inherit;
   overflow: hidden;
 }
 
@@ -698,7 +702,7 @@ button {
   height: 64px;
 
   font-size: 3rem;
-  
+
   color: var(--color-secondary);
 
   background-color: transparent;
@@ -706,12 +710,11 @@ button {
   z-index: 100;
 }
 
-.button-up *{
+.button-up * {
   color: var(--color-secondary);
 }
 
-.button-up:hover {
-}
+.button-up:hover {}
 
 .banner {
   position: relative;
@@ -779,7 +782,7 @@ button {
   object-fit: cover;
 }
 
-.news__banner__background video{
+.news__banner__background video {
   display: flex;
   width: 100vw;
 
@@ -1300,8 +1303,8 @@ button {
 .news__row {
   display: grid;
   grid-template-columns: repeat(auto-fill, 32.4rem);
-  grid-gap: 1rem; 
-  justify-content: space-between; 
+  grid-gap: 1rem;
+  justify-content: space-between;
   gap: 2.4rem;
 
 }
@@ -1385,8 +1388,8 @@ button {
 .projects__row {
   display: grid;
   grid-template-columns: repeat(auto-fill, 32.4rem);
-  grid-gap: 1rem; 
-  justify-content: space-between; 
+  grid-gap: 1rem;
+  justify-content: space-between;
   gap: 2.4rem;
 
 }
@@ -1431,7 +1434,7 @@ button {
 
 }
 
-.filters__placeholder{
+.filters__placeholder {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -1612,7 +1615,7 @@ button {
   font-weight: 700;
 }
 
-.product-project__carousel-item{
+.product-project__carousel-item {
   min-width: 100%;
 }
 
@@ -1760,7 +1763,7 @@ button {
   cursor: pointer;
 }
 
-.product-project__carousel__pagination.carousel__pagination_point{
+.product-project__carousel__pagination.carousel__pagination_point {
   display: none;
 }
 
@@ -1773,6 +1776,7 @@ button {
 
 .about-us__title {
   font-size: 3.6rem;
+  line-height: 100%;
 }
 
 .about-us__desc {
@@ -2043,7 +2047,7 @@ button {
     width: 232px;
   }
 
-  .sertificates__item img{
+  .sertificates__item img {
     width: 232px;
   }
 
@@ -2097,14 +2101,14 @@ button {
     grid-template-columns: repeat(auto-fill, 100%);
   }
 
-  .project__wrapper{
+  .project__wrapper {
     flex-direction: column;
   }
 
-  .project__preview{
+  .project__preview {
     width: 100%;
   }
-  
+
   .products__row>.card,
   .projects__row>.card,
   .news__row>.card {
@@ -2127,13 +2131,13 @@ button {
     object-fit: cover;
   }
 
-  .products__row .card>.card__content ,
+  .products__row .card>.card__content,
   .projects__row .card>.card__content,
   .news__row .card>.card__content {
     width: 100%;
   }
 
-    .projects__filters {
+  .projects__filters {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -2142,20 +2146,20 @@ button {
   .projects__filters>div {
     width: 100%;
   }
-  
-  .filters__area{
+
+  .filters__area {
     flex-wrap: wrap;
     flex-direction: column;
 
     transition: all 0.3s linear;
   }
 
-  .filters__placeholder{
+  .filters__placeholder {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
   }
 
-  .filters__icon{
+  .filters__icon {
     display: flex;
   }
 
@@ -2171,13 +2175,13 @@ button {
   }
 
   .filters__dropdown::before {
-  top: 2px;
-  left: 2.5%;
-  height: 1px;
-  width: 95%;
-}
+    top: 2px;
+    left: 2.5%;
+    height: 1px;
+    width: 95%;
+  }
 
-  .filters__area.active .filters__dropdown{
+  .filters__area.active .filters__dropdown {
     max-height: 400px;
     padding: 1.2rem 1.6rem 1.6rem;
   }
@@ -2203,10 +2207,6 @@ button {
     display: flex;
   }
 
-  .card {
-    width: 250px;
-  }
-
   .header {
     position: fixed;
   }
@@ -2228,15 +2228,15 @@ button {
 
   .header__logo.active {
     margin-top: 10vh;
-    
+
   }
 
-  .header__logo__text{
+  .header__logo__text {
     transition-duration: var(--transition-duration);
     transition-timing-function: var(--transition-timing-function);
   }
 
-  .header__logo.active .header__logo__text{
+  .header__logo.active .header__logo__text {
     color: var(--color-light);
   }
 
@@ -2295,7 +2295,7 @@ button {
     background-color: var(--color-accent-blue);
   }
 
-  .header__navbar__list__item{
+  .header__navbar__list__item {
     color: var(--color-light);
     font-weight: normal;
     padding-bottom: 0;
@@ -2530,7 +2530,7 @@ button {
     object-fit: cover;
   }
 
-  .products__row .card>.card__content ,
+  .products__row .card>.card__content,
   .projects__row .card>.card__content,
   .news__row .card>.card__content {
     width: 100%;
@@ -2550,20 +2550,20 @@ button {
   .projects__filters>div {
     width: 100%;
   }
-  
-  .filters__area{
+
+  .filters__area {
     flex-wrap: wrap;
     flex-direction: column;
 
     transition: all 0.3s linear;
   }
 
-  .filters__placeholder{
+  .filters__placeholder {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
   }
 
-  .filters__icon{
+  .filters__icon {
     display: flex;
   }
 
@@ -2579,13 +2579,13 @@ button {
   }
 
   .filters__dropdown::before {
-  top: 2px;
-  left: 2.5%;
-  height: 1px;
-  width: 95%;
-}
+    top: 2px;
+    left: 2.5%;
+    height: 1px;
+    width: 95%;
+  }
 
-  .filters__area.active .filters__dropdown{
+  .filters__area.active .filters__dropdown {
     max-height: 400px;
     padding: 1.2rem 1.6rem 1.6rem;
   }
@@ -2635,7 +2635,7 @@ button {
     padding-inline: 3.6rem;
   }
 
-  .product-project__carousel__pagination.carousel__pagination_point{
+  .product-project__carousel__pagination.carousel__pagination_point {
     display: flex;
   }
 }
