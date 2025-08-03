@@ -121,6 +121,7 @@ YourNamespace = {
   },
   projects: {
     init: function () {
+      const body = document.querySelector("body");
       const filters = document.querySelector(".projects__filters");
       const projectsObjects = [];
       let activeFilters = {
@@ -228,6 +229,15 @@ YourNamespace = {
           }
         });
       }
+      body.addEventListener("click", (e) => {
+        if (!e.target.closest(".filters__area")) {
+          let filters = document.querySelectorAll(".filters__area.active");
+
+          filters.forEach((filter) => {
+            filter.classList.remove("active");
+          });
+        }
+      });
     },
   },
   about: {

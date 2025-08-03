@@ -26,16 +26,16 @@
             <div class="products__row">
                 {% for product in products %}
                 <div class="card">
-                    <div class="card__prev">
+                    <a href="{% url 'product_detail' product.id %}"  class="card__prev">
                         <img src="{{ product.preview.url }}" alt="card__prev-img">
-                    </div>
-                    <div class="card__content">
+                    </a>
+                    <a class="card__content">
                         <div class="card__title">{{ product.name }}</div>
                         <div class="card__desc">{{ product.short_description }}</div>
                         <a href="{% url 'product_detail' product.id %}" class="button button__accent card__button">
                             <span>Смотреть</span>
                         </a>
-                    </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>

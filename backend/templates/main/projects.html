@@ -85,11 +85,11 @@
                      data-object-tags="{% for tag in project.tag_object.all %}{{ tag.id }},{% endfor %}"
                      data-industry-tags="{% for tag in project.tag_sphere.all %}{{ tag.id }},{% endfor %}"
                      data-products="{% for product in project.related_products.all %}{{ product.id }},{% endfor %}">
-                    <div class="card__prev">
+                    <a href="{% url 'project_detail' project.id %}" class="card__prev">
                         {% if project.image %}
                         <img src="{{ project.image.url }}" alt="card__prev-img">
                         {% endif %}
-                    </div>
+                    </a>
                     <div class="card__content">
                         <div class="card__title">{{ project.name }}</div>
                         <div class="card__desc">{{ project.description }}</div>
