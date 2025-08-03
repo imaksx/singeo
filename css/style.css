@@ -2325,7 +2325,7 @@ button {
   }
 
   .about-us {
-    padding-top: 95px;
+    padding-top: 135px;
   }
 
   .about-us__info {
@@ -2442,7 +2442,7 @@ button {
   }
 
   .projects {
-    padding-top: 95px;
+    padding-top: 135px;
     padding-inline: 3.6rem;
   }
 
@@ -2501,7 +2501,7 @@ button {
   }
 
   .products {
-    padding-top: 95px;
+    padding-top: 135px;
   }
 
   .product {
@@ -2544,3 +2544,4 @@ button {
     display: flex;
   }
 }
+
