@@ -6,7 +6,7 @@
                 <ul class="footer__navbar__list">
                     <li><a href="{% url 'about' %}" class="footer__navbar__list__link">О компании</a></li>
                     <li><a href="{% url 'products' %}" class="footer__navbar__list__link">Продукция</a></li>
-                    <li><a href="#" class="footer__navbar__list__link">Проекты</a></li>
+                    <li><a href="{% url 'projects' %}" class="footer__navbar__list__link">Проекты</a></li>
                     <li><a href="{% url 'news' %}" class="footer__navbar__list__link">Новости</a></li>
                 </ul>
             </nav>
@@ -21,8 +21,8 @@
                     <a href="mailto:{{ about_index.email }}" class="footer__contacts__phone__text">{{ about_index.email }}</a>
                 </div>
                 <div class="footer__contacts__address">
-                    <img src="{% static 'main/src/icon/location.svg' %}" alt="Адрес" class="footer__contacts__address__icon">
-                    <a href="https://yandex.ru/maps/-/CHAye4PR" target="_blank" class="footer__contacts__phone__text">
+                    <img src="{% static 'main/src/icon/location.png' %}" alt="Адрес" class="footer__contacts__address__icon">
+                    <a href="https://yandex.ru/maps/-/CLRBUMMN" target="_blank" class="footer__contacts__phone__text">
                         {{ about_index.address }}
                     </a>
                 </div>
