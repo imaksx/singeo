@@ -12,7 +12,7 @@
             <img src="{% static 'main/src/img/map.png' %}" alt="Карта проектов" class="projects__map__inner">
             {% for region in regions %}
             <div class="project__map__item" 
-                 style="left: {{ region.coords_x }}%; top: {{ region.coords_y }}%;"
+                 style="left: calc({{ region.coords_x }}% + 1.75% - 25px / 2); top: calc({{ region.coords_y }}% + 1.75% - 25px / 2);"
             >
                 <button class="project__map__item__button">
                     <i class="fa-solid fa-location-dot"></i>
@@ -26,10 +26,10 @@
                             {% for project in region.projects.all %}
                             <div class="project__map__card carousel-item card">
                                 <div class="project__map__item__preview">
-                                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                                    <img src="{{ project.image.url }}" alt="{{ project.name }}">
                                 </div>
                                 <div class="card__content">
-                                    <div class="card__title">{{ project.title }}</div>
+                                    <div class="card__title">{{ project.name }}</div>
                                     <div class="card__desc">{{ project.description }}</div>
                                     <a href="{% url 'project_detail' project.id %}" class="button button__accent card__button">
                                         <span>Смотреть</span>
