@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\Dev\singeo2with_front\singeo\backend\venv"
+VIRTUAL_ENV="D:\Dev\singeo_project\singeo\backend\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

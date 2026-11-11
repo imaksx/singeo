@@ -1,4 +1,4 @@
-#!D:\Dev\singeo2with_front\singeo\backend\venv\Scripts\python.exe
+#!D:\Dev\singeo_project\singeo\backend\venv\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
