@@ -47,7 +47,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 2.4rem;
-  font-family: "Montserrat", serif;
+  font-family: "Montserrat", Arial, sans-serif;
   text-align: justify;
   background-color: var(--color-light);
 }
@@ -71,6 +71,7 @@ a:visited {
 }
 
 button {
+  font-family: inherit;
   cursor: pointer;
   border: none;
   transition-duration: var(--transition-duration);
@@ -449,12 +450,15 @@ button {
 .header__main-menu {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 3.3rem;
 }
 
 .header__contacts {
   display: flex;
+  flex-shrink: 0;
+  text-align: left;
   flex-direction: column;
   justify-content: center;
   gap: 1.6rem;
@@ -466,7 +470,23 @@ button {
 
 .header__contacts>div {
   display: flex;
+  align-items: center;
   gap: 9px;
+}
+
+.header__contacts img {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.header__contacts a,
+.footer__contacts a[href^="tel:"],
+.footer__contacts a[href^="mailto:"],
+.header__navbar__list__link,
+.footer__navbar__list__link {
+  white-space: nowrap;
 }
 
 .header__contacts a {
@@ -558,12 +578,15 @@ button {
 
 .header__logo {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
 }
 
 .header__logo_link,
 .footer__logo_link {
   display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
   align-items: start;
   height: 6.5rem;
   gap: 1.5rem;
@@ -610,7 +633,7 @@ button {
   display: flex;
   font-size: 1.7rem;
 
-  font-family: "Montserrat", serif;
+  font-family: "Montserrat", Arial, sans-serif;
 
 }
 
@@ -983,7 +1006,7 @@ button {
   top: 100%;
   left: 100%;
 
-  display: hidden;
+  display: none;
   flex-direction: column;
 
   opacity: 0;
@@ -1151,6 +1174,7 @@ button {
 
 .footer__wrapper {
   display: flex;
+  gap: 2.4rem;
   justify-content: space-between;
   align-items: center;
 
@@ -1163,6 +1187,7 @@ button {
 
 .footer__divider {
   display: flex;
+  flex-shrink: 0;
   width: 1px;
   height: 100%;
   background-color: var(--color-secondary);
@@ -1188,6 +1213,9 @@ button {
 
 .footer__contacts {
   display: flex;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
   flex-direction: column;
   justify-content: space-around;
   align-items: start;
@@ -1201,6 +1229,7 @@ button {
 }
 
 .footer__contacts div img {
+  flex-shrink: 0;
   width: 20px;
   height: 20px;
 }
@@ -1215,6 +1244,7 @@ button {
 }
 
 .footer__logo__text {
+  align-self: center;
   color: var(--color-light);
 }
 
@@ -2010,8 +2040,14 @@ button {
     display: none;
   }
 
-  .footer__divider {
+  .footer__navbar + .footer__divider {
     display: none;
+  }
+
+  .footer__contacts,
+  .footer__logo {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .footer__contacts {
@@ -2360,33 +2396,36 @@ button {
   }
 
   .footer__wrapper>div {
-    height: 90px;
+    height: auto;
+    min-height: 90px;
   }
 
 
-  .footer__wrapper .footer__divider:nth-child(4) {
-    display: flex;
-    height: 100px;
-    width: 1px;
+  .footer__contacts + .footer__divider {
+    align-self: stretch;
+    height: auto;
+    min-height: 100px;
   }
 
   .footer__contacts {
     flex: 1;
     justify-content: space-between;
-    font-size: 1.7rem;
+    gap: 12px;
+    font-size: clamp(11px, 3.4375vw, 14px);
 
-    overflow: hidden;
+    overflow: visible;
   }
 
   .footer__contacts div {
-    gap: 0.8rem;
+    gap: 4px;
     display: flex;
     align-items: start;
   }
 
-  .footer__contacts img {
+  .footer__contacts div img {
     width: 13px;
     height: 13px;
+    object-fit: contain;
   }
 
   .footer__logo {
@@ -2421,8 +2460,8 @@ button {
 
   .footer__logo__subtitle {
     font-size: 1.2rem;
-    height: 0.8rem;
-    line-height: 100%;
+    height: auto;
+    line-height: 1.4;
   }
 
   .about-us {
